@@ -18,6 +18,14 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Minecraft Files
+*.jar
+*.class
+.idea/
+*.iml
+hs_err_pid*
+/target
+/compile
 # =========================
 # Operating System Files
 # =========================
