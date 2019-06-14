@@ -1,0 +1,55 @@
+permission-message: "&cYou do not have permission to use this command!"
+feed:
+  amount: 20
+  message: "&bYou have been fed."
+  message-enable: false
+  title: "&bMunch.. Munch.. Munch.."
+  sub-title: "&aYou have been fed!"
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
+heal:
+  amount: 0
+  message: "&bYou have been healed."
+  message-enable: true
+  title: ""
+  sub-title: ""
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
+teleport:
+  amount:
+  message: "&cInsert messaged"
+  message-enable: true
+  title: ""
+  sub-title: ""
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
+kill:
+  amount: 0
+  message: "&cYou have killed"
+  message-enable: true
+  title: ""
+  sub-title: ""
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
+suicide:
+  amount: 0
+  message: "&cYou have killed"
+  message-enable: true
+  title: ""
+  sub-title: ""
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
+command:
+  amount: 0
+  message: "&cInsert messaged"
+  message-enable: true
+  title: ""
+  sub-title: ""
+  title-fade: 4
+  title-stay: 8
+  title-enable: false
