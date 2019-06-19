@@ -1,6 +1,7 @@
 package io.github.coachluck;
 import io.github.coachluck.commands.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class EssentialServer extends JavaPlugin {
 
         //Handles Configuration File
         enableConfig();
-
+        this.getServer().getPluginCommand("Clear").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("permission-message") ));
         getLogger().info("Plugin enabling...");
         //Enables Event Listeners
 
@@ -36,6 +37,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Heal").setExecutor(new Heal(this));
         this.getCommand("God").setExecutor((new God(this)));
         this.getCommand("Kill").setExecutor(new Kill(this));
+        this.getCommand("Clear").setExecutor(new Clear(this));
         getLogger().info("Commands enabled successfully!");
 
         getLogger().info("Plugin enabled successfully!");

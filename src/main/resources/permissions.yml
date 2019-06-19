@@ -1,0 +1,23 @@
+permissions:
+  essentialserver.*:
+    description: Give access to all Essential Server commands
+    children:
+      essentialserver.kill: true
+      essentialserver.kill.others: true
+      essentialserver.heal: true
+      essentialserver.heal.others: true
+      essentialserver.give.others: true
+  essentialserver.kill:
+    description: Allows you to kill yourself
+  essentialserver.kill.others:
+    description: Allows you to kill others
+    default: op
+    children:
+      essentialserver.kill: true
+  essentialserver.heal:
+    description: Allows you to heal yourself
+  essentialserver.heal.others:
+    description: Allows you to heal others!
+    default: op
+    children:
+      essentialserver.heal: true

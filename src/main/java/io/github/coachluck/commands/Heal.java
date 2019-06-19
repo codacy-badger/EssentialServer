@@ -18,10 +18,12 @@ public class Heal implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equals("heal")) {
-            if (sender instanceof Player) {
-                if (args.length < 1) {
-                if (sender.hasPermission("essentialserver.heal")) {
+        String healMsg = plugin.getConfig().getString("heal.message");
+        String healOtherMsg = plugin.getConfig().getString("heal.healed-player-message");
+        boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
+            if (sender instanceof Player && sender.hasPermission("essentialserver.heal.self")) {
+                if (args.length > 0) {
+                if (sender.hasPermission("essentialserver.heal.self")) {
                     Player player = (Player) sender;
                     player.setHealth(20);
                     player.setFoodLevel(20);
@@ -32,10 +34,10 @@ public class Heal implements CommandExecutor {
                 }
                 }
             }
-        } else {
+         else {
             getLogger().info("You need to be a player to execute this command!");
         }
-        return false;
+        return true;
     }
 
 }
