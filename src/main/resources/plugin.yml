@@ -26,3 +26,44 @@ commands:
     description: "Makes you do the unspeakable..."
     permission: essentialserver.kill
     usage: /<command> [player]
+  fly:
+    description: "Makes you take flight."
+    permission: essentialserver.fly
+    usage: /<command> [player]
+permissions:
+  essentialserver.*:
+    description: "Give access to all Essential Server commands"
+    children:
+      essentialserver.kill: true
+      essentialserver.kill.others: true
+      essentialserver.heal: true
+      essentialserver.heal.others: true
+      essentialserver.give.others: true
+  essentialserver.kill:
+    description: "Allows you to kill yourself!"
+  essentialserver.kill.others:
+    description: "Allows you to kill others!"
+    default: op
+    children:
+      essentialserver.kill: true
+  essentialserver.heal:
+    description: "Allows you to heal yourself."
+  essentialserver.heal.others:
+    description: "Allows you to heal others!"
+    default: op
+    children:
+      essentialserver.heal: true
+  essentialserver.clear:
+    description: "Allows you to clear your inventory."
+  essentialserver.clear.others:
+    description: "Allows you to clear the inventory of other players!"
+    default: op
+    children:
+      essentialserver.clear: false
+  essentialserver.fly:
+    description: "Allows you to take flight!"
+  essentialserver.fly.others:
+    description: "Make others take flight!"
+    default: op
+    children:
+      essentialserver.fly: true

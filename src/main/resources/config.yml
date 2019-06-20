@@ -44,3 +44,16 @@ clear:
   message: "&bYour inventory has been cleared!"
   clear-others-message: "&bYou have cleared the inventory of "
   message-enable: true
+fly:
+  on-message: "&bFlight has been &aenabled!"
+  off-message: "&bFlight has been &cdisabled!"
+  other-on-message: ""
+  other-off-message: ""
+  message-enable: true
+  title-enable: false
+  title-on: ""
+  title-off: ""
+  subtitle-on:
+  subtitle-off: ""
+  fade: 3
+  stay: 6

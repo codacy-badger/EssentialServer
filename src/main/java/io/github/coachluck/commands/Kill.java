@@ -41,11 +41,21 @@ public class Kill implements CommandExecutor {
                             }
                         }
                     }else {
-                        player.sendMessage(ChatColor.RED + "This player isn't online or doesn't exist!");
+                        player.sendMessage(ChatColor.RED + "The specified player could not be found!");
                     }
                 }
             }else {
-                getLogger().info("You must be a player to use this command!");
+                if(args.length == 0) {
+                    getLogger().info(ChatColor.RED + "You must be a player to use this command!");
+                } else if (args.length == 1) {
+                    Player target = (Bukkit.getPlayerExact(args[0]));
+                    if(target instanceof Player) {
+                        target.setHealth(0);
+                        getLogger().info(ChatColor.translateAlternateColorCodes('&', killOtherMsg) + target.getDisplayName());
+                    }else {
+                        getLogger().info(ChatColor.RED + "The specified player could not be found!");
+                    }
+                }
             }
         return true;
     }

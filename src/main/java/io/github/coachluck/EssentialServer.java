@@ -32,6 +32,7 @@ public class EssentialServer extends JavaPlugin {
         getLogger().info("Event Listeners enabled successfully!");
         //Enables Command Classes
         this.getCommand("Command").setExecutor(new Command(this));
+        this.getCommand("Fly").setExecutor(new Fly(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Feed").setExecutor(new Feed(this));
         this.getCommand("Heal").setExecutor(new Heal(this));
