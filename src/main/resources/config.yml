@@ -45,10 +45,10 @@ clear:
   clear-others-message: "&bYou have cleared the inventory of "
   message-enable: true
 fly:
-  on-message: "&bFlight has been &aenabled!"
-  off-message: "&bFlight has been &cdisabled!"
-  other-on-message: ""
-  other-off-message: ""
+  on-message: "&bFlight has been &aenabled&b!"
+  off-message: "&bFlight has been &cdisabled&b!"
+  other-on-message: "&bFlight has been &aenabled for %player%&b!"
+  other-off-message: "&bFlight has been &cdisabled for %player%&b!"
   message-enable: true
   title-enable: false
   title-on: ""

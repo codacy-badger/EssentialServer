@@ -37,7 +37,7 @@ public class Kill implements CommandExecutor {
                             target.setHealth(0);
                             if(enableMsg) {
                                 target.sendMessage(ChatColor.translateAlternateColorCodes('&', killMsg));
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', killOtherMsg) + target.getDisplayName());
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', killOtherMsg.replace("%player%", target.getDisplayName())));
                             }
                         }
                     }else {
@@ -51,9 +51,9 @@ public class Kill implements CommandExecutor {
                     Player target = (Bukkit.getPlayerExact(args[0]));
                     if(target instanceof Player) {
                         target.setHealth(0);
-                        getLogger().info(ChatColor.translateAlternateColorCodes('&', killOtherMsg) + target.getDisplayName());
+                        getLogger().info(ChatColor.translateAlternateColorCodes('&', killOtherMsg.replace("%player%", target.getDisplayName())));
                     }else {
-                        getLogger().info(ChatColor.RED + "The specified player could not be found!");
+                        getLogger().info("The specified player could not be found!");
                     }
                 }
             }
