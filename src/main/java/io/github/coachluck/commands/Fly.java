@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-import static org.bukkit.Bukkit.getLogger;
-import static org.bukkit.Bukkit.getPlayer;
+import static org.bukkit.Bukkit.*;
 
 public class Fly implements CommandExecutor {
     private final EssentialServer plugin;
@@ -34,7 +33,7 @@ public class Fly implements CommandExecutor {
             } else if (args.length == 1 && player.hasPermission("essentialserver.fly.others")) {
                 Player target = (Bukkit.getPlayerExact(args[0]));
                 flyMethod(target);
-                player.sendMessage(flyOtherMsg);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', flyOtherMsg.replace("%player%", target.getDisplayName())));
             } else if((!(player.hasPermission("essentialserver.fly"))) || (!(player.hasPermission("essentialserver.fly.others"))))
             {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', pMsg));
@@ -48,7 +47,7 @@ public class Fly implements CommandExecutor {
             } else if(args.length == 1){
                 Player target = (Bukkit.getPlayerExact(args[0]));
                 flyMethod(target);
-                getLogger().info("Flight has been enabled for " + ChatColor.RED + target.getDisplayName());
+                getLogger().info("Flight has been enabled for " + target.getDisplayName());
             }
         }
         return true;
@@ -70,9 +69,11 @@ public class Fly implements CommandExecutor {
                 flying_players.add(player);
                 player.setAllowFlight(true);
                 if (enableMsg) {
+                    String playerName = player.getDisplayName();
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', flyMsg));
                 }
             }
         }
     }
+
 }

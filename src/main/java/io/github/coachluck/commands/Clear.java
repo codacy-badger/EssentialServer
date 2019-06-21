@@ -38,7 +38,7 @@ public class Clear implements CommandExecutor {
                     PlayerInventory targetInv = target.getInventory();
                     targetInv.clear();
                     if(enableMsg) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', clearOtherMsg) + target.getDisplayName());
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', clearOtherMsg.replace("%player%", target.getDisplayName())));
                         target.sendMessage(ChatColor.translateAlternateColorCodes('&', clearMsg));
                     }
                 }else {
@@ -59,9 +59,9 @@ public class Clear implements CommandExecutor {
                 if(target instanceof Player) {
                     PlayerInventory targetInv = target.getInventory();
                     targetInv.clear();
-                    getLogger().info(ChatColor.translateAlternateColorCodes('&', clearOtherMsg) + target.getDisplayName());
+                    getLogger().info("Inventory of " + target.getDisplayName() + " has been cleared!");
                 }else {
-                    getLogger().info(ChatColor.RED + "Specified player could not be found!");
+                    getLogger().info("Specified player could not be found!");
                 }
             }
         }
