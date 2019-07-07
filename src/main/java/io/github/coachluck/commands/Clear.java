@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
+import static io.github.coachluck.Utils.*;
 import static org.bukkit.Bukkit.getLogger;
 
 public class Clear implements CommandExecutor {
@@ -20,7 +21,7 @@ public class Clear implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String clearMsg = plugin.getConfig().getString("clear.message");
-        String clearOtherMsg = plugin.getConfig().getString("clear.clear-others-message");
+        String clearOtherMsg = plugin.getConfig().getString("clear.others-message");
         String pMsg = plugin.getConfig().getString("permission-message");
         boolean enableMsg = plugin.getConfig().getBoolean("clear.message-enable");
 
@@ -29,7 +30,7 @@ public class Clear implements CommandExecutor {
             if (args.length == 0 && player.hasPermission("essentialserver.clear")) {
                 player.getInventory().clear();
                 if(enableMsg) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', clearMsg));
+                    player.sendMessage(format(clearMsg));
                 }
             }
             else if(args.length == 1 && player.hasPermission("essentialserver.clear.others")) {
@@ -38,8 +39,8 @@ public class Clear implements CommandExecutor {
                     PlayerInventory targetInv = target.getInventory();
                     targetInv.clear();
                     if(enableMsg) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', clearOtherMsg.replace("%player%", target.getDisplayName())));
-                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', clearMsg));
+                        player.sendMessage(format(clearOtherMsg.replace("%player%", target.getDisplayName())));
+                        target.sendMessage(format(clearMsg));
                     }
                 }else {
                     player.sendMessage(ChatColor.RED + "Specified player could not be found!");
@@ -47,11 +48,11 @@ public class Clear implements CommandExecutor {
             }
             else if((!(player.hasPermission("essentialserver.clear"))) || (!(player.hasPermission("essentialserver.clear.others"))))
             {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', pMsg));
+                player.sendMessage(format(pMsg));
             } else {
                 return false;
             }
-        }else {
+        } else {
             if(args.length == 0) {
                 getLogger().info("You must be a player to use this command!");
             } else if (args.length == 1) {
@@ -59,7 +60,9 @@ public class Clear implements CommandExecutor {
                 if(target instanceof Player) {
                     PlayerInventory targetInv = target.getInventory();
                     targetInv.clear();
-                    getLogger().info("Inventory of " + target.getDisplayName() + " has been cleared!");
+                    if(enableMsg) {
+                        getLogger().info(logFormat(clearOtherMsg).replace("%player%", target.getDisplayName()));
+                    }
                 }else {
                     getLogger().info("Specified player could not be found!");
                 }

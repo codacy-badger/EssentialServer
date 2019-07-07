@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static io.github.coachluck.Utils.*;
 import static org.bukkit.Bukkit.getLogger;
 
 public class Kill implements CommandExecutor {
@@ -27,7 +28,7 @@ public class Kill implements CommandExecutor {
                 Player player = (Player) sender;
                 if(args.length == 0 && player.hasPermission("essentialserver.kill")) {
                     if (enableMsg) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', suicideMsg));
+                        player.sendMessage(format(suicideMsg));
                     }
                     player.setHealth(0);
                 }else if(args.length == 1){
@@ -36,8 +37,8 @@ public class Kill implements CommandExecutor {
                         if(player.hasPermission("essentialserver.kill.others")) {
                             target.setHealth(0);
                             if(enableMsg) {
-                                target.sendMessage(ChatColor.translateAlternateColorCodes('&', killMsg));
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', killOtherMsg.replace("%player%", target.getDisplayName())));
+                                target.sendMessage(format(killMsg));
+                                player.sendMessage(format(killOtherMsg.replace("%player%", target.getDisplayName())));
                             }
                         }
                     }else {
@@ -46,12 +47,15 @@ public class Kill implements CommandExecutor {
                 }
             }else {
                 if(args.length == 0) {
-                    getLogger().info(ChatColor.RED + "You must be a player to use this command!");
+                    getLogger().info("You must be a player to use this command!");
                 } else if (args.length == 1) {
                     Player target = (Bukkit.getPlayerExact(args[0]));
                     if(target instanceof Player) {
                         target.setHealth(0);
-                        getLogger().info(ChatColor.translateAlternateColorCodes('&', killOtherMsg.replace("%player%", target.getDisplayName())));
+                        if(enableMsg) {
+                            getLogger().info(logFormat(killOtherMsg.replace("%player%", target.getDisplayName())));
+                            target.sendMessage(format(killMsg));
+                        }
                     }else {
                         getLogger().info("The specified player could not be found!");
                     }

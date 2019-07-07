@@ -1,59 +1,37 @@
 permission-message: "&cYou do not have permission to use this command!"
 feed:
   amount: 20
-  message: "&bYou have been fed."
-  message-enable: false
-  title: "&bMunch.. Munch.. Munch.."
-  sub-title: "&aYou have been fed!"
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
+  message: "&bYou have been &a&lfed&r&b!"
+  other-message: "&bYou have &a&lfed &6&l%player%&r&b!"
+  message-enable: true
 heal:
   amount: 0
-  message: "&bYou have been healed."
+  message: "&bYou have been &a&lhealed&r&b!"
+  other-message: "&bYou have healed &6&l%player%&r&b!"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
 teleport:
   amount:
   message: "&cInsert messaged"
+  others-message: "tp to other"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
 kill:
-  message: "&cYou have been killed!"
-  others-message: "You have killed "
-  suicide-message: "&cWhy have you done this!"
+  message: "&cYou have been &4&lkilled&r&c!"
+  others-message: "&cYou have &4&lkilled &6&l%player%&r&c!"
+  suicide-message: "&cYou have committed &4&lsuicide&r&c!"
   message-enable: true
-command:
-  amount: 0
-  message: "&cInsert messaged"
-  message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
 clear:
-  message: "&bYour inventory has been cleared!"
-  clear-others-message: "&bYou have cleared the inventory of "
+  message: "&bYour inventory has been &a&lcleared&r&b!"
+  others-message: "&bYou have &a&lcleared&r&b the inventory of &6&l%player%&r&b!"
   message-enable: true
 fly:
-  on-message: "&bFlight has been &aenabled&b!"
-  off-message: "&bFlight has been &cdisabled&b!"
-  other-on-message: "&bFlight has been &aenabled for %player%&b!"
-  other-off-message: "&bFlight has been &cdisabled for %player%&b!"
+  on-message: "&bFlight has been &a&lenabled&r&b!"
+  off-message: "&bFlight has been &c&ldisabled&r&b!"
+  other-on-message: "&bFlight has been &a&lenabled&r&b for &6&l%player%&r&b!"
+  other-off-message: "&bFlight has been &c&ldisabled&r&b for &6&l%player%&r&b!"
   message-enable: true
-  title-enable: false
-  title-on: ""
-  title-off: ""
-  subtitle-on:
-  subtitle-off: ""
-  fade: 3
-  stay: 6
+god:
+  on-message: "&bGod mode has been &a&lenabled&r&b!"
+  off-message: "&bGod mode has been &c&ldisabled&r&b!"
+  others-on-message: "&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!"
+  others-off-message: "&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  message-enable: true

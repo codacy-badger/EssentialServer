@@ -1,12 +1,13 @@
 package io.github.coachluck;
 import io.github.coachluck.commands.*;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+
+import static io.github.coachluck.Utils.*;
 
 public class EssentialServer extends JavaPlugin {
 
@@ -25,13 +26,12 @@ public class EssentialServer extends JavaPlugin {
 
         //Handles Configuration File
         enableConfig();
-        this.getServer().getPluginCommand("Clear").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("permission-message") ));
+        this.getServer().getPluginCommand("Clear").setPermissionMessage(format(this.getConfig().getString("permission-message") ));
         getLogger().info("Plugin enabling...");
         //Enables Event Listeners
 
         getLogger().info("Event Listeners enabled successfully!");
         //Enables Command Classes
-        this.getCommand("Command").setExecutor(new Command(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Feed").setExecutor(new Feed(this));
