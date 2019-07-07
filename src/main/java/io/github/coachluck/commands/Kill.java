@@ -18,6 +18,7 @@ public class Kill implements CommandExecutor {
         this.plugin = plugin; //stores plugin
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String killMsg = plugin.getConfig().getString("kill.message");
         String killOtherMsg = plugin.getConfig().getString("kill.others-message");

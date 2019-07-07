@@ -31,6 +31,16 @@ commands:
     description: "Makes you take flight."
     permission: essentialserver.fly
     usage: /<command> [player]
+  invsee:
+    description: "Opens the specified players inventory."
+    usage: /<command> [player]
+    permission: essentialserver.invsee
+  vault:
+    description: "Opens a players vault."
+    usage: /<command> [player]
+  freeze:
+    description: "Freezes the specified player."
+    usage: /<command> (player)
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
@@ -48,6 +58,8 @@ permissions:
       essentialserver.clear.others: true
       essentialserver.fly: true
       essentialserver.fly.others: true
+      essentialserver.vault: true
+      essentialserver.vault.others: true
   essentialserver.eshelp:
     description: "Displays plugin information."
     default: op
@@ -93,3 +105,14 @@ permissions:
     default: op
     children:
       essentialserver.fly: true
+  essentialserver.vault:
+    description: "Allows you to open your player vault!"
+    default: op
+  essentialserver.vault.others:
+    description: "Allows you to opens the vaults of other players!"
+    default: op
+  essentialserver.invsee:
+    description: "Allows you to take a peak into other players inventories!"
+    default: op
+  essentialserver.invsee.interact:
+    description: "Allows you to interact with other players inventories!"

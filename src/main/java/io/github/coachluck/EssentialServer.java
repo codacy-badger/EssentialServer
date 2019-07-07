@@ -1,6 +1,8 @@
 package io.github.coachluck;
 import io.github.coachluck.commands.*;
+import io.github.coachluck.events.FreezeEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -29,9 +31,15 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Clear").setPermissionMessage(format(this.getConfig().getString("permission-message") ));
         getLogger().info("Plugin enabling...");
         //Enables Event Listeners
+        registerEvents();
+
 
         getLogger().info("Event Listeners enabled successfully!");
         //Enables Command Classes
+
+        this.getCommand("Freeze").setExecutor(new Freeze(this));
+        this.getCommand("InvSee").setExecutor(new InvSee(this));
+        this.getCommand("Vault").setExecutor(new Vault(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Feed").setExecutor(new Feed(this));
@@ -52,4 +60,10 @@ private void enableConfig() {
     getConfig().options().copyDefaults(true);
     saveDefaultConfig();
 }
+
+public void registerEvents() {
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        pm.registerEvents(new FreezeEvent(this), this);
+}
+
 }

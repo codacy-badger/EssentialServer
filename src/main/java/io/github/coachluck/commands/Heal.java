@@ -13,13 +13,12 @@ import static io.github.coachluck.Utils.*;
 import static org.bukkit.Bukkit.getLogger;
 
 public class Heal implements CommandExecutor {
-
-
     private final EssentialServer plugin;
     public Heal(EssentialServer plugin) {
         this.plugin = plugin; //stores plugin
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String healMsg = plugin.getConfig().getString("heal.message");
         String healOtherMsg = plugin.getConfig().getString("heal.other-message");
