@@ -1,6 +1,9 @@
+
 package io.github.coachluck;
+
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.FreezeEvent;
+import io.github.coachluck.events.PlayerJoinLeave;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,8 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import static io.github.coachluck.Utils.*;
+import static io.github.coachluck.utils.chatUtils.*;
+import static io.github.coachluck.utils.InventoryHelper.*;
 
+@SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
 
     @Override
@@ -64,6 +69,7 @@ private void enableConfig() {
 public void registerEvents() {
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new FreezeEvent(this), this);
+        pm.registerEvents(new PlayerJoinLeave(this), this);
 }
 
 }

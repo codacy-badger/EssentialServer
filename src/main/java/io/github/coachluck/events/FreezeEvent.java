@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;
 
-import static io.github.coachluck.Utils.format;
+import static io.github.coachluck.utils.chatUtils.format;
 
 public class FreezeEvent implements Listener {
 
