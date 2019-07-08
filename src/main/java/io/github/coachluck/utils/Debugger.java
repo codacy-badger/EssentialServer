@@ -21,7 +21,7 @@ public class Debugger {
     public static void sendInGameDebug(Player player, String igMessage){
         player.sendMessage(IN_GAME_DEBUG + igMessage);
     }
-    public static void sendCosnoleMessage(String cMessage){
+    public static void sendConsoleMessage(String cMessage){
         Bukkit.getLogger().info(CONSOLE_DEBUG + cMessage);
     }
     public static void sendExceptionDebug(String eMessage){
