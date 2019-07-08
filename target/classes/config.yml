@@ -1,55 +1,51 @@
 permission-message: "&cYou do not have permission to use this command!"
+server:
+  join-message: ""
+  leave-message: ""
+  enable-custom-join-leave-message: true
 feed:
   amount: 20
-  message: "&bYou have been fed."
-  message-enable: false
-  title: "&bMunch.. Munch.. Munch.."
-  sub-title: "&aYou have been fed!"
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
+  message: "&bYou have been &a&lfed&r&b!"
+  other-message: "&bYou have &a&lfed &6&l%player%&r&b!"
+  message-enable: true
 heal:
   amount: 0
-  message: "&bYou have been healed."
+  message: "&bYou have been &a&lhealed&r&b!"
+  other-message: "&bYou have healed &6&l%player%&r&b!"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
 teleport:
   amount:
   message: "&cInsert messaged"
+  others-message: "tp to other"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
 kill:
-  amount: 0
-  message: "&cYou have killed"
+  message: "&cYou have been &4&lkilled&r&c!"
+  others-message: "&cYou have &4&lkilled &6&l%player%&r&c!"
+  suicide-message: "&cYou have committed &4&lsuicide&r&c!"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
-suicide:
-  amount: 0
-  message: "&cYou have killed"
+clear:
+  message: "&bYour inventory has been &a&lcleared&r&b!"
+  others-message: "&bYou have &a&lcleared&r&b the inventory of &6&l%player%&r&b!"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
-command:
-  amount: 0
-  message: "&cInsert messaged"
+fly:
+  on-message: "&bFlight has been &a&lenabled&r&b!"
+  off-message: "&bFlight has been &c&ldisabled&r&b!"
+  other-on-message: "&bFlight has been &a&lenabled&r&b for &6&l%player%&r&b!"
+  other-off-message: "&bFlight has been &c&ldisabled&r&b for &6&l%player%&r&b!"
   message-enable: true
-  title: ""
-  sub-title: ""
-  title-fade: 4
-  title-stay: 8
-  title-enable: false
+god:
+  on-message: "&bGod mode has been &a&lenabled&r&b!"
+  off-message: "&bGod mode has been &c&ldisabled&r&b!"
+  others-on-message: "&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!"
+  others-off-message: "&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  message-enable: true
+vault:
+  size: 27
+  message-enable: false
+  open-message: "&bYou have &aopened your &6Vault&b!"
+  close-message: "&bYou have &cclosed your &6Vault&b!"
+  open-others-message: "&bYou have &aopened &c&l%player%'s&r &6Vault&b!"
+  close-others-message: "&bYou have &cclosed &a&l%player%'s&r &6Vault&b!"
+invsee:
+  open-message: "&bYou have &a&lopened&r&b the inventory of &6&l%player%&r&b!"
+  close-message: "&bYou have &a&lclosed&r&b the inventory of &6&l%player%&r&b"
