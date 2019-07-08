@@ -1,7 +1,7 @@
 permission-message: "&cYou do not have permission to use this command!"
 server:
-  join-message: ""
-  leave-message: ""
+  join-message: "joined"
+  leave-message: "left"
   enable-custom-join-leave-message: true
 feed:
   amount: 20

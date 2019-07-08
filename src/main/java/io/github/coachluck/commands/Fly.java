@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-import static io.github.coachluck.utils.chatUtils.*;
+import static io.github.coachluck.utils.ChatUtils.*;
 import static org.bukkit.Bukkit.*;
 
 public class Fly implements CommandExecutor {

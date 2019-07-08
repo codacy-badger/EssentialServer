@@ -2,11 +2,12 @@ package io.github.coachluck.utils;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 @SuppressWarnings("unused")
-public class chatUtils {
+public class ChatUtils {
     EssentialServer plugin;
-    public chatUtils(EssentialServer plugin) {
+    public ChatUtils(EssentialServer plugin) {
         this.plugin = plugin;
     }
     public static final String DARK_STAR = "★";
@@ -51,6 +52,10 @@ public class chatUtils {
     //simple chat formatter
     public static String format(String format) {
         return ChatColor.translateAlternateColorCodes('&', format);
+    }
+
+    public void msg(CommandSender s, String message) {
+        s.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
     //simple log formatter

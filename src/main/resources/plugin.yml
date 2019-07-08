@@ -1,7 +1,6 @@
 name: EssentialServer
 version: 1.0.0-ALPHA
 main: io.github.coachluck.EssentialServer
-depend: [ProtocolLib]
 commands:
   clear:
     description: "Clears your inventory or the player specified."

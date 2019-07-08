@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import static io.github.coachluck.utils.chatUtils.format;
+import static io.github.coachluck.utils.ChatUtils.format;
 import static org.bukkit.Bukkit.getLogger;
 
 public class InvSee implements CommandExecutor {

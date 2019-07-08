@@ -2,8 +2,8 @@
 package io.github.coachluck;
 
 import io.github.coachluck.commands.*;
-import io.github.coachluck.events.FreezeEvent;
-import io.github.coachluck.events.PlayerJoinLeave;
+import io.github.coachluck.events.PlayerJoinEvent;
+import io.github.coachluck.events.PlayerLeaveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import static io.github.coachluck.utils.chatUtils.*;
-import static io.github.coachluck.utils.InventoryHelper.*;
+import static io.github.coachluck.utils.ChatUtils.*;
 
 @SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
-
+private int onlinePlayers;
     @Override
     public void onEnable() {
+
         Metrics metrics = new Metrics(this);
         metrics.addCustomChart(new Metrics.MultiLineChart("players_and_servers", new Callable<Map<String, Integer>>() {
             @Override
@@ -38,10 +38,8 @@ public class EssentialServer extends JavaPlugin {
         //Enables Event Listeners
         registerEvents();
 
-
         getLogger().info("Event Listeners enabled successfully!");
         //Enables Command Classes
-
         this.getCommand("Freeze").setExecutor(new Freeze(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
         this.getCommand("Vault").setExecutor(new Vault(this));
@@ -53,7 +51,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Kill").setExecutor(new Kill(this));
         this.getCommand("Clear").setExecutor(new Clear(this));
         getLogger().info("Commands enabled successfully!");
-
+        getLogger().info("Online players: " + onlinePlayers);
         getLogger().info("Plugin enabled successfully!");
     }
     @Override
@@ -61,15 +59,15 @@ public class EssentialServer extends JavaPlugin {
         getLogger().info("Plugin disabled");
         saveDefaultConfig();
     }
-private void enableConfig() {
+    private void enableConfig() {
     getConfig().options().copyDefaults(true);
     saveDefaultConfig();
-}
+    }
 
-public void registerEvents() {
+    public void registerEvents() {
         PluginManager pm = Bukkit.getServer().getPluginManager();
-        pm.registerEvents(new FreezeEvent(this), this);
-        pm.registerEvents(new PlayerJoinLeave(this), this);
-}
+        pm.registerEvents(new PlayerJoinEvent(this), this);
+        pm.registerEvents(new PlayerLeaveEvent(this), this);
+    }
 
 }

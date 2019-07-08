@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 
-import static io.github.coachluck.utils.chatUtils.*;
+import static io.github.coachluck.utils.ChatUtils.*;
 import static org.bukkit.Bukkit.getLogger;
 
 public class Heal implements CommandExecutor {
