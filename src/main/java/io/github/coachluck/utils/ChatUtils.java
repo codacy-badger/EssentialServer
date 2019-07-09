@@ -54,7 +54,7 @@ public class ChatUtils {
         return ChatColor.translateAlternateColorCodes('&', format);
     }
 
-    public void msg(CommandSender s, String message) {
+    public static void msg(CommandSender s, String message) {
         s.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
