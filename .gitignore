@@ -1,3 +1,4 @@
+$ EssentialServer .gitignore
 # Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
@@ -24,8 +25,9 @@ $RECYCLE.BIN/
 .idea/
 *.iml
 hs_err_pid*
-/target
-/compile
+
+target/
+idea./
 # =========================
 # Operating System Files
 # =========================
