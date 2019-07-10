@@ -25,10 +25,8 @@ $RECYCLE.BIN/
 .idea/
 *.iml
 hs_err_pid*
-
 target/
-idea./
+
 # =========================
 # Operating System Files
 # =========================
-.idea/workspace.xml
