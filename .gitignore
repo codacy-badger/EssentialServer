@@ -22,13 +22,12 @@ $RECYCLE.BIN/
 #Minecraft Files
 *.jar
 *.class
-.idea/
+\.idea/
 *.iml
 hs_err_pid*
-$target/
+target/
 
 # =========================
 # Operating System Files
 # =========================
-.idea/workspace.xml
 *.xml
