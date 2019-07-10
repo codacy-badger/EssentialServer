@@ -1,8 +1,12 @@
 name: EssentialServer
 version: 1.0.0-ALPHA
 main: io.github.coachluck.EssentialServer
-depend: [ProtocolLib]
+load: STARTUP
 commands:
+  esreload:
+    description: "Reload's Essential Server's configuration"
+    permission: essentialserver.reload
+    usage: /<command>
   clear:
     description: "Clears your inventory or the player specified."
     aliases: [ci, clearinv, clearinventory]
@@ -61,8 +65,12 @@ permissions:
       essentialserver.fly.others: true
       essentialserver.vault: true
       essentialserver.vault.others: true
+      essentialserver.esreload: true
   essentialserver.eshelp:
     description: "Displays plugin information."
+    default: op
+  essenitalserver.esreload:
+    description: "Reloads the configuration files"
     default: op
   essentialserver.kill:
     description: "Allows you to kill yourself!"
