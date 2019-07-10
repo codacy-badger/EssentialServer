@@ -22,7 +22,7 @@ $RECYCLE.BIN/
 #Minecraft Files
 *.jar
 *.class
-$.idea/
+.idea/
 *.iml
 hs_err_pid*
 $target/
