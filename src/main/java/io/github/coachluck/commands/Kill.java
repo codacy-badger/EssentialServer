@@ -2,14 +2,12 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
-import static org.bukkit.Bukkit.getLogger;
 
 public class Kill implements CommandExecutor {
     private final EssentialServer plugin;
@@ -25,43 +23,30 @@ public class Kill implements CommandExecutor {
         String suicideMsg = plugin.getConfig().getString("kill.suicide-message");
         boolean enableMsg = plugin.getConfig().getBoolean("kill.message-enable");
 
-            if (sender instanceof Player) {
+        if (args.length == 0) {
+            if (sender instanceof Player && sender.hasPermission("essentialserver.kill")) {
                 Player player = (Player) sender;
-                if(args.length == 0 && player.hasPermission("essentialserver.kill")) {
-                    if (enableMsg) {
-                        player.sendMessage(format(suicideMsg));
-                    }
-                    player.setHealth(0);
-                }else if(args.length == 1){
-                    Player target = (Bukkit.getPlayerExact(args[0]));
-                    if(target instanceof Player) {
-                        if(player.hasPermission("essentialserver.kill.others")) {
-                            target.setHealth(0);
-                            if(enableMsg) {
-                                target.sendMessage(format(killMsg));
-                                player.sendMessage(format(killOtherMsg.replace("%player%", target.getDisplayName())));
-                            }
-                        }
-                    }else {
-                        player.sendMessage(ChatColor.RED + "The specified player could not be found!");
-                    }
+                if (enableMsg) {
+                    msg(player, format(suicideMsg));
                 }
-            }else {
-                if(args.length == 0) {
-                    getLogger().info("You must be a player to use this command!");
-                } else if (args.length == 1) {
-                    Player target = (Bukkit.getPlayerExact(args[0]));
-                    if(target instanceof Player) {
-                        target.setHealth(0);
-                        if(enableMsg) {
-                            getLogger().info(logFormat(killOtherMsg.replace("%player%", target.getDisplayName())));
-                            target.sendMessage(format(killMsg));
-                        }
-                    }else {
-                        getLogger().info("The specified player could not be found!");
-                    }
-                }
+                player.setHealth(0);
+            } else {
+                msg(sender, format("&cYou must be a player to execute this command!"));
             }
+        } else if (args.length == 1 && sender.hasPermission("essentialserver.kill.others")) {
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if (target != null) {
+                target.setHealth(0);
+                if (enableMsg) {
+                    msg(target, format(killMsg));
+                    msg(sender, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                }
+            } else {
+                msg(sender, format("&cThe specified player could not be found!"));
+            }
+        } else if (args.length > 1) {
+            msg(sender, format("&cToo many arguments! Try /kill <player> or /kill."));
+        }
         return true;
     }
 }

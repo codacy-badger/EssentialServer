@@ -2,7 +2,6 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,7 +9,6 @@ import org.bukkit.entity.Player;
 
 
 import static io.github.coachluck.utils.ChatUtils.*;
-import static org.bukkit.Bukkit.getLogger;
 
 public class Heal implements CommandExecutor {
     private final EssentialServer plugin;
@@ -24,45 +22,31 @@ public class Heal implements CommandExecutor {
         String healOtherMsg = plugin.getConfig().getString("heal.other-message");
         boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
 
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if(args.length == 0 && player.hasPermission("essentialserver.heal")) {
+        if (args.length == 0) {
+            if (sender instanceof Player && sender.hasPermission("essentialserver.heal")) {
+                Player player = (Player) sender;
                 if (enableMsg) {
-                    player.sendMessage(format(healMsg));
+                    msg(player, format(healMsg));
                 }
                 player.setHealth(20);
                 player.setFoodLevel(20);
-            }else if(args.length == 1){
-                Player target = (Bukkit.getPlayerExact(args[0]));
-                if(target instanceof Player) {
-                    if(player.hasPermission("essentialserver.heal.others")) {
-                        target.setHealth(20);
-                        target.setFoodLevel(20);
-                        if(enableMsg) {
-                            target.sendMessage(format(healMsg));
-                            player.sendMessage(format(healOtherMsg).replace("%player%", target.getDisplayName()));
-                        }
-                    }
-                }else {
-                    player.sendMessage(ChatColor.RED + "The specified player could not be found!");
-                }
+            } else {
+                msg(sender, format("&cYou must be a player to execute this command!"));
             }
-        }else {
-            if(args.length == 0) {
-                getLogger().info("You must be a player to use this command!");
-            } else if (args.length == 1) {
-                Player target = (Bukkit.getPlayerExact(args[0]));
-                if(target instanceof Player) {
-                    target.setHealth(20);
-                    target.setFoodLevel(20);
-                        if(enableMsg) {
-                        target.sendMessage(format(healMsg));
-                        getLogger().info(logFormat(healOtherMsg).replace("%player%", target.getDisplayName()));
-                        }
-                }else {
-                    getLogger().info(ChatColor.RED + "The specified player could not be found!");
+        } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if (target != null) {
+                target.setHealth(20);
+                target.setFoodLevel(20);
+                if (enableMsg) {
+                    msg(target, format(healMsg));
+                    msg(sender, format(healOtherMsg.replace("%player%", target.getDisplayName())));
                 }
+            } else {
+                msg(sender, format("&cThe specified player could not be found!"));
             }
+        } else if (args.length > 1) {
+            msg(sender, format("&cToo many arguments! Try /heal <player> or /heal."));
         }
         return true;
     }

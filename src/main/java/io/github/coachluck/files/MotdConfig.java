@@ -20,7 +20,7 @@ public class MotdConfig {
             try{
                 file.createNewFile();
             }catch (IOException e){
-                //ooof
+                System.out.println("Couldn't create motd file!");
             }
         }
         motdFile = YamlConfiguration.loadConfiguration(file);

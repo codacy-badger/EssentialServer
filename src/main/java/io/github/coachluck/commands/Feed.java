@@ -2,14 +2,12 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
-import static org.bukkit.Bukkit.getLogger;
 
 public class Feed implements CommandExecutor {
     private final EssentialServer plugin;
@@ -17,49 +15,36 @@ public class Feed implements CommandExecutor {
         this.plugin = plugin; //stores plugin
 
     }
-        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-            String feedMsg = plugin.getConfig().getString("feed.message");
-            String feedOtherMsg = plugin.getConfig().getString("feed.other-message");
-            boolean enableMsg = plugin.getConfig().getBoolean("feed.message-enable");
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String feedMsg = plugin.getConfig().getString("feed.message");
+        String feedOtherMsg = plugin.getConfig().getString("feed.other-message");
+        boolean enableMsg = plugin.getConfig().getBoolean("feed.message-enable");
 
-            if (sender instanceof Player) {
+        if (args.length == 0) {
+            if (sender instanceof Player && sender.hasPermission("essentialserver.feed")) {
                 Player player = (Player) sender;
-                if(args.length == 0 && player.hasPermission("essentialserver.feed")) {
-                    if (enableMsg) {
-                        player.sendMessage(format(feedMsg));
-                    }
-                    player.setFoodLevel(20);
-                }else if(args.length == 1){
-                    Player target = (Bukkit.getPlayerExact(args[0]));
-                    if(target instanceof Player) {
-                        if(player.hasPermission("essentialserver.feed.others")) {
-                            if(enableMsg) {
-                                target.sendMessage(format(feedMsg));
-                                player.sendMessage(format(feedOtherMsg).replace("%player%", target.getDisplayName()));
-                            }
-                            target.setFoodLevel(20);
-                        }
-                    }else {
-                        player.sendMessage(ChatColor.RED + "The specified player could not be found!");
-                    }
+                if (enableMsg) {
+                    msg(player, format(feedMsg));
                 }
-            }else {
-                if(args.length == 0) {
-                    getLogger().info("You must be a player to use this command!");
-                } else if (args.length == 1) {
-                    Player target = (Bukkit.getPlayerExact(args[0]));
-                    if(target instanceof Player) {
-                            if(enableMsg) {
-                            target.sendMessage(format(feedMsg));
-                            getLogger().info(logFormat(feedOtherMsg).replace("%player%", target.getDisplayName()));
-                        }
-                        target.setFoodLevel(20);
-                    }else {
-                        getLogger().info(ChatColor.RED + "The specified player could not be found!");
-                    }
-                }
+                player.setFoodLevel(20);
+            } else {
+                msg(sender, format("&cYou must be a player to execute this command!"));
             }
-            return true;
+        } else if (args.length == 1 && sender.hasPermission("essentialserver.feed.others")) {
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if (target != null) {
+                target.setFoodLevel(20);
+                if (enableMsg) {
+                    msg(target, format(feedMsg));
+                    msg(sender, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                }
+            } else {
+                msg(sender, format("&cThe specified player could not be found!"));
+            }
+        } else if (args.length > 1) {
+            msg(sender, format("&cToo many arguments! Try /feed <player> or /feed."));
         }
-
+        return true;
     }
+
+}

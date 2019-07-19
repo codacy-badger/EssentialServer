@@ -1,18 +1,10 @@
-
 package io.github.coachluck;
 
 import io.github.coachluck.commands.*;
-import io.github.coachluck.events.PlayerJoin;
-import io.github.coachluck.events.PlayerLeave;
+import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.files.MotdConfig;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Callable;
-
 import static io.github.coachluck.utils.ChatUtils.*;
 
 @SuppressWarnings("unused")
@@ -21,16 +13,6 @@ public class EssentialServer extends JavaPlugin {
     String pMsg = this.getConfig().getString("permission-message");
     @Override
     public void onEnable() {
-        Metrics metrics = new Metrics(this);
-        metrics.addCustomChart(new Metrics.MultiLineChart("players_and_servers", new Callable<Map<String, Integer>>() {
-            @Override
-            public Map<String, Integer> call() throws Exception {
-                Map<String, Integer> valueMap = new HashMap<>();
-                valueMap.put("servers", 1);
-                valueMap.put("players", Bukkit.getOnlinePlayers().size());
-                return valueMap;
-            }
-        }));
 
         //Handles Configuration File
         enableConfig();
@@ -58,8 +40,7 @@ public class EssentialServer extends JavaPlugin {
 
     public void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new PlayerJoin(this), this);
-        pm.registerEvents(new PlayerLeave(this), this);
+        pm.registerEvents(new PlayerJoinLeave(this), this);
 
     }
 
@@ -75,9 +56,7 @@ public class EssentialServer extends JavaPlugin {
 
     private void enableCommands() {
         this.getCommand("esReload").setExecutor(new ReloadCommand(this));
-        this.getCommand("Freeze").setExecutor(new Freeze(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
-        this.getCommand("Vault").setExecutor(new Vault(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Feed").setExecutor(new Feed(this));
@@ -95,11 +74,7 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Heal").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Vault").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Freeze").setPermissionMessage(format(pMsg));
 
     }
-
-
 }

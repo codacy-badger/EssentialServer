@@ -63,8 +63,6 @@ permissions:
       essentialserver.clear.others: true
       essentialserver.fly: true
       essentialserver.fly.others: true
-      essentialserver.vault: true
-      essentialserver.vault.others: true
       essentialserver.esreload: true
   essentialserver.eshelp:
     description: "Displays plugin information."
@@ -114,12 +112,6 @@ permissions:
     default: op
     children:
       essentialserver.fly: true
-  essentialserver.vault:
-    description: "Allows you to open your player vault!"
-    default: op
-  essentialserver.vault.others:
-    description: "Allows you to opens the vaults of other players!"
-    default: op
   essentialserver.invsee:
     description: "Allows you to take a peak into other players inventories!"
     default: op

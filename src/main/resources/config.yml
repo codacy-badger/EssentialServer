@@ -35,13 +35,6 @@ god:
   others-on-message: "&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!"
   others-off-message: "&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!"
   message-enable: true
-vault:
-  size: 27
-  message-enable: false
-  open-message: "&bYou have &aopened your &6Vault&b!"
-  close-message: "&bYou have &cclosed your &6Vault&b!"
-  open-others-message: "&bYou have &aopened &c&l%player%'s&r &6Vault&b!"
-  close-others-message: "&bYou have &cclosed &a&l%player%'s&r &6Vault&b!"
 invsee:
   open-message: "&bYou have &a&lopened&r&b the inventory of &6&l%player%&r&b!"
   close-message: "&bYou have &a&lclosed&r&b the inventory of &6&l%player%&r&b"
