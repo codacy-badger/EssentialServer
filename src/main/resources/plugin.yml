@@ -104,7 +104,7 @@ permissions:
     description: "Allows you to clear the inventory of other players!"
     default: op
     children:
-      essentialserver.clear: false
+      essentialserver.clear: true
   essentialserver.fly:
     description: "Allows you to take flight!"
   essentialserver.fly.others:
