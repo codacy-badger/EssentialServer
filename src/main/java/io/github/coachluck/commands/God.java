@@ -23,6 +23,7 @@ public class God implements CommandExecutor {
         String godOtherOffMsg = plugin.getConfig().getString("god.others-off-message");
         boolean enableMsg = plugin.getConfig().getBoolean("god.message-enable");
 
+        // /god
         if(args.length == 0) {
             if(sender instanceof Player && sender.hasPermission("essentialserver.god")) {
                 godCheck((Player) sender);
@@ -31,6 +32,7 @@ public class God implements CommandExecutor {
             }
         }
 
+        // /god <player>
         else if (args.length == 1 && sender.hasPermission("essentialserver.god.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
             if (target != null) {

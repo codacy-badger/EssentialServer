@@ -22,9 +22,12 @@ public class PlayerJoinLeave implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-
-        for (Player player: Bukkit.getServer().getOnlinePlayers()) {
-            e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
+        Player player = e.getPlayer();
+        for(int i = 0; i < plugin.vanish_players.size(); i++) {
+            player.hidePlayer(plugin, plugin.vanish_players.get(i));
+        }
+        for (Player player1: Bukkit.getServer().getOnlinePlayers()) {
+            e.setJoinMessage(format(joinMsg.replace("%player%", player1.getDisplayName())));
         }
     }
 

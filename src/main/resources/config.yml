@@ -35,6 +35,12 @@ god:
   others-on-message: "&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!"
   others-off-message: "&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!"
   message-enable: true
+vanish:
+  on-message: "&bVanish has been &a&lenabled&r&b!"
+  off-message: "&bVanish has been &c&ldisabled&r&b!"
+  other-on-message: "&bVanish has been &a&lenabled&r&b for &6&l%player%&r&b!"
+  other-off-message: "&bVanish has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  message-enable: true
 invsee:
   open-message: "&bYou have &a&lopened&r&b the inventory of &6&l%player%&r&b!"
   close-message: "&bYou have &a&lclosed&r&b the inventory of &6&l%player%&r&b"

@@ -45,7 +45,10 @@ commands:
     usage: /<command> [player]
   freeze:
     description: "Freezes the specified player."
-    usage: /<command> (player)
+    usage: /<command> [player]
+  vanish:
+    description: "Become invisible!"
+    usage: /<command> [player]
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
@@ -64,6 +67,9 @@ permissions:
       essentialserver.fly: true
       essentialserver.fly.others: true
       essentialserver.esreload: true
+      essentialserver.tp: true
+      essentialserver.vanish: true
+      essentialserver.vanish.others: true
   essentialserver.eshelp:
     description: "Displays plugin information."
     default: op
@@ -112,6 +118,20 @@ permissions:
     default: op
     children:
       essentialserver.fly: true
+  essentialserver.vanish:
+    description: "Become completley invisible!"
+  essentialserver.vanish.others:
+    description: "Make others become invisible!"
+    default: op
+    children:
+      essentialserver.vanish: true
+  essentialserver.tp:
+    description: "Teleports you to the specified player"
+  essentialserver.tp.others:
+    description: "Teleports the first player specified to the second player specified"
+    default: op
+    children:
+      essentialserver.tp: true
   essentialserver.invsee:
     description: "Allows you to take a peak into other players inventories!"
     default: op

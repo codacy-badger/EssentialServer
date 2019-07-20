@@ -3,30 +3,30 @@ package io.github.coachluck;
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.files.MotdConfig;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+
 import static io.github.coachluck.utils.ChatUtils.*;
 
 @SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
+    public ArrayList<Player> vanish_players = new ArrayList<>();
 
     String pMsg = this.getConfig().getString("permission-message");
     @Override
     public void onEnable() {
-
         //Handles Configuration File
         enableConfig();
 
-        getLogger().info("Plugin enabling...");
-
         //Enables Event Listeners
         registerEvents();
-        getLogger().info("Event Listeners enabled successfully!");
 
         //Enables Command Classes
         enableCommands();
         enableCommandP();
-        getLogger().info("Commands enabled successfully!");
 
         getLogger().info("Plugin enabled successfully!");
     }
@@ -41,9 +41,8 @@ public class EssentialServer extends JavaPlugin {
     public void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerJoinLeave(this), this);
-
+        getLogger().info("Event Listeners enabled successfully!");
     }
-
     private void enableConfig() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -53,7 +52,6 @@ public class EssentialServer extends JavaPlugin {
         MotdConfig.get().options().copyDefaults(true);
         MotdConfig.save();
     }
-
     private void enableCommands() {
         this.getCommand("esReload").setExecutor(new ReloadCommand(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
@@ -64,6 +62,9 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("God").setExecutor((new God(this)));
         this.getCommand("Kill").setExecutor(new Kill(this));
         this.getCommand("Clear").setExecutor(new Clear(this));
+      //  this.getCommand("Teleport").setExecutor(new Teleport(this));
+        this.getCommand("Vanish").setExecutor(new Vanish(this));
+        getLogger().info("Commands enabled successfully!");
     }
     private void enableCommandP() {
         this.getServer().getPluginCommand("Clear").setPermissionMessage(format(pMsg));
@@ -75,6 +76,7 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("Vanish").setPermissionMessage(format(pMsg));
 
     }
 }
