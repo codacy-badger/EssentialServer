@@ -16,10 +16,10 @@ public class MotdConfig {
     public static void setup(){
         file = new File(Bukkit.getServer().getPluginManager().getPlugin("EssentialServer").getDataFolder(), "motd.yml");
 
-        if (!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Couldn't create motd file!");
             }
         }

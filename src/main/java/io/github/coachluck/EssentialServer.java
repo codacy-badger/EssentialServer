@@ -3,10 +3,13 @@ package io.github.coachluck;
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.files.MotdConfig;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static io.github.coachluck.utils.ChatUtils.*;
