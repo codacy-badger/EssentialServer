@@ -1,3 +1,5 @@
+join-message: "&bWelcome, &6%player%&b, to the server!"
+leave-message: "&aAdios, &c%player%&a, see you soon!"
 permission-message: "&cYou do not have permission to use this command!"
 feed:
   amount: 20

@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static io.github.coachluck.utils.ChatUtils.msg;
 import static org.bukkit.Bukkit.getLogger;
 
 public class esHelp implements CommandExecutor {
@@ -22,7 +23,7 @@ public class esHelp implements CommandExecutor {
                     player.getPlayer();
 
                     if (args.length == 0 || args.equals(1)) {
-                        player.sendMessage(ChatColor.DARK_GRAY + "-=-= " + ChatColor.AQUA + "Essential Server Help 1/4" + ChatColor.DARK_GRAY + "-=-=");
+                        msg(player,  "&7-=-= &bEssential Server Help &61/4&7 -=-=");
                         player.sendMessage(ChatColor.GOLD + "/heal {player}" + ChatColor.GRAY + "- Heals the player or yourself if left unspecified");
                         player.sendMessage(ChatColor.GOLD + "123456789123456789123456789");
                         return false;

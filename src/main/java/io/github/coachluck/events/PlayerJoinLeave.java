@@ -1,7 +1,6 @@
 package io.github.coachluck.events;
 
 import io.github.coachluck.EssentialServer;
-import io.github.coachluck.files.MotdConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,13 +11,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import static io.github.coachluck.utils.ChatUtils.format;
 
 public class PlayerJoinLeave implements Listener {
-    EssentialServer plugin;
+    private final EssentialServer plugin;
+
     public PlayerJoinLeave(EssentialServer plugin) {
-        this.plugin = plugin;
+        this.plugin = plugin; //stores plugin
+        joinMsg = plugin.getConfig().getString("join-message");
+        quitMsg = plugin.getConfig().getString("leave-message");
     }
 
-    String joinMsg = MotdConfig.get().getString("join-message");
-    String quitMsg = MotdConfig.get().getString("leave-message");
+    private String joinMsg;
+    private String quitMsg;
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {

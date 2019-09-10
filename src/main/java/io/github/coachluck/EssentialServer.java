@@ -2,14 +2,10 @@ package io.github.coachluck;
 
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
-import io.github.coachluck.files.MotdConfig;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static io.github.coachluck.utils.ChatUtils.*;
@@ -18,7 +14,7 @@ import static io.github.coachluck.utils.ChatUtils.*;
 public class EssentialServer extends JavaPlugin {
     public ArrayList<Player> vanish_players = new ArrayList<>();
 
-    String pMsg = this.getConfig().getString("permission-message");
+    private String pMsg = this.getConfig().getString("permission-message");
     @Override
     public void onEnable() {
         //Handles Configuration File
@@ -38,10 +34,9 @@ public class EssentialServer extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Plugin disabled");
         saveDefaultConfig();
-        MotdConfig.save();
     }
 
-    public void registerEvents() {
+    private void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerJoinLeave(this), this);
         getLogger().info("Event Listeners enabled successfully!");
@@ -49,14 +44,8 @@ public class EssentialServer extends JavaPlugin {
     private void enableConfig() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        MotdConfig.setup();
-        MotdConfig.get().addDefault("join-message", "&6%player% &bhas joined the server!");
-        MotdConfig.get().addDefault("leave-message", "&6%player% &bhas left the server!");
-        MotdConfig.get().options().copyDefaults(true);
-        MotdConfig.save();
     }
     private void enableCommands() {
-        this.getCommand("esReload").setExecutor(new ReloadCommand(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));

@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.PlayerInventory;
 
 import static io.github.coachluck.utils.ChatUtils.format;
 import static org.bukkit.Bukkit.getLogger;
@@ -25,7 +27,8 @@ public class InvSee implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if(args.length == 0 && player.hasPermission("essentialserver.invsee")) {
-                Inventory inv = player.getInventory();
+
+                PlayerInventory inv = player.getInventory();
                 player.openInventory(inv);
                 if(enableMsg) {
                     player.sendMessage(format(openMsg.replace("%player%", player.getDisplayName())));
