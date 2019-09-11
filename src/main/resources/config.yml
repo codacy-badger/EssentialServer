@@ -7,8 +7,17 @@ permission-message: "&cYou do not have permission to use this command!"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # #
 #            Spawn Handler/Settings               #
+#             DO /SETSPAWN INGAME                 #
 # # # # # # # # # # # # # # # # # # # # # # # # # #
-
+spawn:
+  world:
+  x:
+  y:
+  z:
+  yaw:
+  pitch:
+  spawn-message: "&eWhoosh... &6You have respawned!"
+  enable-message: true
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #                      Command's                    #

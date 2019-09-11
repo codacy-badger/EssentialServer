@@ -22,12 +22,12 @@ commands:
     permission: essentialserver.heal
   kill:
     description: "Makes you do the unspeakable..."
-    permission: essentialserver.kill
     usage: /<command> [player]
+    permission: essentialserver.kill
   fly:
     description: "Makes you take flight."
-    permission: essentialserver.fly
     usage: /<command> [player]
+    permission: essentialserver.fly
   invsee:
     description: "Opens the specified players inventory."
     usage: /<command> [player]
@@ -49,6 +49,11 @@ commands:
   vanish:
     description: "Become invisible!"
     usage: /<command> [player]
+    permission: essentialserver.vanish
+  setspawn:
+    description: "Set the spawn location!"
+    usage: /<command>
+    permission: essentialserver.setspawn
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
@@ -70,14 +75,14 @@ permissions:
       essentialserver.esreload: true
       essentialserver.tp: true
       essentialserver.burn: true
+      essentialserver.burn.others: true
       essentialserver.spawn: true
+      essentialserver.spawn.others: true
       essentialserver.vanish: true
       essentialserver.vanish.others: true
+
   essentialserver.eshelp:
     description: "Displays plugin information."
-    default: op
-  essenitalserver.esreload:
-    description: "Reloads the configuration files"
     default: op
   essentialserver.kill:
     description: "Allows you to kill yourself!"
@@ -95,11 +100,11 @@ permissions:
       essentialserver.heal: true
   essentialserver.feed:
     description: "Allows you to feed yourself."
-    essentialserver.feed.others:
-      description: "Allows you to feed others!"
-      default: op
-      children:
-        essentialserver.feed: true
+  essentialserver.feed.others:
+    description: "Allows you to feed others!"
+    default: op
+    children:
+      essentialserver.feed: true
   essentialserver.god:
     description: "Allows you to become invincible."
     essentialserver.god.others:
@@ -142,17 +147,14 @@ permissions:
     description: "Allows you to interact with other players inventories!"
   essentialserver.spawn:
     description: "Allows you to visit the spawn point."
-    essentialserver.spawn.others:
-      description: "Allows you to make others teleport to the spawn point."
-      default: op
-      children:
-        essentialserver.spawn: true
-    essentialserver.spawn.setspawn:
-      description: "Allows you to set the spawn point!"
-      default: op
-      children:
-        essentialserver.spawn: true
-        essentialserver.spawn.setspawn: true
+  essentialserver.spawn.others:
+    description: "Allows you to make others teleport to the spawn point."
+    default: op
+    children:
+      essentialserver.spawn: true
+  essentialserver.setspawn:
+    description: "Allows you to set the spawn point!"
+    default: op
   essentialserver.smite:
     description: "Allows you to smite yourself!"
   essentialserver.smite.others:
