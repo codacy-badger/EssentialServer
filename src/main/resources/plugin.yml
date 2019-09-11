@@ -54,11 +54,15 @@ commands:
     description: "Set the spawn location!"
     usage: /<command>
     permission: essentialserver.setspawn
+  eshelp:
+    description: "Shows the basic information of EssentialServer"
+    usage: /<command>
+    permission: essentialserver.help
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
     children:
-      essentialserver.eshelp: true
+      essentialserver.help: true
       essentialserver.smite: true
       essentialserver.kill: true
       essentialserver.kill.others: true
@@ -81,7 +85,7 @@ permissions:
       essentialserver.vanish: true
       essentialserver.vanish.others: true
 
-  essentialserver.eshelp:
+  essentialserver.help:
     description: "Displays plugin information."
     default: op
   essentialserver.kill:

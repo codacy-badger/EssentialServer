@@ -47,6 +47,7 @@ public class EssentialServer extends JavaPlugin {
     }
     private void enableCommands() {
         //this.getCommand("InvSee").setExecutor(new InvSee(this));
+        this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("Smite").setExecutor(new Smite(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
@@ -62,6 +63,7 @@ public class EssentialServer extends JavaPlugin {
         getLogger().info("Commands enabled successfully!");
     }
     private void enableCommandP() {
+        this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Clear").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Smite").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Fly").setPermissionMessage(format(pMsg));
