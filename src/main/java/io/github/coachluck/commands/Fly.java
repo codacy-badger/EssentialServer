@@ -59,13 +59,13 @@ public class Fly implements CommandExecutor {
                     flying_players.remove(player);
                     player.setAllowFlight(false);
                     if (enableMsg) {
-                        player.sendMessage(format(flyOffMsg.replace("%player%", player.getDisplayName())));
+                        msg(player, format(flyOffMsg.replace("%player%", player.getDisplayName())));
                     }
                 } else if (!flying_players.contains(player)) {
                     flying_players.add(player);
                     player.setAllowFlight(true);
                     if (enableMsg) {
-                        player.sendMessage(format(flyMsg.replace("%player%", player.getDisplayName())));
+                        msg(player, format(flyMsg.replace("%player%", player.getDisplayName())));
                     }
                 }
             }

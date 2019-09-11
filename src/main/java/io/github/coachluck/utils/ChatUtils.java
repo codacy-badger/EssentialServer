@@ -55,7 +55,7 @@ public class ChatUtils {
     }
 
     public static void msg(CommandSender s, String message) {
-        s.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
     }
 
     //simple log formatter

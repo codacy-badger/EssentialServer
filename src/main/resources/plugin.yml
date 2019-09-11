@@ -3,10 +3,6 @@ version: 1.0
 main: io.github.coachluck.EssentialServer
 load: STARTUP
 commands:
-  esreload:
-    description: "Reload's Essential Server's configuration"
-    permission: essentialserver.reload
-    usage: /<command>
   clear:
     description: "Clears your inventory or the player specified."
     aliases: [ci, clearinv, clearinventory]
@@ -24,10 +20,6 @@ commands:
     description: "Heals the player or yourself if left unspecified."
     usage: /<command> [player]
     permission: essentialserver.heal
-  eshelp:
-    description: "Displays plugin information."
-    alias: [essentialserver, esh]
-    permission: essentialserver.eshelp
   kill:
     description: "Makes you do the unspeakable..."
     permission: essentialserver.kill
@@ -40,12 +32,20 @@ commands:
     description: "Opens the specified players inventory."
     usage: /<command> [player]
     permission: essentialserver.invsee
-  vault:
-    description: "Opens a players vault."
+  burn:
+    description: "Burns you or the specified player!"
+    aliases: [burnplayer, b]
     usage: /<command> [player]
-  freeze:
-    description: "Freezes the specified player."
+    permission: essentialserver.burn
+  smite:
+    description: "Strikes you or the specified player with a glistening beam of lightning!"
+    aliases: [thor, lightning]
     usage: /<command> [player]
+    permission: essentialserver.smite
+  spawn:
+    description: "Teleports the player to the spawnpoint."
+    usage: /<command> [player]
+    permission: essentialserver.spawn
   vanish:
     description: "Become invisible!"
     usage: /<command> [player]
@@ -54,6 +54,7 @@ permissions:
     description: "Give access to all Essential Server commands"
     children:
       essentialserver.eshelp: true
+      essentialserver.smite: true
       essentialserver.kill: true
       essentialserver.kill.others: true
       essentialserver.heal: true
@@ -68,6 +69,8 @@ permissions:
       essentialserver.fly.others: true
       essentialserver.esreload: true
       essentialserver.tp: true
+      essentialserver.burn: true
+      essentialserver.spawn: true
       essentialserver.vanish: true
       essentialserver.vanish.others: true
   essentialserver.eshelp:
@@ -137,3 +140,23 @@ permissions:
     default: op
   essentialserver.invsee.interact:
     description: "Allows you to interact with other players inventories!"
+  essentialserver.spawn:
+    description: "Allows you to visit the spawn point."
+    essentialserver.spawn.others:
+      description: "Allows you to make others teleport to the spawn point."
+      default: op
+      children:
+        essentialserver.spawn: true
+    essentialserver.spawn.setspawn:
+      description: "Allows you to set the spawn point!"
+      default: op
+      children:
+        essentialserver.spawn: true
+        essentialserver.spawn.setspawn: true
+  essentialserver.smite:
+    description: "Allows you to smite yourself!"
+  essentialserver.smite.others:
+    description: "Allows you to smite others!"
+    default: op
+    children:
+      essentialserver.smite: true

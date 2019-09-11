@@ -39,11 +39,9 @@ public class God implements CommandExecutor {
                 godCheck(target);
                 if(enableMsg) {
                     if (god_players.contains(target)) {
-                        assert godOtherMsg != null;
                         msg(sender, format(godOtherMsg.replace("%player%", target.getDisplayName())));
                     }
                     else if (!god_players.contains(target)) {
-                        assert godOtherOffMsg != null;
                         msg(sender, format(godOtherOffMsg.replace("%player%", target.getDisplayName())));
                     }
                 }
@@ -68,14 +66,14 @@ public class God implements CommandExecutor {
                 player.setInvulnerable(false);
                 if (enableMsg) {
                     assert godOffMsg != null;
-                    player.sendMessage(format(godOffMsg.replace("%player%", player.getDisplayName())));
+                    msg(player, format(godOffMsg.replace("%player%", player.getDisplayName())));
                 }
             } else if (!god_players.contains(player)) {
                 god_players.add(player);
                 player.setInvulnerable(true);
                 if (enableMsg) {
                     assert godMsg != null;
-                    player.sendMessage(format(godMsg.replace("%player%", player.getDisplayName())));
+                    msg(player, format(godMsg.replace("%player%", player.getDisplayName())));
                     }
                 }
             }

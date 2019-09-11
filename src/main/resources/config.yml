@@ -1,6 +1,20 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+# These handle the global messages for the server #
+# # # # # # # # # # # # # # # # # # # # # # # # # #
 join-message: "&bWelcome, &6%player%&b, to the server!"
 leave-message: "&aAdios, &c%player%&a, see you soon!"
 permission-message: "&cYou do not have permission to use this command!"
+
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+#            Spawn Handler/Settings               #
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                      Command's                    #
+#   change 'message-enable' to false , to disable   #
+#      the messages for the specified command       #
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
 feed:
   amount: 20
   message: "&bYou have been &a&lfed&r&b!"
@@ -15,6 +29,17 @@ teleport:
   amount:
   message: "&cInsert messaged"
   others-message: "tp to other"
+  message-enable: true
+burn:
+  burn-time: 5
+  message: "&cYou have been &4&lset on fire&r&c!"
+  others-message: "&cYou have set &4&l&6&l%player%&r&c on fire!"
+  self-message: "&cYou have set &4&lYourself??&r&c on fire!"
+  message-enable: true
+smite:
+  message: "&6You have been &e&lSTRUCK&r &6with &e&nlightning&r&6!"
+  others-message: "&6You have struck &e&l%player%&r&6 with lightning!"
+  self-message: "&6You have struck &e&lYourself??&r&6 with lightning!"
   message-enable: true
 kill:
   message: "&cYou have been &4&lkilled&r&c!"

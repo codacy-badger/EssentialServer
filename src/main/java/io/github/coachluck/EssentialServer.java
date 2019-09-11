@@ -47,28 +47,29 @@ public class EssentialServer extends JavaPlugin {
     }
     private void enableCommands() {
         this.getCommand("InvSee").setExecutor(new InvSee(this));
+        this.getCommand("Spawn").setExecutor(new Spawn(this));
+        this.getCommand("Smite").setExecutor(new Smite(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
-        this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Feed").setExecutor(new Feed(this));
         this.getCommand("Heal").setExecutor(new Heal(this));
         this.getCommand("God").setExecutor((new God(this)));
         this.getCommand("Kill").setExecutor(new Kill(this));
         this.getCommand("Clear").setExecutor(new Clear(this));
+        this.getCommand("Burn").setExecutor(new Burn(this));
       //  this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         getLogger().info("Commands enabled successfully!");
     }
     private void enableCommandP() {
         this.getServer().getPluginCommand("Clear").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("esReload").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("Smite").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Fly").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("God").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Kill").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Heal").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Vanish").setPermissionMessage(format(pMsg));
-
+        this.getServer().getPluginCommand("Burn").setPermissionMessage(format(pMsg));
     }
 }
