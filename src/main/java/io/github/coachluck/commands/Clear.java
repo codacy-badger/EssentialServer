@@ -21,8 +21,8 @@ public class Clear implements CommandExecutor {
         String clearOtherMsg = plugin.getConfig().getString("clear.others-message");
         boolean enableMsg = plugin.getConfig().getBoolean("clear.message-enable");
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.clear")) {
+        if (args.length == 0 && sender.hasPermission("essentialserver.clear")) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 player.getInventory().clear();
                 if (enableMsg) {

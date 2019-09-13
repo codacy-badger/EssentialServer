@@ -53,21 +53,18 @@ public class Fly implements CommandExecutor {
     private void flightCheck(Player player) {
         String flyMsg = plugin.getConfig().getString("fly.on-message");
         String flyOffMsg = plugin.getConfig().getString("fly.off-message");
-        boolean enableMsg = plugin.getConfig().getBoolean("fly.message-enable"); {
-            if (player.hasPermission("essentialserver.fly")) {
-                if (flying_players.contains(player)) {
-                    flying_players.remove(player);
-                    player.setAllowFlight(false);
-                    if (enableMsg) {
-                        msg(player, format(flyOffMsg.replace("%player%", player.getDisplayName())));
-                    }
-                } else if (!flying_players.contains(player)) {
-                    flying_players.add(player);
-                    player.setAllowFlight(true);
-                    if (enableMsg) {
-                        msg(player, format(flyMsg.replace("%player%", player.getDisplayName())));
-                    }
-                }
+        boolean enableMsg = plugin.getConfig().getBoolean("fly.message-enable");
+        if (flying_players.contains(player)) {
+            flying_players.remove(player);
+            player.setAllowFlight(false);
+            if (enableMsg) {
+                msg(player, format(flyOffMsg.replace("%player%", player.getDisplayName())));
+            }
+        } else if (!flying_players.contains(player)) {
+            flying_players.add(player);
+            player.setAllowFlight(true);
+            if (enableMsg) {
+                msg(player, format(flyMsg.replace("%player%", player.getDisplayName())));
             }
         }
     }

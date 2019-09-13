@@ -24,8 +24,8 @@ public class God implements CommandExecutor {
         boolean enableMsg = plugin.getConfig().getBoolean("god.message-enable");
 
         // /god
-        if(args.length == 0) {
-            if(sender instanceof Player && sender.hasPermission("essentialserver.god")) {
+        if(args.length == 0 && sender.hasPermission("essentialserver.god")) {
+            if(sender instanceof Player) {
                 godCheck((Player) sender);
             } else {
                 msg(sender, format("&cYou must be a player to execute this command!"));
@@ -60,22 +60,18 @@ public class God implements CommandExecutor {
     private void godCheck(Player player) {
         String godMsg = plugin.getConfig().getString("god.on-message");
         String godOffMsg = plugin.getConfig().getString("god.off-message");
-        boolean enableMsg = plugin.getConfig().getBoolean("god.message-enable");{ if (player.hasPermission("essentialserver.god")) {
-            if (god_players.contains(player)) {
-                god_players.remove(player);
-                player.setInvulnerable(false);
-                if (enableMsg) {
-                    assert godOffMsg != null;
-                    msg(player, format(godOffMsg.replace("%player%", player.getDisplayName())));
-                }
-            } else if (!god_players.contains(player)) {
-                god_players.add(player);
-                player.setInvulnerable(true);
-                if (enableMsg) {
-                    assert godMsg != null;
-                    msg(player, format(godMsg.replace("%player%", player.getDisplayName())));
-                    }
-                }
+        boolean enableMsg = plugin.getConfig().getBoolean("god.message-enable");
+        if (god_players.contains(player)) {
+            god_players.remove(player);
+            player.setInvulnerable(false);
+            if (enableMsg) {
+                msg(player, format(godOffMsg.replace("%player%", player.getDisplayName())));
+            }
+        } else if (!god_players.contains(player)) {
+            god_players.add(player);
+            player.setInvulnerable(true);
+            if (enableMsg) {
+                msg(player, format(godMsg.replace("%player%", player.getDisplayName())));
             }
         }
     }

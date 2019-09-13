@@ -66,10 +66,10 @@ public class Spawn implements CommandExecutor {
                     }
                 }
                 else {
-                    if(args.length == 0) {
+                    if(args.length == 0  && sender.hasPermission("essentialserver.spawn.others")) {
                         msg(sender, logFormat("&cInccorect usage, try &a/spawn [&bplayer&a]"));
                     }
-                    else if(args.length == 1) {
+                    else if(args.length == 1 && sender.hasPermission("essentialserver.spawn.others")) {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         if(target != null) {
                             target.teleport(spawn_loc);
@@ -86,8 +86,6 @@ public class Spawn implements CommandExecutor {
                 msg(sender, "&cPlease do &b/setspawn &cbefore you try and spawn! Tell an ADMIN!!");
             }
         }
-
-
         return true;
     }
 }

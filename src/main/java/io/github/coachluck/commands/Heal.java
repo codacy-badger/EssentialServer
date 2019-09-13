@@ -22,8 +22,8 @@ public class Heal implements CommandExecutor {
         String healOtherMsg = plugin.getConfig().getString("heal.other-message");
         boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.heal")) {
+        if (args.length == 0 && sender.hasPermission("essentialserver.heal")) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) {
                     msg(player, format(healMsg));

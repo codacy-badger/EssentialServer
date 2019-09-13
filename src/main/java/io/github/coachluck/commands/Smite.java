@@ -24,8 +24,8 @@ public class Smite implements CommandExecutor {
         String selfMsg = plugin.getConfig().getString("smite.self-message");
         boolean enableMsg = plugin.getConfig().getBoolean("smite.message-enable");
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.smite")) {
+        if (args.length == 0 && sender.hasPermission("essentialserver.smite")) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 Location pLoc = player.getLocation();
                 player.getWorld().strikeLightning(pLoc);

@@ -33,7 +33,7 @@ public class gameMode implements CommandExecutor {
             else if (args.length == 1) {
                 changeGM(args[0], p, sender);
             }
-            else if (args.length == 2) {
+            else if (args.length == 2 && sender.hasPermission("essentialserver.gamemode.others")) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
@@ -52,7 +52,7 @@ public class gameMode implements CommandExecutor {
             if(args.length != 2) {
                 badUse(sender);
             }
-            else if (args.length == 2) {
+            else {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);

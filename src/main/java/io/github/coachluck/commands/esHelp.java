@@ -14,31 +14,35 @@ public class esHelp implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private final int PAGE_LENGTH = 5;
+    private final int PAGE_LENGTH = 6;
     private int pages = 3;
 
     private String[] commands = {
 
-            "&a/&cesHelp <&b#&c>&7: &aGet help about commands. &c<>&a is optional.",
-            "&a/&csetSpawn&7: &aSets the spawn for the server.",
-            "&a/&cSpawn <&bP&c>&7: &aTeleports you or the player to spawn.",
-            "&a/&cClear <&bP&c>&7: &aClears you or the players inventory.",
-            "           &a<&c/ci&a, /clearinv&a, /clearinventory&a>",
-            "&a/&cFeed <&bP&c>&7: &aRestores your or the players hunger.",
-            "&a/&cHeal <&bP&c>&7: &aHeal yourself or the player.",
-            "&a/&cGod <&bP&c>&7: &aMakes your completely invincible.",
-            "&a/&cKill <&bP&c>&7: &aKill yourself or the player.",
-            "&a/&cSmite <&bP&c>&7: &aThor is watching... <&c/thor&a,&c /lightning&a>.",
-            "&a/&cBurn <&bP&c>&7: &aBurn yourself or the specified player.",
-            "&a/&cFly <&bP&c>&7: &aMakes you or the named player take flight!",
-            "&a/&cVanish <&bP&c>&7: &aMakes you or the named player disappear!",
+            "&b/&cesHelp [&b#&c]&7: Get help about commands. &c[]&7 is &boptional&7.",
+            "&b/&csetSpawn&7: Sets the spawn for the server.",
+            "&b/&cSpawn [&bP&c]&7: Teleports you or the player to spawn.",
+            "&b/&cClear [&bP&c]&7: Clears you or the players inventory.",
+            "          &b[ &c/ci&b, &c/clearinv&b, &c/clearinventory &b]",
+            "&b/&cFeed [&bP&c]&7: Restores your or the players hunger.",
+            "&b/&cHeal [&bP&c]&7: Heal yourself or the player specified.",
+            "&b/&cGod [&bP&c]&7: Makes you or the player completely invincible.",
+            "&b/&cKill [&bP&c]&7: Kill yourself or the player specified.",
+            "&b/&cGameMode <&bmode&c> [&bP&c]&7: Changes your gamemode!",
+            "                 &b[ &c/gm <mode> [player] &b]",
+            "&b/&cSmite [&bP&c]&7: Thor is watching... [ &c/thor&b,&c /lightning &b].",
+            "&b/&cBurn [&bP&c]&7: Burn yourself or the specified player.",
+            "&b/&cTeleport <&bP&c> [&bP&c]&7: Teleports you or the specified players.",
+            "&b/&cInvSee [&bP&c]&7: Let's you look inside of a players inventory.",
+            "&b/&cFly [&bP&c]&7: Makes you or the named player take flight!",
+            "&b/&cVanish [&bP&c]&7: Makes you or the named player disappear!",
     };
 
     public void sendHelp(CommandSender sender, int page) {
 
         ArrayList<String> message = new ArrayList<>();
         message.add("");
-        message.add(format(" &9-===============- &6&lHelp &r&7(&6&l" + (page+1) + "&r&7/&6&l" + pages + "&r&7) &9-===============- "));
+        message.add(format(" &9-=================- &6&lHelp &r&7(&6&l" + (page+1) + "&r&7/&6&l" + pages + "&r&7) &9-=================- "));
 
         int start = page * PAGE_LENGTH;
         int end = start + PAGE_LENGTH;
@@ -50,7 +54,7 @@ public class esHelp implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-        if (cmd.getName().equalsIgnoreCase("eshelp")) {
+        if (cmd.getName().equalsIgnoreCase("eshelp") && sender.hasPermission("essentialserver.esHelp")) {
 
             int i = 0;
             if (args.length != 0) {

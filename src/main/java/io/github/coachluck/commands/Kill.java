@@ -23,8 +23,8 @@ public class Kill implements CommandExecutor {
         String suicideMsg = plugin.getConfig().getString("kill.suicide-message");
         boolean enableMsg = plugin.getConfig().getBoolean("kill.message-enable");
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.kill")) {
+        if (args.length == 0 && sender.hasPermission("essentialserver.kill")) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) {
                     msg(player, format(suicideMsg));

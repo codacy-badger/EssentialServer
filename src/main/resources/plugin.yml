@@ -68,8 +68,10 @@ permissions:
     description: "Give access to all Essential Server commands"
     children:
       essentialserver.gamemode: true
+      essentialserver.gamemode.others: true
       essentialserver.help: true
       essentialserver.smite: true
+      essentialserver.smite.others: true
       essentialserver.kill: true
       essentialserver.kill.others: true
       essentialserver.heal: true
@@ -82,7 +84,6 @@ permissions:
       essentialserver.clear.others: true
       essentialserver.fly: true
       essentialserver.fly.others: true
-      essentialserver.esreload: true
       essentialserver.tp: true
       essentialserver.burn: true
       essentialserver.burn.others: true
@@ -96,6 +97,7 @@ permissions:
     default: op
   essentialserver.kill:
     description: "Allows you to kill yourself!"
+    default: op
   essentialserver.kill.others:
     description: "Allows you to kill others!"
     default: op
@@ -103,6 +105,7 @@ permissions:
       essentialserver.kill: true
   essentialserver.heal:
     description: "Allows you to heal yourself."
+    defualt: op
   essentialserver.heal.others:
     description: "Allows you to heal others!"
     default: op
@@ -110,6 +113,7 @@ permissions:
       essentialserver.heal: true
   essentialserver.feed:
     description: "Allows you to feed yourself."
+    defualt: op
   essentialserver.feed.others:
     description: "Allows you to feed others!"
     default: op
@@ -117,6 +121,7 @@ permissions:
       essentialserver.feed: true
   essentialserver.god:
     description: "Allows you to become invincible."
+    defualt: op
     essentialserver.god.others:
       description: "Allows you to make others invincible!"
       default: op
@@ -124,6 +129,7 @@ permissions:
         essentialserver.god: true
   essentialserver.clear:
     description: "Allows you to clear your inventory."
+    defualt: op
   essentialserver.clear.others:
     description: "Allows you to clear the inventory of other players!"
     default: op
@@ -138,6 +144,7 @@ permissions:
       essentialserver.fly: true
   essentialserver.vanish:
     description: "Become completley invisible!"
+    defualt: op
   essentialserver.vanish.others:
     description: "Make others become invisible!"
     default: op
@@ -145,6 +152,7 @@ permissions:
       essentialserver.vanish: true
   essentialserver.tp:
     description: "Teleports you to the specified player"
+    defualt: op
   essentialserver.tp.others:
     description: "Teleports the first player specified to the second player specified"
     default: op
@@ -157,6 +165,7 @@ permissions:
     description: "Allows you to interact with other players inventories!"
   essentialserver.spawn:
     description: "Allows you to visit the spawn point."
+    defualt: op
   essentialserver.spawn.others:
     description: "Allows you to make others teleport to the spawn point."
     default: op
@@ -167,6 +176,7 @@ permissions:
     default: op
   essentialserver.smite:
     description: "Allows you to smite yourself!"
+    default: op
   essentialserver.smite.others:
     description: "Allows you to smite others!"
     default: op

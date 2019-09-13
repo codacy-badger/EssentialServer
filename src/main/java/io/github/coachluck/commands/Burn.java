@@ -26,8 +26,8 @@ public class Burn implements CommandExecutor {
         double BURN_TICKS = 20;
         int BURN = BURN_SECONDS * (int) BURN_TICKS;
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.burn")) {
+        if (args.length == 0  && sender.hasPermission("essentialserver.burn")) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) {
                     msg(player, format(selfMsg));

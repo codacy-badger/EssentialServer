@@ -30,8 +30,8 @@ public class Vanish implements CommandExecutor {
         boolean enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
 
         // /vanish
-        if(args.length == 0) {
-            if(sender instanceof Player && sender.hasPermission("essentialserver.vanish")) {
+        if(args.length == 0 && sender.hasPermission("essentialserver.vanish")) {
+            if(sender instanceof Player) {
                 vanishCheck((Player) sender);
             } else {
                 msg(sender, format("&cYou must be a player to execute this command!"));
