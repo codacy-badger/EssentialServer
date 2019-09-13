@@ -14,8 +14,8 @@ public class esHelp implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private final int PAGE_LENGTH = 6;
-    private int pages = 2;
+    private final int PAGE_LENGTH = 5;
+    private int pages = 3;
 
     private String[] commands = {
 

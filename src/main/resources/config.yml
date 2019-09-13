@@ -24,6 +24,10 @@ spawn:
 #   change 'message-enable' to false , to disable   #
 #      the messages for the specified command       #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
+gamemode:
+  message: "&7Gamemode has been switched to &b%mode%&7."
+  message-others: "&7You have changed the game mode of &b%player%&7."
+  enable-message: true
 feed:
   amount: 20
   message: "&bYou have been &a&lfed&r&b!"

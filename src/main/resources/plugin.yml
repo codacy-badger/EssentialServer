@@ -58,10 +58,16 @@ commands:
     description: "Shows the basic information of EssentialServer"
     usage: /<command>
     permission: essentialserver.help
+  gamemode:
+    description: "Changes your fucking gamemode"
+    usage: /<command> <mode> [player]
+    permission: essentialserver.gamemode
+    aliases: [gm]
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
     children:
+      essentialserver.gamemode: true
       essentialserver.help: true
       essentialserver.smite: true
       essentialserver.kill: true
@@ -166,3 +172,8 @@ permissions:
     default: op
     children:
       essentialserver.smite: true
+  essentialserver.gamemode:
+    description: "Allows you to change your gamemode!"
+    default: op
+    children:
+      essentialserver.gamemode.others: true

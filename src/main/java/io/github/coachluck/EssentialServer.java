@@ -57,6 +57,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Kill").setExecutor(new Kill(this));
         this.getCommand("Clear").setExecutor(new Clear(this));
         this.getCommand("Burn").setExecutor(new Burn(this));
+        this.getCommand("gameMode").setExecutor(new gameMode(this));
         //this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
@@ -71,6 +72,7 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Kill").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Heal").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("gameMode").setPermissionMessage(format(pMsg));
         //this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Vanish").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Burn").setPermissionMessage(format(pMsg));
