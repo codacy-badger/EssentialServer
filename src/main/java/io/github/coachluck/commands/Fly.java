@@ -24,15 +24,15 @@ public class Fly implements CommandExecutor {
         String flyOtherOffMsg = plugin.getConfig().getString("fly.other-off-message");
         boolean enableMsg = plugin.getConfig().getBoolean("fly.message-enable");
 
-        if (args.length == 0) {
-            if (sender instanceof Player && sender.hasPermission("essentialserver.fly")) {
+        if (args.length == 0 && sender.hasPermission("essentialserver.fly")) {
+            if (sender instanceof Player) {
                 flightCheck((Player) sender);
             } else {
                 msg(sender, format("&cYou must be a player to execute this command!"));
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.fly.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try {
                 flightCheck(target);
                 if (enableMsg) {
                     if (flying_players.contains(target)) {
@@ -41,7 +41,7 @@ public class Fly implements CommandExecutor {
                         msg(sender, format(flyOtherOffMsg.replace("%player%", target.getDisplayName())));
                     }
                 }
-            } else {
+            } catch (NullPointerException e) {
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         } else if (args.length > 1) {

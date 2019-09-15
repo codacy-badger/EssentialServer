@@ -46,7 +46,6 @@ public class EssentialServer extends JavaPlugin {
         saveDefaultConfig();
     }
     private void enableCommands() {
-        //this.getCommand("InvSee").setExecutor(new InvSee(this));
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("Smite").setExecutor(new Smite(this));
@@ -58,7 +57,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Clear").setExecutor(new Clear(this));
         this.getCommand("Burn").setExecutor(new Burn(this));
         this.getCommand("gameMode").setExecutor(new gameMode(this));
-        //this.getCommand("Teleport").setExecutor(new Teleport(this));
+        this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
         getLogger().info("Commands enabled successfully!");
@@ -73,7 +72,7 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Heal").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("gameMode").setPermissionMessage(format(pMsg));
-        //this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("Teleport").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Vanish").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Burn").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Spawn").setPermissionMessage(format(pMsg));

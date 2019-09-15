@@ -28,10 +28,11 @@ commands:
     description: "Makes you take flight."
     usage: /<command> [player]
     permission: essentialserver.fly
-  invsee:
-    description: "Opens the specified players inventory."
-    usage: /<command> [player]
-    permission: essentialserver.invsee
+  teleport:
+    description: "Teleports you to the specified player, or teleports the first player to the second."
+    usage: /command [player] <player>
+    aliases: [tp, teleportto]
+    permission: essentialserver.teleport
   burn:
     description: "Burns you or the specified player!"
     aliases: [burnplayer, b]
@@ -84,13 +85,14 @@ permissions:
       essentialserver.clear.others: true
       essentialserver.fly: true
       essentialserver.fly.others: true
-      essentialserver.tp: true
       essentialserver.burn: true
       essentialserver.burn.others: true
       essentialserver.spawn: true
       essentialserver.spawn.others: true
       essentialserver.vanish: true
       essentialserver.vanish.others: true
+      essentialserver.tp: true
+      essentialserver.tp.others: true
 
   essentialserver.help:
     description: "Displays plugin information."
@@ -158,11 +160,6 @@ permissions:
     default: op
     children:
       essentialserver.tp: true
-  essentialserver.invsee:
-    description: "Allows you to take a peak into other players inventories!"
-    default: op
-  essentialserver.invsee.interact:
-    description: "Allows you to interact with other players inventories!"
   essentialserver.spawn:
     description: "Allows you to visit the spawn point."
     defualt: op
@@ -185,5 +182,16 @@ permissions:
   essentialserver.gamemode:
     description: "Allows you to change your gamemode!"
     default: op
+  essentialserver.gamemode.others:
+    description: "Allows you to change another players gamemode!"
+    default: op
     children:
-      essentialserver.gamemode.others: true
+      essentialserver.gamemode: true
+  essentialserver.teleport:
+    description:  "Allows you to teleport to another player"
+    default: op
+  essentialserver.teleport.others:
+    description: "Allows you to teleport two players together"
+    default: op
+    children:
+      essentialserver.teleport: true

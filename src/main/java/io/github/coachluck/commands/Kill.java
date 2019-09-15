@@ -1,11 +1,14 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 
 import static io.github.coachluck.utils.ChatUtils.*;
 
@@ -35,13 +38,25 @@ public class Kill implements CommandExecutor {
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.kill.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try {
                 target.setHealth(0);
                 if (enableMsg) {
-                    msg(target, format(killMsg));
-                    msg(sender, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                    if(sender instanceof ConsoleCommandSender) {
+                        msg(target, format(killMsg));
+                        msg(sender, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                    }
+                    if(sender instanceof Player) {
+                        Player p = (Player) sender;
+                        if(!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
+                            msg(target, format(killMsg));
+                            msg(p, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                        } else {
+                            msg(p, format(suicideMsg));
+                        }
+                    }
                 }
-            } else {
+            }
+            catch (NullPointerException e){
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         } else if (args.length > 1) {

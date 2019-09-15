@@ -40,8 +40,8 @@ heal:
   message-enable: true
 teleport:
   amount:
-  message: "&cInsert messaged"
-  others-message: "tp to other"
+  message: "&7You have &6teleported &7to &b%player%&7!"
+  others-message: "&7You have teleported &b%player1% &7to &b%player2%&7!"
   message-enable: true
 burn:
   burn-time: 5
@@ -81,6 +81,3 @@ vanish:
   other-on-message: "&bVanish has been &a&lenabled&r&b for &6&l%player%&r&b!"
   other-off-message: "&bVanish has been &c&ldisabled&r&b for &6&l%player%&r&b!"
   message-enable: true
-invsee:
-  open-message: "&bYou have &a&lopened&r&b the inventory of &6&l%player%&r&b!"
-  close-message: "&bYou have &a&lclosed&r&b the inventory of &6&l%player%&r&b"

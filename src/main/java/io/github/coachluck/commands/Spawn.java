@@ -71,12 +71,12 @@ public class Spawn implements CommandExecutor {
                     }
                     else if(args.length == 1 && sender.hasPermission("essentialserver.spawn.others")) {
                         Player target = Bukkit.getPlayerExact(args[0]);
-                        if(target != null) {
+                        try {
                             target.teleport(spawn_loc);
                             if (enableMessage) {
                                 msg(target, logFormat(spawnMsg));
                             }
-                        } else {
+                        } catch (NullPointerException e) {
                             msg(sender, "&cSpecified player could not be found");
                         }
                     }

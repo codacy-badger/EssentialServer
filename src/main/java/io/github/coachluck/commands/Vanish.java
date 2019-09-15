@@ -25,8 +25,8 @@ public class Vanish implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        String vanishOtherMsg = plugin.getConfig().getString("vanish.others-on-message");
-        String vanishOtherOffMsg = plugin.getConfig().getString("vanish.others-off-message");
+        String vanishOtherMsg = plugin.getConfig().getString("vanish.other-on-message");
+        String vanishOtherOffMsg = plugin.getConfig().getString("vanish.other-off-message");
         boolean enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
 
         // /vanish
@@ -41,17 +41,17 @@ public class Vanish implements CommandExecutor {
         // /vanish <player>
         else if (args.length == 1 && sender.hasPermission("essentialserver.vanish.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try {
                 vanishCheck(target);
                 if(enableMsg) {
                     if (vanish_players.contains(target)) {
-                        msg(sender, format(vanishOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(sender, format(vanishOtherMsg.replaceAll("%player%", target.getDisplayName())));
                     }
                     else if (!vanish_players.contains(target)) {
-                        msg(sender, format(vanishOtherOffMsg.replace("%player%", target.getDisplayName())));
+                        msg(sender, format(vanishOtherOffMsg.replaceAll("%player%", target.getDisplayName())));
                     }
                 }
-            } else {
+            } catch (NullPointerException e) {
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         }

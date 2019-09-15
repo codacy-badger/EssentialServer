@@ -38,13 +38,13 @@ public class Burn implements CommandExecutor {
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.burn.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try{
                 target.setFireTicks(BURN);
                 if (enableMsg) {
                     msg(target, format(burnMsg));
                     msg(sender, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
                 }
-            } else {
+            }catch (NullPointerException e){
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         } else if (args.length > 1) {

@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
@@ -32,13 +33,23 @@ public class Feed implements CommandExecutor {
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.feed.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+           try {
                 target.setFoodLevel(20);
                 if (enableMsg) {
-                    msg(target, format(feedMsg));
-                    msg(sender, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                    if(sender instanceof Player) {
+                        Player p = (Player) sender;
+                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
+                            msg(target, format(feedMsg));
+                            msg(p, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                        } else {
+                            msg(p, format(feedMsg));
+                        }
+                    } else if (sender instanceof ConsoleCommandSender) {
+                        msg(target, format(feedMsg));
+                        msg(sender, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                    }
                 }
-            } else {
+            } catch (NullPointerException e) {
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         } else if (args.length > 1) {

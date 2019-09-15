@@ -35,17 +35,18 @@ public class God implements CommandExecutor {
         // /god <player>
         else if (args.length == 1 && sender.hasPermission("essentialserver.god.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try {
                 godCheck(target);
                 if(enableMsg) {
                     if (god_players.contains(target)) {
+
                         msg(sender, format(godOtherMsg.replace("%player%", target.getDisplayName())));
                     }
                     else if (!god_players.contains(target)) {
                         msg(sender, format(godOtherOffMsg.replace("%player%", target.getDisplayName())));
                     }
                 }
-            } else {
+            } catch (NullPointerException e) {
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         }

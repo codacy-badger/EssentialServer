@@ -30,7 +30,7 @@ public class esHelp implements CommandExecutor {
             "&b/&cKill [&bP&c]&7: Kill yourself or the player specified.",
             "&b/&cGameMode <&bmode&c> [&bP&c]&7: Changes your gamemode!",
             "                 &b[ &c/gm <mode> [player] &b]",
-            "&b/&cSmite [&bP&c]&7: Thor is watching... [ &c/thor&b,&c /lightning &b].",
+            "&b/&cSmite [&bP&c]&7: Thor is watching... &b[ &c/thor&b,&c /lightning &b].",
             "&b/&cBurn [&bP&c]&7: Burn yourself or the specified player.",
             "&b/&cTeleport <&bP&c> [&bP&c]&7: Teleports you or the specified players.",
             "&b/&cInvSee [&bP&c]&7: Let's you look inside of a players inventory.",

@@ -1,10 +1,12 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 
@@ -36,15 +38,25 @@ public class Heal implements CommandExecutor {
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
-            if (target != null) {
+            try {
                 target.setHealth(20);
                 target.setFoodLevel(20);
                 target.setFireTicks(0);
                 if (enableMsg) {
-                    msg(target, format(healMsg));
-                    msg(sender, format(healOtherMsg.replace("%player%", target.getDisplayName())));
+                    if(sender instanceof Player) {
+                        Player p = (Player) sender;
+                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
+                            msg(target, format(healMsg));
+                            msg(p, format(healOtherMsg.replace("%player%", target.getDisplayName())));
+                        } else {
+                            msg(p, format(healMsg));
+                        }
+                    } else if (sender instanceof ConsoleCommandSender) {
+                        msg(target, format(healMsg));
+                        msg(sender, format(healOtherMsg.replace("%player%", target.getDisplayName())));
+                    }
                 }
-            } else {
+            } catch (NullPointerException e) {
                 msg(sender, format("&cThe specified player could not be found!"));
             }
         } else if (args.length > 1) {
