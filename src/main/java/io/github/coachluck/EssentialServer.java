@@ -26,20 +26,16 @@ public class EssentialServer extends JavaPlugin {
         //Enables Command Classes
         enableCommands();
         enableCommandP();
-
-        getLogger().info("Plugin enabled successfully!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("Plugin disabled");
         saveDefaultConfig();
     }
 
     private void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerJoinLeave(this), this);
-        getLogger().info("Event Listeners enabled successfully!");
     }
     private void enableConfig() {
         getConfig().options().copyDefaults(true);
@@ -60,7 +56,6 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
-        getLogger().info("Commands enabled successfully!");
     }
     private void enableCommandP() {
         this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));

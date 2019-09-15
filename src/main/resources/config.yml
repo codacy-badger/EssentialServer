@@ -1,83 +1,70 @@
-# # # # # # # # # # # # # # # # # # # # # # # # # #
-# These handle the global messages for the server #
-# # # # # # # # # # # # # # # # # # # # # # # # # #
-join-message: "&bWelcome, &6%player%&b, to the server!"
-leave-message: "&aAdios, &c%player%&a, see you soon!"
-permission-message: "&cYou do not have permission to use this command!"
-
-# # # # # # # # # # # # # # # # # # # # # # # # # #
-#            Spawn Handler/Settings               #
-#             DO /SETSPAWN INGAME                 #
-# # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+join-message: '&bWelcome, &6%player%&b, to the server!'
+leave-message: '&aAdios, &c%player%&a, see you soon!'
+permission-message: '&cYou do not have permission to use this command!'
 spawn:
-  world:
-  x:
-  y:
-  z:
-  yaw:
-  pitch:
-  spawn-message: "&eWhoosh... &6You have respawned!"
+  world: null
+  x: null
+  y: null
+  z: null
+  yaw: null
+  pitch: null
+  spawn-message: '&eWhoosh... &6You have respawned!'
   enable-message: true
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # #
-#                      Command's                    #
-#   change 'message-enable' to false , to disable   #
-#      the messages for the specified command       #
-# # # # # # # # # # # # # # # # # # # # # # # # # # #
 gamemode:
-  message: "&7Gamemode has been switched to &b%mode%&7."
-  message-others: "&7You have changed the game mode of &b%player%&7."
+  message: '&7Gamemode has been switched to &b%mode%&7.'
+  message-others: '&7You have changed the game mode of &b%player%&7.'
   enable-message: true
 feed:
   amount: 20
-  message: "&bYou have been &a&lfed&r&b!"
-  other-message: "&bYou have &a&lfed &6&l%player%&r&b!"
+  message: '&bYou have been &a&lfed&r&b!'
+  other-message: '&bYou have &a&lfed &6&l%player%&r&b!'
   message-enable: true
 heal:
   amount: 0
-  message: "&bYou have been &a&lhealed&r&b!"
-  other-message: "&bYou have healed &6&l%player%&r&b!"
+  message: '&bYou have been &a&lhealed&r&b!'
+  other-message: '&bYou have healed &6&l%player%&r&b!'
   message-enable: true
 teleport:
-  amount:
-  message: "&7You have &6teleported &7to &b%player%&7!"
-  others-message: "&7You have teleported &b%player1% &7to &b%player2%&7!"
+  amount: null
+  message: '&7You have &6teleported &7to &b%player%&7!'
+  others-message: '&7You have teleported &b%player1% &7to &b%player2%&7!'
   message-enable: true
 burn:
   burn-time: 5
-  message: "&cYou have been &4&lset on fire&r&c!"
-  others-message: "&cYou have set &4&l&6&l%player%&r&c on fire!"
-  self-message: "&cYou have set &4&lYourself??&r&c on fire!"
+  message: '&cYou have been &4&lset on fire&r&c!'
+  others-message: '&cYou have set &4&l&6&l%player%&r&c on fire!'
+  self-message: '&cYou have set &4&lYourself??&r&c on fire!'
   message-enable: true
 smite:
-  message: "&6You have been &e&lSTRUCK&r &6with &e&nlightning&r&6!"
-  others-message: "&6You have struck &e&l%player%&r&6 with lightning!"
-  self-message: "&6You have struck &e&lYourself??&r&6 with lightning!"
+  message: '&6You have been &e&lSTRUCK&r &6with &e&nlightning&r&6!'
+  others-message: '&6You have struck &e&l%player%&r&6 with lightning!'
+  self-message: '&6You have struck &e&lYourself??&r&6 with lightning!'
   message-enable: true
 kill:
-  message: "&cYou have been &4&lkilled&r&c!"
-  others-message: "&cYou have &4&lkilled &6&l%player%&r&c!"
-  suicide-message: "&cYou have committed &4&lsuicide&r&c!"
+  message: '&cYou have been &4&lkilled&r&c!'
+  others-message: '&cYou have &4&lkilled &6&l%player%&r&c!'
+  suicide-message: '&cYou have committed &4&lsuicide&r&c!'
   message-enable: true
 clear:
-  message: "&bYour inventory has been &a&lcleared&r&b!"
-  others-message: "&bYou have &a&lcleared&r&b the inventory of &6&l%player%&r&b!"
+  message: '&bYour inventory has been &a&lcleared&r&b!'
+  others-message: '&bYou have &a&lcleared&r&b the inventory of &6&l%player%&r&b!'
   message-enable: true
 fly:
-  on-message: "&bFlight has been &a&lenabled&r&b!"
-  off-message: "&bFlight has been &c&ldisabled&r&b!"
-  other-on-message: "&bFlight has been &a&lenabled&r&b for &6&l%player%&r&b!"
-  other-off-message: "&bFlight has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  on-message: '&bFlight has been &a&lenabled&r&b!'
+  off-message: '&bFlight has been &c&ldisabled&r&b!'
+  other-on-message: '&bFlight has been &a&lenabled&r&b for &6&l%player%&r&b!'
+  other-off-message: '&bFlight has been &c&ldisabled&r&b for &6&l%player%&r&b!'
   message-enable: true
 god:
-  on-message: "&bGod mode has been &a&lenabled&r&b!"
-  off-message: "&bGod mode has been &c&ldisabled&r&b!"
-  others-on-message: "&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!"
-  others-off-message: "&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  on-message: '&bGod mode has been &a&lenabled&r&b!'
+  off-message: '&bGod mode has been &c&ldisabled&r&b!'
+  others-on-message: '&bGod mode has been &a&lenabled&r&b for &6&l%player%&r&b!'
+  others-off-message: '&bGod mode has been &c&ldisabled&r&b for &6&l%player%&r&b!'
   message-enable: true
 vanish:
-  on-message: "&bVanish has been &a&lenabled&r&b!"
-  off-message: "&bVanish has been &c&ldisabled&r&b!"
-  other-on-message: "&bVanish has been &a&lenabled&r&b for &6&l%player%&r&b!"
-  other-off-message: "&bVanish has been &c&ldisabled&r&b for &6&l%player%&r&b!"
+  on-message: '&bVanish has been &a&lenabled&r&b!'
+  off-message: '&bVanish has been &c&ldisabled&r&b!'
+  other-on-message: '&bVanish has been &a&lenabled&r&b for &6&l%player%&r&b!'
+  other-off-message: '&bVanish has been &c&ldisabled&r&b for &6&l%player%&r&b!'
   message-enable: true

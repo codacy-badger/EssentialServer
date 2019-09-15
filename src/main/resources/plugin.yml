@@ -48,7 +48,7 @@ commands:
     usage: /<command> [player]
     permission: essentialserver.spawn
   vanish:
-    description: "Become invisible!"
+    description: "Become invisible to everyone on the server!"
     usage: /<command> [player]
     permission: essentialserver.vanish
   setspawn:
@@ -56,11 +56,11 @@ commands:
     usage: /<command>
     permission: essentialserver.setspawn
   eshelp:
-    description: "Shows the basic information of EssentialServer"
+    description: "Shows the basic information of EssentialServer."
     usage: /<command>
     permission: essentialserver.help
   gamemode:
-    description: "Changes your fucking gamemode"
+    description: "Changes your or the specified players gamemode."
     usage: /<command> <mode> [player]
     permission: essentialserver.gamemode
     aliases: [gm]

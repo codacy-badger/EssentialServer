@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
@@ -41,8 +42,18 @@ public class Burn implements CommandExecutor {
             try{
                 target.setFireTicks(BURN);
                 if (enableMsg) {
-                    msg(target, format(burnMsg));
-                    msg(sender, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
+                    if(sender instanceof Player) {
+                        Player p = (Player) sender;
+                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
+                            msg(target, format(burnMsg));
+                            msg(p, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
+                        } else {
+                            msg(p, format(burnMsg));
+                        }
+                    } else if (sender instanceof ConsoleCommandSender) {
+                        msg(target, format(burnMsg));
+                        msg(sender, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
+                    }
                 }
             }catch (NullPointerException e){
                 msg(sender, format("&cThe specified player could not be found!"));
