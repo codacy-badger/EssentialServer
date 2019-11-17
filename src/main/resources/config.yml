@@ -1,7 +1,12 @@
-#
+# Player Join - Leave Messages #
+# enable-message, (True) enables command messages, (False) disable command messages
 join-message: '&bWelcome, &6%player%&b, to the server!'
 leave-message: '&aAdios, &c%player%&a, see you soon!'
 permission-message: '&cYou do not have permission to use this command!'
+
+# Spawn - Sets to specific coordinates and saves
+# Use /setspawn to set this perfectly
+# @ yaw is horizontal view, @ pitch is vertical
 spawn:
   world: null
   x: null
@@ -11,15 +16,21 @@ spawn:
   pitch: null
   spawn-message: '&eWhoosh... &6You have respawned!'
   enable-message: true
+
+# Gamemode messages
 gamemode:
   message: '&7Gamemode has been switched to &b%mode%&7.'
   message-others: '&7You have changed the game mode of &b%player%&7.'
   enable-message: true
+
+# Feed messages and amount.
+# @ amount - controls how much a player gets fed when they do /feed. 0 - 20 MAX
 feed:
   amount: 20
   message: '&bYou have been &a&lfed&r&b!'
   other-message: '&bYou have &a&lfed &6&l%player%&r&b!'
   message-enable: true
+
 heal:
   amount: 0
   message: '&bYou have been &a&lhealed&r&b!'

@@ -43,6 +43,7 @@ public class EssentialServer extends JavaPlugin {
     }
     private void enableCommands() {
         this.getCommand("esHelp").setExecutor(new esHelp(this));
+        this.getCommand("es").setExecutor(new esHelp(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("Smite").setExecutor(new Smite(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
