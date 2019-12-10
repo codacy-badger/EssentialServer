@@ -30,7 +30,7 @@ public class Clear implements CommandExecutor {
                     msg(player, format(clearMsg));
                 }
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                logMsg("&cYou must be a player to execute this command!");
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.clear.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
@@ -40,22 +40,22 @@ public class Clear implements CommandExecutor {
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(clearMsg));
-                            msg(p, format(clearOtherMsg.replace("%player%", target.getDisplayName())));
+                            msg(target, clearMsg);
+                            msg(p, clearOtherMsg.replace("%player%", target.getDisplayName()));
                         } else {
-                            msg(p, format(clearMsg));
+                            msg(p, clearMsg);
                         }
                     } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, format(clearMsg));
-                        msg(sender, format(clearOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(target, clearMsg);
+                        msg(sender, clearOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             }
             catch (NullPointerException e) {
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /clear <player> or /clear."));
+            msg(sender, "&cToo many arguments! Try /clear <player> or /clear.");
         }
         return true;
     }

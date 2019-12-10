@@ -38,10 +38,10 @@ public class gameMode implements CommandExecutor {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
                     if (enableMsg && !p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                        msg(sender, format(gOtherMsg).replaceAll("%player%", target.getDisplayName()));
+                        msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
                     }
                 } else {
-                    msg(sender, format(noPlayer));
+                    msg(sender, noPlayer);
                 }
             }
             else {
@@ -57,11 +57,11 @@ public class gameMode implements CommandExecutor {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
                     if (enableMsg) {
-                        msg(sender, format(gOtherMsg).replaceAll("%player%", target.getDisplayName()));
+                        msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
                     }
                 }
                 else {
-                    msg(sender, format(noPlayer));
+                    msg(sender, noPlayer);
                 }
             }
         }
@@ -76,19 +76,19 @@ public class gameMode implements CommandExecutor {
             if (args.equalsIgnoreCase("survival") || args.equalsIgnoreCase("0")) {
                 target.setGameMode(GameMode.SURVIVAL);
                 if (enableMsg) {
-                    msg(target, format(gMsg).replaceAll("%mode%", "Survival"));
+                    msg(target, gMsg.replaceAll("%mode%", "Survival"));
                 }
             }
             else if (args.equalsIgnoreCase("creative") || args.equalsIgnoreCase("1")) {
                 target.setGameMode(GameMode.CREATIVE);
                 if (enableMsg) {
-                    msg(target, format(gMsg).replaceAll("%mode%", "Creative"));
+                    msg(target, gMsg.replaceAll("%mode%", "Creative"));
                 }
             }
             else if (args.equalsIgnoreCase("adventure") || args.equalsIgnoreCase("2")) {
                 target.setGameMode(GameMode.ADVENTURE);
                 if (enableMsg) {
-                    msg(target, format(gMsg).replaceAll("%mode%", "Adventure"));
+                    msg(target, gMsg.replaceAll("%mode%", "Adventure"));
                 }
             } else {
                 badUse(s);
@@ -96,7 +96,7 @@ public class gameMode implements CommandExecutor {
         }
     }
     private void badUse(CommandSender s) {
-        msg(s, format("&cIncorrect usage! Try &a/gamemode [&bmode&a] <&bplayer&a>"));
+        msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a] <&bplayer&a>");
     }
 
 }

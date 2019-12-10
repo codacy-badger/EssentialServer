@@ -28,7 +28,7 @@ public class Heal implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) {
-                    msg(player, format(healMsg));
+                    msg(player, healMsg);
                 }
                 player.setHealth(20);
                 player.setFoodLevel(20);
@@ -46,21 +46,21 @@ public class Heal implements CommandExecutor {
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(healMsg));
-                            msg(p, format(healOtherMsg.replace("%player%", target.getDisplayName())));
+                            msg(target, healMsg);
+                            msg(p, healOtherMsg.replace("%player%", target.getDisplayName()));
                         } else {
-                            msg(p, format(healMsg));
+                            msg(p, healMsg);
                         }
                     } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, format(healMsg));
-                        msg(sender, format(healOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(target, healMsg);
+                        msg(sender, healOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             } catch (NullPointerException e) {
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /heal <player> or /heal."));
+            msg(sender, "&cToo many arguments! Try /heal <player> or /heal.");
         }
         return true;
     }

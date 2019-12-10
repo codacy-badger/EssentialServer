@@ -76,7 +76,7 @@ public class esHelp implements CommandExecutor {
         else if(cmd.getName().equalsIgnoreCase("es")) {
             if(sender instanceof Player) {
                 Player player = (Player) sender;
-                TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[ " + ChatColor.AQUA + "Essential Server" + ChatColor.DARK_GRAY + " ]" + ChatColor.YELLOW + " v1.1 " + ChatColor.DARK_GRAY + "by ");
+                TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "Essential Server" + ChatColor.DARK_GRAY + "] " + ChatColor.YELLOW + "v" + plugin.getDescription().getVersion() + ChatColor.DARK_GRAY + " by ");
                 TextComponent subComponent = new TextComponent("CoachL_ck");
                 subComponent.setColor(ChatColor.AQUA);
                 subComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + "Author information").create()));
@@ -85,7 +85,7 @@ public class esHelp implements CommandExecutor {
                 player.spigot().sendMessage(mainComponent);
             }
             else {
-                sender.sendMessage(format("&8[ &b Essential Server &8] &6 v1.1 &7created by &bCoachL_ck"));
+                logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &bCoachL_ck");
             }
         }
         return true;

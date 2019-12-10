@@ -1,6 +1,11 @@
 package io.github.coachluck.events;
 
 import io.github.coachluck.EssentialServer;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import static io.github.coachluck.utils.ChatUtils.format;
+import static org.bukkit.Bukkit.getPlayer;
 
 public class PlayerJoinLeave implements Listener {
     private final EssentialServer plugin;
@@ -26,10 +32,23 @@ public class PlayerJoinLeave implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         for(int i = 0; i < plugin.vanish_players.size(); i++) {
-            player.hidePlayer(plugin, plugin.vanish_players.get(i));
+            player.hidePlayer(plugin, getPlayer(plugin.vanish_players.get(i)));
         }
         for (Player player1: Bukkit.getServer().getOnlinePlayers()) {
             e.setJoinMessage(format(joinMsg.replace("%player%", player1.getDisplayName())));
+        }
+        if(plugin.updateMsg) {
+            for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if(p.isOp()) {
+                    TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[" + ChatColor.YELLOW + "Essential Server" + ChatColor.DARK_GRAY + "]" + ChatColor.RED + " is out of date! Get the new version ");
+                    TextComponent subComponent = new TextComponent("here");
+                    subComponent.setColor(ChatColor.AQUA);
+                    subComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GOLD + "Click Me!").create()));
+                    subComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/essential-server.71299/"));
+                    mainComponent.addExtra(subComponent);
+                    player.spigot().sendMessage(mainComponent);
+                }
+            }
         }
     }
 

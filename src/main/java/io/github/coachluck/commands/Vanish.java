@@ -7,10 +7,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
-import static io.github.coachluck.utils.ChatUtils.format;
-import static io.github.coachluck.utils.ChatUtils.msg;
+import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Vanish implements CommandExecutor {
 
@@ -19,8 +18,6 @@ public class Vanish implements CommandExecutor {
     public Vanish(EssentialServer plugin) {
         this.plugin = plugin;
     }
-
-    public ArrayList<Player> vanish_players = new ArrayList<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -32,23 +29,25 @@ public class Vanish implements CommandExecutor {
         // /vanish
         if(args.length == 0 && sender.hasPermission("essentialserver.vanish")) {
             if(sender instanceof Player) {
-                vanishCheck((Player) sender);
+                Player p = (Player) sender;
+                vanishCheck(p.getUniqueId());
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                logMsg("&cYou must be a player to execute this command!");
             }
         }
 
         // /vanish <player>
         else if (args.length == 1 && sender.hasPermission("essentialserver.vanish.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
+            Player tP = Bukkit.getPlayerExact(args[0]);
+            UUID target = tP.getUniqueId();
             try {
                 vanishCheck(target);
                 if(enableMsg) {
-                    if (vanish_players.contains(target)) {
-                        msg(sender, format(vanishOtherMsg.replaceAll("%player%", target.getDisplayName())));
+                    if (plugin.vanish_players.contains(target)) {
+                        msg(sender, vanishOtherMsg.replaceAll("%player%", tP.getDisplayName()));
                     }
-                    else if (!vanish_players.contains(target)) {
-                        msg(sender, format(vanishOtherOffMsg.replaceAll("%player%", target.getDisplayName())));
+                    else if (!plugin.vanish_players.contains(target)) {
+                        msg(sender, vanishOtherOffMsg.replaceAll("%player%", tP.getDisplayName()));
                     }
                 }
             } catch (NullPointerException e) {
@@ -58,32 +57,33 @@ public class Vanish implements CommandExecutor {
 
         //excess args handler
         else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /vanish <player> or /vanish."));
+            msg(sender, "&cToo many arguments! Try /vanish <player> or /vanish.");
         }
         return true;
     }
 
-    private void vanishCheck(Player player) {
+    private void vanishCheck(UUID pUUID) {
+        Player player = Bukkit.getPlayer(pUUID);
         String vanishMsg = plugin.getConfig().getString("vanish.on-message");
         String vanishOffMsg = plugin.getConfig().getString("vanish.off-message");
         boolean enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");{ if (player.hasPermission("essentialserver.vanish")) {
-            if (vanish_players.contains(player)) {
+            if (plugin.vanish_players.contains(pUUID)) {
                 for(Player people : Bukkit.getOnlinePlayers()) {
                     people.showPlayer(plugin, player);
                 }
-                vanish_players.remove(player);
+                plugin.vanish_players.remove(pUUID);
 
                 if (enableMsg) {
-                    msg(player, format(vanishOffMsg.replace("%player%", player.getDisplayName())));
+                    msg(player, vanishOffMsg.replace("%player%", player.getDisplayName()));
                 }
-            } else if (!vanish_players.contains(player)) {
+            } else if (!plugin.vanish_players.contains(pUUID)) {
                 for(Player people : Bukkit.getOnlinePlayers()) {
                     people.hidePlayer(plugin, player);
                 }
-                vanish_players.add(player);
+                plugin.vanish_players.add(pUUID);
                 player.setInvulnerable(true);
                 if (enableMsg) {
-                    msg(player, format(vanishMsg.replace("%player%", player.getDisplayName())));
+                    msg(player, vanishMsg.replace("%player%", player.getDisplayName()));
                 }
             }
         }

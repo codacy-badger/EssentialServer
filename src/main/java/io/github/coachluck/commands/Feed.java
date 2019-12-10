@@ -25,11 +25,11 @@ public class Feed implements CommandExecutor {
             if (sender instanceof Player && sender.hasPermission("essentialserver.feed")) {
                 Player player = (Player) sender;
                 if (enableMsg) {
-                    msg(player, format(feedMsg));
+                    msg(player, feedMsg);
                 }
                 player.setFoodLevel(20);
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                logMsg("&cYou must be a player to execute this command!");
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.feed.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
@@ -39,21 +39,21 @@ public class Feed implements CommandExecutor {
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(feedMsg));
-                            msg(p, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                            msg(target, feedMsg);
+                            msg(p, feedOtherMsg.replace("%player%", target.getDisplayName()));
                         } else {
-                            msg(p, format(feedMsg));
+                            msg(p, feedMsg);
                         }
                     } else if (sender instanceof ConsoleCommandSender) {
                         msg(target, format(feedMsg));
-                        msg(sender, format(feedOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(sender, feedOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             } catch (NullPointerException e) {
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /feed <player> or /feed."));
+            msg(sender, "&cToo many arguments! Try /feed <player> or /feed.");
         }
         return true;
     }

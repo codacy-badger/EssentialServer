@@ -40,20 +40,20 @@ public class God implements CommandExecutor {
                 if(enableMsg) {
                     if (god_players.contains(target)) {
 
-                        msg(sender, format(godOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(sender, godOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                     else if (!god_players.contains(target)) {
-                        msg(sender, format(godOtherOffMsg.replace("%player%", target.getDisplayName())));
+                        msg(sender, godOtherOffMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             } catch (NullPointerException e) {
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         }
 
         //excess args handler
         else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /god <player> or /god."));
+            msg(sender, "&cToo many arguments! Try /god <player> or /god.");
         }
         return true;
     }
@@ -66,13 +66,13 @@ public class God implements CommandExecutor {
             god_players.remove(player);
             player.setInvulnerable(false);
             if (enableMsg) {
-                msg(player, format(godOffMsg.replace("%player%", player.getDisplayName())));
+                msg(player, godOffMsg.replace("%player%", player.getDisplayName()));
             }
         } else if (!god_players.contains(player)) {
             god_players.add(player);
             player.setInvulnerable(true);
             if (enableMsg) {
-                msg(player, format(godMsg.replace("%player%", player.getDisplayName())));
+                msg(player, godMsg.replace("%player%", player.getDisplayName()));
             }
         }
     }

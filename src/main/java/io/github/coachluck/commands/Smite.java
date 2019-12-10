@@ -32,10 +32,10 @@ public class Smite implements CommandExecutor {
                 player.getWorld().strikeLightning(pLoc);
 
                 if (enableMsg) {
-                    msg(player, format(selfMsg));
+                    msg(player, selfMsg);
                 }
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                msg(sender, "&cYou must be a player to execute this command!");
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.smite.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
@@ -46,21 +46,21 @@ public class Smite implements CommandExecutor {
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(smiteMsg));
-                            msg(p, format(smiteOtherMsg.replace("%player%", target.getDisplayName())));
+                            msg(target, smiteMsg);
+                            msg(p,smiteOtherMsg.replace("%player%", target.getDisplayName()));
                         } else {
-                            msg(p, format(selfMsg));
+                            msg(p, selfMsg);
                         }
                     } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, format(smiteMsg));
-                        msg(sender, format(smiteOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(target, smiteMsg);
+                        msg(sender, smiteOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             } catch (NullPointerException e) {
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /smite <player> or /smite."));
+            msg(sender, "&cToo many arguments! Try /smite <player> or /smite.");
         }
         return true;
     }

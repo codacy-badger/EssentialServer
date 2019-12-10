@@ -35,7 +35,7 @@ public class Burn implements CommandExecutor {
                 }
                 player.setFireTicks(BURN);
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                logMsg("&cYou must be a player to execute this command!");
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.burn.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);

@@ -1,6 +1,7 @@
 package io.github.coachluck.utils;
 
 import io.github.coachluck.EssentialServer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -57,7 +58,9 @@ public class ChatUtils {
     public static void msg(CommandSender s, String message) {
         s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
     }
-
+    public static void logMsg(String message) {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&eEssentialServer&7]&r " + message));
+    }
     //simple log formatter
     public static String logFormat(String logFormat) {
         return logFormat.replaceAll("&[a-z]", "").replaceAll("&[0-9]", "");

@@ -30,11 +30,11 @@ public class Kill implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) {
-                    msg(player, format(suicideMsg));
+                    msg(player, suicideMsg);
                 }
                 player.setHealth(0);
             } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
+                msg(sender, "&cYou must be a player to execute this command!");
             }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.kill.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
@@ -42,25 +42,25 @@ public class Kill implements CommandExecutor {
                 target.setHealth(0);
                 if (enableMsg) {
                     if(sender instanceof ConsoleCommandSender) {
-                        msg(target, format(killMsg));
-                        msg(sender, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(target, killMsg);
+                        msg(sender, killOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if(!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(killMsg));
-                            msg(p, format(killOtherMsg.replace("%player%", target.getDisplayName())));
+                            msg(target, killMsg);
+                            msg(p, killOtherMsg.replace("%player%", target.getDisplayName()));
                         } else {
-                            msg(p, format(suicideMsg));
+                            msg(p, suicideMsg);
                         }
                     }
                 }
             }
             catch (NullPointerException e){
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
         } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /kill <player> or /kill."));
+            msg(sender, "&cToo many arguments! Try /kill <player> or /kill.");
         }
         return true;
     }

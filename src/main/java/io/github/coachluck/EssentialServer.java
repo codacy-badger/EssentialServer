@@ -2,22 +2,37 @@ package io.github.coachluck;
 
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
+import io.github.coachluck.utils.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 import static io.github.coachluck.utils.ChatUtils.*;
 
 @SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
-    public ArrayList<Player> vanish_players = new ArrayList<>();
-
+    public ArrayList<UUID> vanish_players = new ArrayList<>();
+    public boolean updateMsg = false;
     private String pMsg = this.getConfig().getString("permission-message");
     @Override
     public void onEnable() {
         //Handles Configuration File
+        Logger logger = this.getLogger();
+
+        new UpdateChecker(this, 71299).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logMsg("&rRunning the latest version -&b " + this.getDescription().getVersion());
+                updateMsg = false;
+            } else {
+                logMsg("&cThere is a new update available! Go to the spigot page:&e http://bit.ly/346mO6j");
+
+                updateMsg = true;
+            }
+        });
         enableConfig();
 
         //Enables Event Listeners

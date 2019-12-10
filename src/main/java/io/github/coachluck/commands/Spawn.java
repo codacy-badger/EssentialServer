@@ -36,7 +36,7 @@ public class Spawn implements CommandExecutor {
                 msg(p, "&aYou have successfully set the spawn.");
             }
             else {
-                msg(sender, logFormat("&cYou must be ingame to use this command!"));
+                logMsg("&cYou must be ingame to use this command!");
             }
         }
         else if(cmd.getName().equalsIgnoreCase("spawn") && sender.hasPermission("essentialserver.spawn")) {
@@ -53,7 +53,7 @@ public class Spawn implements CommandExecutor {
                     Player player = (Player) sender;
                     if (args.length == 0 && player.hasPermission("essentialserver.spawn")) {
                         if(enableMessage) {
-                            msg(player, format(spawnMsg));
+                            msg(player, spawnMsg);
                         }
                         player.teleport(spawn_loc);
                     }
@@ -61,29 +61,29 @@ public class Spawn implements CommandExecutor {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         target.teleport(spawn_loc);
                         if(enableMessage) {
-                            msg(target, format(spawnMsg));
+                            msg(target, spawnMsg);
                         }
                     }
                 }
                 else {
                     if(args.length == 0  && sender.hasPermission("essentialserver.spawn.others")) {
-                        msg(sender, logFormat("&cInccorect usage, try &a/spawn [&bplayer&a]"));
+                        logMsg("&cInccorect usage, try &a/spawn [&bplayer&a]");
                     }
                     else if(args.length == 1 && sender.hasPermission("essentialserver.spawn.others")) {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         try {
                             target.teleport(spawn_loc);
                             if (enableMessage) {
-                                msg(target, logFormat(spawnMsg));
+                                msg(target, spawnMsg);
                             }
                         } catch (NullPointerException e) {
-                            msg(sender, "&cSpecified player could not be found");
+                            logMsg("&cSpecified player could not be found");
                         }
                     }
                 }
             }
             else {
-                msg(sender, "&cPlease do &b/setspawn &cbefore you try and spawn! Tell an ADMIN!!");
+                msg(sender, "&cPlease do &b/setspawn &cbefore you try and spawn!");
             }
         }
         return true;
