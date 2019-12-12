@@ -30,16 +30,12 @@ public class Smite implements CommandExecutor {
                 Player player = (Player) sender;
                 Location pLoc = player.getLocation();
                 player.getWorld().strikeLightning(pLoc);
+                if (enableMsg) msg(player, selfMsg);
+            } else msg(sender, "&cYou must be a player to execute this command!");
 
-                if (enableMsg) {
-                    msg(player, selfMsg);
-                }
-            } else {
-                msg(sender, "&cYou must be a player to execute this command!");
-            }
         } else if (args.length == 1 && sender.hasPermission("essentialserver.smite.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
             try {
+                Player target = Bukkit.getPlayerExact(args[0]);
                 Location tLoc = target.getLocation();
                 target.getWorld().strikeLightning(tLoc);
                 if (enableMsg) {
@@ -48,9 +44,7 @@ public class Smite implements CommandExecutor {
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                             msg(target, smiteMsg);
                             msg(p,smiteOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else {
-                            msg(p, selfMsg);
-                        }
+                        } else msg(p, selfMsg);
                     } else if (sender instanceof ConsoleCommandSender) {
                         msg(target, smiteMsg);
                         msg(sender, smiteOtherMsg.replace("%player%", target.getDisplayName()));
@@ -59,9 +53,7 @@ public class Smite implements CommandExecutor {
             } catch (NullPointerException e) {
                 msg(sender, "&cThe specified player could not be found!");
             }
-        } else if (args.length > 1) {
-            msg(sender, "&cToo many arguments! Try /smite <player> or /smite.");
-        }
+        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /smite <player> or /smite.");
         return true;
     }
 }

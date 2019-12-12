@@ -1,6 +1,7 @@
 package io.github.coachluck.events;
 
 import io.github.coachluck.EssentialServer;
+import io.github.coachluck.commands.Vanish;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -31,8 +32,8 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        for(int i = 0; i < plugin.vanish_players.size(); i++) {
-            player.hidePlayer(plugin, getPlayer(plugin.vanish_players.get(i)));
+        for(int i = 0; i < Vanish.vanish_players.size(); i++) {
+            player.hidePlayer(plugin, Bukkit.getPlayer(Vanish.vanish_players.get(i)));
         }
         for (Player player1: Bukkit.getServer().getOnlinePlayers()) {
             e.setJoinMessage(format(joinMsg.replace("%player%", player1.getDisplayName())));

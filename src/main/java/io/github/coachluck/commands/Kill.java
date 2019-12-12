@@ -29,16 +29,12 @@ public class Kill implements CommandExecutor {
         if (args.length == 0 && sender.hasPermission("essentialserver.kill")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (enableMsg) {
-                    msg(player, suicideMsg);
-                }
+                if (enableMsg) msg(player, suicideMsg);
                 player.setHealth(0);
-            } else {
-                msg(sender, "&cYou must be a player to execute this command!");
-            }
+            } else msg(sender, "&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.kill.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
             try {
+                Player target = Bukkit.getPlayerExact(args[0]);
                 target.setHealth(0);
                 if (enableMsg) {
                     if(sender instanceof ConsoleCommandSender) {
@@ -59,9 +55,7 @@ public class Kill implements CommandExecutor {
             catch (NullPointerException e){
                 msg(sender, "&cThe specified player could not be found!");
             }
-        } else if (args.length > 1) {
-            msg(sender, "&cToo many arguments! Try /kill <player> or /kill.");
-        }
+        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /kill <player> or /kill.");
         return true;
     }
 }

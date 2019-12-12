@@ -25,36 +25,22 @@ public class God implements CommandExecutor {
 
         // /god
         if(args.length == 0 && sender.hasPermission("essentialserver.god")) {
-            if(sender instanceof Player) {
-                godCheck((Player) sender);
-            } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
-            }
+            if(sender instanceof Player) godCheck((Player) sender);
+            else msg(sender, format("&cYou must be a player to execute this command!"));
         }
 
         // /god <player>
         else if (args.length == 1 && sender.hasPermission("essentialserver.god.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
             try {
+            Player target = Bukkit.getPlayerExact(args[0]);
                 godCheck(target);
                 if(enableMsg) {
-                    if (god_players.contains(target)) {
-
-                        msg(sender, godOtherMsg.replace("%player%", target.getDisplayName()));
-                    }
-                    else if (!god_players.contains(target)) {
-                        msg(sender, godOtherOffMsg.replace("%player%", target.getDisplayName()));
-                    }
+                    if (god_players.contains(target)) msg(sender, godOtherMsg.replace("%player%", target.getDisplayName()));
+                    else if (!god_players.contains(target)) msg(sender, godOtherOffMsg.replace("%player%", target.getDisplayName()));
                 }
-            } catch (NullPointerException e) {
-                msg(sender, "&cThe specified player could not be found!");
-            }
+            } catch (NullPointerException e) { msg(sender, "&cThe specified player could not be found"); }
         }
-
-        //excess args handler
-        else if (args.length > 1) {
-            msg(sender, "&cToo many arguments! Try /god <player> or /god.");
-        }
+        else if (args.length > 1) msg(sender, "&cToo many arguments! Try /god <player> or /god.");
         return true;
     }
 
@@ -65,15 +51,12 @@ public class God implements CommandExecutor {
         if (god_players.contains(player)) {
             god_players.remove(player);
             player.setInvulnerable(false);
-            if (enableMsg) {
-                msg(player, godOffMsg.replace("%player%", player.getDisplayName()));
-            }
+            if (enableMsg) msg(player, godOffMsg.replace("%player%", player.getDisplayName()));
+
         } else if (!god_players.contains(player)) {
             god_players.add(player);
             player.setInvulnerable(true);
-            if (enableMsg) {
-                msg(player, godMsg.replace("%player%", player.getDisplayName()));
-            }
+            if (enableMsg) msg(player, godMsg.replace("%player%", player.getDisplayName()));
         }
     }
 }

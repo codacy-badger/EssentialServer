@@ -29,47 +29,41 @@ public class Fly implements CommandExecutor {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
                 flightCheck(p.getUniqueId());
-            } else {
-                msg(sender, "&cYou must be a player to execute this command!");
             }
-        } else if (args.length == 1 && sender.hasPermission("essentialserver.fly.others")) {
-            Player tP = Bukkit.getPlayerExact(args[0]);
-            UUID target = tP.getUniqueId();
+            else msg(sender, "&cYou must be a player to execute this command!");
+        }
+        else if (args.length == 1 && sender.hasPermission("essentialserver.fly.others")) {
             try {
+                Player tP = Bukkit.getPlayerExact(args[0]);
+                UUID target = tP.getUniqueId();
                 flightCheck(target);
                 if (enableMsg) {
-                    if (flying_players.contains(target)) {
+                    if (flying_players.contains(target))
                         msg(sender, flyOtherOnMsg.replace("%player%", tP.getDisplayName()));
-                    } else if (!flying_players.contains(target)) {
+                    else if (!flying_players.contains(target))
                         msg(sender, flyOtherOffMsg.replace("%player%", tP.getDisplayName()));
-                    }
                 }
-            } catch (NullPointerException e) {
-                msg(sender, "&cThe specified player could not be found!");
-            }
-        } else if (args.length > 1) {
-            msg(sender, "&cToo many arguments! Try /fly <player> or /fly.");
+            } catch (NullPointerException e) { msg(sender,"&cThe specified player could not be found"); }
         }
+        else if (args.length > 1) msg(sender, "&cToo many arguments! Try /fly <player> or /fly.");
         return true;
     }
 
     private void flightCheck(UUID pUUID) {
-        Player player = Bukkit.getPlayer(pUUID);
+        Player player = Bukkit.getServer().getPlayer(pUUID);
         String flyMsg = plugin.getConfig().getString("fly.on-message");
         String flyOffMsg = plugin.getConfig().getString("fly.off-message");
         boolean enableMsg = plugin.getConfig().getBoolean("fly.message-enable");
         if (flying_players.contains(pUUID)) {
             flying_players.remove(pUUID);
             player.setAllowFlight(false);
-            if (enableMsg) {
+            if (enableMsg)
                 msg(player, flyOffMsg.replace("%player%", player.getDisplayName()));
-            }
-        } else if (!flying_players.contains(pUUID)) {
+        }
+        else if (!flying_players.contains(pUUID)) {
             flying_players.add(pUUID);
             player.setAllowFlight(true);
-            if (enableMsg) {
-                msg(player, flyMsg.replace("%player%", player.getDisplayName()));
-            }
+            if (enableMsg) msg(player, flyMsg.replace("%player%", player.getDisplayName()));
         }
     }
 }

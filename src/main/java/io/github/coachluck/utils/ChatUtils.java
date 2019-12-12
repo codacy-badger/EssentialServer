@@ -4,6 +4,7 @@ import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 @SuppressWarnings("unused")
 public class ChatUtils {
@@ -56,7 +57,8 @@ public class ChatUtils {
     }
 
     public static void msg(CommandSender s, String message) {
-        s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
+        if(s instanceof Player) s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
+        else logMsg(message);
     }
     public static void logMsg(String message) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&eEssentialServer&7]&r " + message));

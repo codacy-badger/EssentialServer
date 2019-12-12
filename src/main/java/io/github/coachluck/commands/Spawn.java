@@ -35,9 +35,7 @@ public class Spawn implements CommandExecutor {
                 plugin.saveConfig();
                 msg(p, "&aYou have successfully set the spawn.");
             }
-            else {
-                logMsg("&cYou must be ingame to use this command!");
-            }
+            else logMsg("&cYou must be ingame to use this command!");
         }
         else if(cmd.getName().equalsIgnoreCase("spawn") && sender.hasPermission("essentialserver.spawn")) {
             if(plugin.getConfig().get("spawn.world") != null) {
@@ -52,39 +50,27 @@ public class Spawn implements CommandExecutor {
                 if(sender instanceof Player) {
                     Player player = (Player) sender;
                     if (args.length == 0 && player.hasPermission("essentialserver.spawn")) {
-                        if(enableMessage) {
-                            msg(player, spawnMsg);
-                        }
+                        if(enableMessage) msg(player, spawnMsg);
                         player.teleport(spawn_loc);
                     }
                     else if (args.length == 1 && player.hasPermission("essentialserver.spawn.others")) {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         target.teleport(spawn_loc);
-                        if(enableMessage) {
-                            msg(target, spawnMsg);
-                        }
+                        if(enableMessage) msg(target, spawnMsg);
                     }
                 }
                 else {
-                    if(args.length == 0  && sender.hasPermission("essentialserver.spawn.others")) {
-                        logMsg("&cInccorect usage, try &a/spawn [&bplayer&a]");
-                    }
+                    if(args.length == 0  && sender.hasPermission("essentialserver.spawn.others")) logMsg("&cInccorect usage, try &a/spawn [&bplayer&a]");
                     else if(args.length == 1 && sender.hasPermission("essentialserver.spawn.others")) {
                         Player target = Bukkit.getPlayerExact(args[0]);
                         try {
                             target.teleport(spawn_loc);
-                            if (enableMessage) {
-                                msg(target, spawnMsg);
-                            }
-                        } catch (NullPointerException e) {
-                            logMsg("&cSpecified player could not be found");
-                        }
+                            if (enableMessage) msg(target, spawnMsg);
+                        } catch (NullPointerException e) { logMsg("&cSpecified player could not be found"); }
                     }
                 }
             }
-            else {
-                msg(sender, "&cPlease do &b/setspawn &cbefore you try and spawn!");
-            }
+            else msg(sender, "&cPlease do &b/setspawn &cbefore you try and spawn!");
         }
         return true;
     }

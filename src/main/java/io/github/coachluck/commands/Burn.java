@@ -30,37 +30,30 @@ public class Burn implements CommandExecutor {
         if (args.length == 0  && sender.hasPermission("essentialserver.burn")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (enableMsg) {
-                    msg(player, format(selfMsg));
-                }
+                if (enableMsg) msg(player, selfMsg);
+
                 player.setFireTicks(BURN);
-            } else {
-                logMsg("&cYou must be a player to execute this command!");
-            }
+            } else logMsg("&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.burn.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
             try{
+                Player target = Bukkit.getPlayerExact(args[0]);
                 target.setFireTicks(BURN);
                 if (enableMsg) {
                     if(sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, format(burnMsg));
-                            msg(p, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
-                        } else {
-                            msg(p, format(burnMsg));
-                        }
+                            msg(target, burnMsg);
+                            msg(p, burnOtherMsg.replace("%player%", target.getDisplayName()));
+                        } else msg(p, burnMsg);
                     } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, format(burnMsg));
-                        msg(sender, format(burnOtherMsg.replace("%player%", target.getDisplayName())));
+                        msg(target, burnMsg);
+                        msg(sender, burnOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
             }catch (NullPointerException e){
-                msg(sender, format("&cThe specified player could not be found!"));
+                msg(sender, "&cThe specified player could not be found!");
             }
-        } else if (args.length > 1) {
-            msg(sender, format("&cToo many arguments! Try /burn <player> or /burn."));
-        }
+        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /burn <player> or /burn.");
         return true;
     }
 }

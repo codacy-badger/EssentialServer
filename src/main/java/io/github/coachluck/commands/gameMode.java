@@ -27,42 +27,24 @@ public class gameMode implements CommandExecutor {
 
         if(sender instanceof Player && sender.hasPermission("essentialserver.gamemode")) {
             Player p = (Player) sender;
-            if (args.length == 0) {
-               msg(p, "&cPlease specify a gamemode! &a/gamemode [&bmode&a]&c.");
-            }
-            else if (args.length == 1) {
-                changeGM(args[0], p, sender);
-            }
+            if (args.length == 0) msg(p, "&cPlease specify a gamemode! &a/gamemode [&bmode&a]&c.");
+            else if (args.length == 1) changeGM(args[0], p, sender);
             else if (args.length == 2 && sender.hasPermission("essentialserver.gamemode.others")) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
+                    if (enableMsg && !p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
                     changeGM(args[0], target, sender);
-                    if (enableMsg && !p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                        msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
-                    }
-                } else {
-                    msg(sender, noPlayer);
-                }
-            }
-            else {
-                    badUse(sender);
-                }
-
+                } else msg(sender, noPlayer);
+            } else badUse(sender);
         } else if (sender instanceof ConsoleCommandSender){
-            if(args.length != 2) {
-                badUse(sender);
-            }
+            if(args.length != 2) badUse(sender);
             else {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
-                    if (enableMsg) {
-                        msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
-                    }
+                    if (enableMsg) msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
                 }
-                else {
-                    msg(sender, noPlayer);
-                }
+                else msg(sender, noPlayer);
             }
         }
     return true;
@@ -75,24 +57,16 @@ public class gameMode implements CommandExecutor {
         if (target != null) {
             if (args.equalsIgnoreCase("survival") || args.equalsIgnoreCase("0")) {
                 target.setGameMode(GameMode.SURVIVAL);
-                if (enableMsg) {
-                    msg(target, gMsg.replaceAll("%mode%", "Survival"));
-                }
+                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Survival"));
             }
             else if (args.equalsIgnoreCase("creative") || args.equalsIgnoreCase("1")) {
                 target.setGameMode(GameMode.CREATIVE);
-                if (enableMsg) {
-                    msg(target, gMsg.replaceAll("%mode%", "Creative"));
-                }
+                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Creative"));
             }
             else if (args.equalsIgnoreCase("adventure") || args.equalsIgnoreCase("2")) {
                 target.setGameMode(GameMode.ADVENTURE);
-                if (enableMsg) {
-                    msg(target, gMsg.replaceAll("%mode%", "Adventure"));
-                }
-            } else {
-                badUse(s);
-            }
+                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Adventure"));
+            } else badUse(s);
         }
     }
     private void badUse(CommandSender s) {

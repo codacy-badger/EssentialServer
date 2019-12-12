@@ -24,16 +24,12 @@ public class Feed implements CommandExecutor {
         if (args.length == 0) {
             if (sender instanceof Player && sender.hasPermission("essentialserver.feed")) {
                 Player player = (Player) sender;
-                if (enableMsg) {
-                    msg(player, feedMsg);
-                }
+                if (enableMsg) msg(player, feedMsg);
                 player.setFoodLevel(20);
-            } else {
-                logMsg("&cYou must be a player to execute this command!");
-            }
+            } else logMsg("&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.feed.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
-           try {
+            try {
+                Player target = Bukkit.getPlayerExact(args[0]);
                 target.setFoodLevel(20);
                 if (enableMsg) {
                     if(sender instanceof Player) {
@@ -45,7 +41,7 @@ public class Feed implements CommandExecutor {
                             msg(p, feedMsg);
                         }
                     } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, format(feedMsg));
+                        msg(target, feedMsg);
                         msg(sender, feedOtherMsg.replace("%player%", target.getDisplayName()));
                     }
                 }
@@ -57,5 +53,4 @@ public class Feed implements CommandExecutor {
         }
         return true;
     }
-
 }

@@ -33,12 +33,10 @@ public class Heal implements CommandExecutor {
                 player.setHealth(20);
                 player.setFoodLevel(20);
                 player.setFireTicks(0);
-            } else {
-                msg(sender, format("&cYou must be a player to execute this command!"));
-            }
+            } else msg(sender, format("&cYou must be a player to execute this command!"));
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
-            Player target = Bukkit.getPlayerExact(args[0]);
             try {
+                Player target = Bukkit.getPlayerExact(args[0]);
                 target.setHealth(20);
                 target.setFoodLevel(20);
                 target.setFireTicks(0);
@@ -48,9 +46,7 @@ public class Heal implements CommandExecutor {
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                             msg(target, healMsg);
                             msg(p, healOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else {
-                            msg(p, healMsg);
-                        }
+                        } else msg(p, healMsg);
                     } else if (sender instanceof ConsoleCommandSender) {
                         msg(target, healMsg);
                         msg(sender, healOtherMsg.replace("%player%", target.getDisplayName()));
@@ -59,9 +55,7 @@ public class Heal implements CommandExecutor {
             } catch (NullPointerException e) {
                 msg(sender, "&cThe specified player could not be found!");
             }
-        } else if (args.length > 1) {
-            msg(sender, "&cToo many arguments! Try /heal <player> or /heal.");
-        }
+        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /heal <player> or /heal.");
         return true;
     }
 

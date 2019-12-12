@@ -35,8 +35,8 @@ public class Teleport implements CommandExecutor {
                     msg(player, "&cTo teleport others: /tp <&bplayer&c> <&botherplayer&c>");
                 }
             }else if(args.length == 1){
-                Player target = Bukkit.getPlayer(args[0]); //Get player from command
                 try{
+                Player target = Bukkit.getPlayer(args[0]); //Get player from command
                     if(player.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                         msg(player, "&cYou can't teleport to yourself...");
                     }
@@ -49,9 +49,9 @@ public class Teleport implements CommandExecutor {
                     msg(player, ("&cThe specified player could not be found!"));
                 }
             }else if(args.length == 2 && player.hasPermission("essentialserver.tp.others")){
+                try{
                 Player playerToSend = Bukkit.getPlayer(args[0]);
                 Player target = Bukkit.getPlayer(args[1]);
-                try{
                     if(playerToSend.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                         msg(sender, "&cDid you really mean to do that? Try again...");
                     }
@@ -72,11 +72,7 @@ public class Teleport implements CommandExecutor {
                 }
             }
         }
-        else {
-            logMsg("&cYou have to be a player to use this command!");
-        }
-
-
+        else logMsg("&cYou have to be a player to use this command!");
         return true;
     }
 }
