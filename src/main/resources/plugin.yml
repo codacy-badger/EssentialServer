@@ -36,7 +36,7 @@ commands:
   teleport:
     description: "Teleports you to the specified player, or teleports the first player to the second."
     usage: /command [player] <player>
-    aliases: [tp, teleportto]
+    aliases: [tp]
     permission: essentialserver.teleport
   burn:
     description: "Burns you or the specified player!"
@@ -69,6 +69,10 @@ commands:
     usage: /<command> <mode> [player]
     permission: essentialserver.gamemode
     aliases: [gm]
+  invsee:
+    description: "Allows you to look inside of players inventory"
+    usage: /<command> <player>
+    permission: essentialserver.invsee
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
@@ -98,6 +102,7 @@ permissions:
       essentialserver.vanish.others: true
       essentialserver.tp: true
       essentialserver.tp.others: true
+      essentialserver.invsee: true
 
   essentialserver.help:
     description: "Displays plugin information."
@@ -165,6 +170,8 @@ permissions:
     default: op
     children:
       essentialserver.tp: true
+  essentialserver.tp.bypass:
+    description: "Allows you to bypass the teleport cooldown"
   essentialserver.spawn:
     description: "Allows you to visit the spawn point."
     defualt: op
@@ -192,11 +199,6 @@ permissions:
     default: op
     children:
       essentialserver.gamemode: true
-  essentialserver.teleport:
-    description:  "Allows you to teleport to another player"
+  essentialserver.invsee:
+    description: "Allows you to view a players inventory"
     default: op
-  essentialserver.teleport.others:
-    description: "Allows you to teleport two players together"
-    default: op
-    children:
-      essentialserver.teleport: true

@@ -17,30 +17,52 @@ spawn:
   spawn-message: '&eWhoosh... &6You have respawned!'
   enable-message: true
 
+#########################
 # Gamemode messages
+# message: %mode% is the gamemode the user is switching too
+# message-others: %player% the player the user is changing the name of
+#########################
 gamemode:
   message: '&7Gamemode has been switched to &b%mode%&7.'
   message-others: '&7You have changed the game mode of &b%player%&7.'
   enable-message: true
 
+#########################
 # Feed messages and amount.
-# @ amount - controls how much a player gets fed when they do /feed. 0 - 20 MAX
+# amount: (0 - 20) - controls how much a player gets fed when they do /feed.
+# other-message: %player% - the player the user is feading
+##########################
 feed:
   amount: 20
   message: '&bYou have been &a&lfed&r&b!'
   other-message: '&bYou have &a&lfed &6&l%player%&r&b!'
   message-enable: true
 
+#########################
+# Heal messages and amount.
+# amount: (0 - 20) - controls how much a player gets fed when they do /feed.
+# other-message: %player% - the player the user is feading
+##########################
 heal:
-  amount: 0
+  amount: 20
   message: '&bYou have been &a&lhealed&r&b!'
   other-message: '&bYou have healed &6&l%player%&r&b!'
   message-enable: true
+
+########################################
+# Teleportation placeholders #
+# cooldown-time: Any number, Set this to 0 to disable, or give users essentialserver.teleport.bypass to let them bypass it
+# cooldown-message: %time% - this will show the time remaining in the cooldown
+# message: %player% - the player you are teleporting too
+# others-message: %player1% the player you are teleporting, %player2% - the player that is being teleported too
+########################################
 teleport:
-  amount: null
+  cooldown-time: 5
+  cooldown-message: "&cCool-Down: &6%time% seconds &cremaining."
   message: '&7You have &6teleported &7to &b%player%&7!'
   others-message: '&7You have teleported &b%player1% &7to &b%player2%&7!'
   message-enable: true
+
 burn:
   burn-time: 5
   message: '&cYou have been &4&lset on fire&r&c!'

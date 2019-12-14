@@ -21,7 +21,7 @@ public class gameMode implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
+        boolean enableMsg = plugin.getConfig().getBoolean("gamemode.enable-message");
         String gOtherMsg = plugin.getConfig().getString("gamemode.message-others");
         String noPlayer = "&cSpecified player could not be found!";
 
@@ -43,8 +43,7 @@ public class gameMode implements CommandExecutor {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
                     if (enableMsg) msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
-                }
-                else msg(sender, noPlayer);
+                } else msg(sender, noPlayer);
             }
         }
     return true;
@@ -52,7 +51,7 @@ public class gameMode implements CommandExecutor {
 
     //handles the gamemode change, take args of the command and player to change the gamemode of
     private void changeGM(String args, Player target, CommandSender s) {
-        boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
+        boolean enableMsg = plugin.getConfig().getBoolean("gamemode.message-enable");
         String gMsg = plugin.getConfig().getString("gamemode.message");
         if (target != null) {
             if (args.equalsIgnoreCase("survival") || args.equalsIgnoreCase("0")) {
@@ -70,7 +69,8 @@ public class gameMode implements CommandExecutor {
         }
     }
     private void badUse(CommandSender s) {
-        msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a] <&bplayer&a>");
+        if(s.hasPermission("essentialserver.tp.others")) msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a] <&bplayer&a>");
+        else msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a]");
     }
 
 }

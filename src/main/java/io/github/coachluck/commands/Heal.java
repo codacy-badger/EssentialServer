@@ -21,24 +21,35 @@ public class Heal implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String healMsg = plugin.getConfig().getString("heal.message");
+        int amt = plugin.getConfig().getInt("heal.amount");
         String healOtherMsg = plugin.getConfig().getString("heal.other-message");
         boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
 
         if (args.length == 0 && sender.hasPermission("essentialserver.heal")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (enableMsg) {
-                    msg(player, healMsg);
-                }
-                player.setHealth(20);
-                player.setFoodLevel(20);
+                double h = player.getHealth();
+                int f = player.getFoodLevel();
+                double hAmt = h + amt;
+                if(hAmt > 20.0) hAmt = 20.0;
+                int fAmt = f + amt;
+                if(fAmt > 20) fAmt = 20;
+                player.setHealth(hAmt);
+                player.setFoodLevel(fAmt);
                 player.setFireTicks(0);
+                if (enableMsg) msg(player, healMsg);
             } else msg(sender, format("&cYou must be a player to execute this command!"));
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
             try {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                target.setHealth(20);
-                target.setFoodLevel(20);
+                double h = target.getHealth();
+                int f = target.getFoodLevel();
+                double hAmt = h + amt;
+                if(hAmt > 20.0) hAmt = 20.0;
+                int fAmt = f + amt;
+                if(fAmt > 20) fAmt = 20;
+                target.setHealth(hAmt);
+                target.setFoodLevel(fAmt);
                 target.setFireTicks(0);
                 if (enableMsg) {
                     if(sender instanceof Player) {

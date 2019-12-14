@@ -2,6 +2,8 @@ package io.github.coachluck;
 
 import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
+import io.github.coachluck.tabcompleters.PlayerTabList;
+import io.github.coachluck.tabcompleters.TabList;
 import io.github.coachluck.utils.UpdateChecker;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,6 +38,7 @@ public class EssentialServer extends JavaPlugin {
         //Enables Command Classes
         enableCommands();
         enableCommandP();
+        enableCommandTabs();
     }
 
     @Override
@@ -67,6 +70,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
+        this.getCommand("InvSee").setExecutor(new InvSee(this));
     }
     private void enableCommandP() {
         this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
@@ -83,5 +87,25 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Burn").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Spawn").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("SetSpawn").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
+    }
+
+    private void enableCommandTabs() {
+        this.getCommand("gameMode").setTabCompleter(new TabList());
+        this.getCommand("esHelp").setTabCompleter(new TabList());
+        this.getCommand("InvSee").setTabCompleter(new TabList());
+        this.getCommand("Teleport").setTabCompleter(new TabList());
+        this.getCommand("SetSpawn").setTabCompleter(new TabList());
+        this.getCommand("Clear").setTabCompleter(new PlayerTabList());
+        this.getCommand("Spawn").setTabCompleter(new PlayerTabList());
+        this.getCommand("God").setTabCompleter(new PlayerTabList());
+        this.getCommand("Fly").setTabCompleter(new PlayerTabList());
+        this.getCommand("Heal").setTabCompleter(new PlayerTabList());
+        this.getCommand("Feed").setTabCompleter(new PlayerTabList());
+        this.getCommand("Vanish").setTabCompleter(new PlayerTabList());
+        this.getCommand("Burn").setTabCompleter(new PlayerTabList());
+        this.getCommand("Smite").setTabCompleter(new PlayerTabList());
+        this.getCommand("Kill").setTabCompleter(new PlayerTabList());
+
     }
 }

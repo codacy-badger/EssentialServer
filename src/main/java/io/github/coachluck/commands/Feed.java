@@ -2,11 +2,10 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
+
+import java.util.*;
 
 import static io.github.coachluck.utils.ChatUtils.*;
 
@@ -20,19 +19,24 @@ public class Feed implements CommandExecutor {
         String feedMsg = plugin.getConfig().getString("feed.message");
         String feedOtherMsg = plugin.getConfig().getString("feed.other-message");
         boolean enableMsg = plugin.getConfig().getBoolean("feed.message-enable");
+        int amt = plugin.getConfig().getInt("feed.amount");
 
         if (args.length == 0) {
             if (sender instanceof Player && sender.hasPermission("essentialserver.feed")) {
                 Player player = (Player) sender;
                 if (enableMsg) msg(player, feedMsg);
-                player.setFoodLevel(20);
+                int foodLvL = player.getFoodLevel();
+                int finalAmt = foodLvL + amt;
+                player.setFoodLevel(finalAmt);
             } else logMsg("&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.feed.others")) {
             try {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                target.setFoodLevel(20);
+                int foodLvL = target.getFoodLevel();
+                int finalAmt = foodLvL + amt;
+                target.setFoodLevel(finalAmt);
                 if (enableMsg) {
-                    if(sender instanceof Player) {
+                    if (sender instanceof Player) {
                         Player p = (Player) sender;
                         if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                             msg(target, feedMsg);

@@ -46,9 +46,7 @@ public class Kill implements CommandExecutor {
                         if(!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                             msg(target, killMsg);
                             msg(p, killOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else {
-                            msg(p, suicideMsg);
-                        }
+                        } else msg(p, suicideMsg);
                     }
                 }
             }
