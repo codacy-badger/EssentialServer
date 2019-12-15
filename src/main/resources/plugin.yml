@@ -1,5 +1,5 @@
 name: EssentialServer
-version: 1.2.1
+version: 1.2.2
 main: io.github.coachluck.EssentialServer
 load: STARTUP
 commands:
@@ -77,6 +77,7 @@ permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
     children:
+      essentialserver.es: true
       essentialserver.gamemode: true
       essentialserver.gamemode.others: true
       essentialserver.help: true
@@ -104,6 +105,9 @@ permissions:
       essentialserver.tp.others: true
       essentialserver.invsee: true
 
+  essentialserver.info:
+    description: "Display author information"
+    defualt: op
   essentialserver.help:
     description: "Displays plugin information."
     default: op
@@ -172,6 +176,7 @@ permissions:
       essentialserver.tp: true
   essentialserver.tp.bypass:
     description: "Allows you to bypass the teleport cooldown"
+    default: op
   essentialserver.spawn:
     description: "Allows you to visit the spawn point."
     defualt: op

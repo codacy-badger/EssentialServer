@@ -14,14 +14,13 @@ import static io.github.coachluck.utils.ChatUtils.*;
 
 public class gameMode implements CommandExecutor {
     private final EssentialServer plugin;
-
     public gameMode(EssentialServer plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        boolean enableMsg = plugin.getConfig().getBoolean("gamemode.enable-message");
+        boolean enableMsg = plugin.getConfig().getBoolean("gamemode.message-enable");
         String gOtherMsg = plugin.getConfig().getString("gamemode.message-others");
         String noPlayer = "&cSpecified player could not be found!";
 

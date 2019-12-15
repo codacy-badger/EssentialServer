@@ -42,7 +42,7 @@ public class TabList implements TabCompleter {
                 StringUtil.copyPartialMatches(args[0], tabs, new ArrayList<>());
                 return tabs;
             }
-            else if(args.length == 2 && sender.hasPermission("essenentialserver.tp.others")) {
+            else if(args.length == 2 && sender.hasPermission("essentialserver.tp.others")) {
                 for(Player p : Bukkit.getServer().getOnlinePlayers()) tabs.add(p.getDisplayName());
                 Collections.sort(tabs);
                 StringUtil.copyPartialMatches(args[1], tabs, new ArrayList<>());

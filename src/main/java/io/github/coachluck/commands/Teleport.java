@@ -51,8 +51,8 @@ public class Teleport implements CommandExecutor {
                     if (player.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                         msg(player, "&cYou can't teleport to yourself...");
                     } else {
-                        msg(player, tpMsg.replaceAll("%player%", target.getDisplayName()));
                         player.teleport(target.getLocation());
+                        if(enableMsg) msg(player, tpMsg.replaceAll("%player%", target.getDisplayName()));
                         if (!player.hasPermission("essentialserver.tp.bypass") && COOL_DOWN > 0) {
                             cooldownTime.put(pUUID, COOL_DOWN);
                             cooldownTask.put(pUUID, new BukkitRunnable() {
@@ -72,6 +72,7 @@ public class Teleport implements CommandExecutor {
 
                 } catch (NullPointerException e) {
                     msg(player, ("&cThe specified player could not be found!"));
+                    return true;
                 }
             }else if(args.length == 2 && player.hasPermission("essentialserver.tp.others")){
                 try{
@@ -79,10 +80,26 @@ public class Teleport implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[1]);
                     if(playerToSend.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
                         msg(sender, "&cDid you really mean to do that? Try again...");
+                        return true;
                     }
                     else {
                         if(enableMsg) msg(sender, tpOtherMsg.replaceAll("%player1%", playerToSend.getDisplayName()).replaceAll("%player2%", target.getDisplayName()));
                         playerToSend.teleport(target.getLocation());
+                        if (!player.hasPermission("essentialserver.tp.bypass") && COOL_DOWN > 0) {
+                            cooldownTime.put(pUUID, COOL_DOWN);
+                            cooldownTask.put(pUUID, new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    cooldownTime.put(pUUID, cooldownTime.get(pUUID) - 1); // decrease the cooldown
+                                    if (cooldownTime.get(pUUID) == 0) { // end of cooldown
+                                        cooldownTime.remove(pUUID);
+                                        cooldownTask.remove(pUUID);
+                                        cancel();
+                                    }
+                                }
+                            });
+                            cooldownTask.get(pUUID).runTaskTimer(plugin, 20, 20);
+                        }
                     }
                 }catch (NullPointerException e){
                     msg(player, "&cThe specified player could not be found!");

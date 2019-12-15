@@ -75,14 +75,14 @@ public class esHelp implements CommandExecutor {
             if(sender instanceof Player) {
                 Player player = (Player) sender;
                 TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "Essential Server" + ChatColor.DARK_GRAY + "] " + ChatColor.YELLOW + "v" + plugin.getDescription().getVersion() + ChatColor.DARK_GRAY + " by ");
-                TextComponent subComponent = new TextComponent("aJiello");
+                TextComponent subComponent = new TextComponent("CoachL_ck");
                 subComponent.setColor(ChatColor.AQUA);
                 subComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + "Author information").create()));
                 subComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/essential-server.71299/"));
                 mainComponent.addExtra(subComponent);
                 player.spigot().sendMessage(mainComponent);
             }
-            else logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &baJiello");
+            else logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &bCoachL_ck");
         }
         return true;
     }

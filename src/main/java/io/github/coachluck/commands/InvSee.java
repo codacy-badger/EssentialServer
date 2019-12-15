@@ -23,6 +23,8 @@ public class InvSee implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        String invSeeMsg = plugin.getConfig().getString("invsee.message");
+        boolean enableMsg = plugin.getConfig().getBoolean("invsee.message-enable");
         if(sender instanceof Player) {
             Player p = (Player) sender;
             if(label.equalsIgnoreCase("invsee") && sender.hasPermission("essentialserver.invsee")) { // handle invsee
@@ -34,7 +36,7 @@ public class InvSee implements CommandExecutor {
                         Player tP = Bukkit.getServer().getPlayer(args[0]);
                         PlayerInventory tInv = tP.getInventory();
                         p.openInventory(tInv);
-                        msg(p, "&aYou have opened " + tP.getDisplayName() + "'s inventory!");
+                        if(enableMsg) msg(p, invSeeMsg.replaceAll("%player%", tP.getDisplayName()));
                     } catch(NullPointerException e) {
                         msg(p, "&cThe specified player could not be found!");
                     }

@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import static io.github.coachluck.utils.ChatUtils.format;
-import static org.bukkit.Bukkit.getPlayer;
 
 public class PlayerJoinLeave implements Listener {
     private final EssentialServer plugin;
