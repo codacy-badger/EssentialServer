@@ -2,11 +2,7 @@ package io.github.coachluck.events;
 
 import io.github.coachluck.EssentialServer;
 import io.github.coachluck.commands.Vanish;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import io.github.coachluck.utils.JsonMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,13 +36,8 @@ public class PlayerJoinLeave implements Listener {
         if(plugin.updateMsg) {
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                 if(p.isOp()) {
-                    TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[" + ChatColor.YELLOW + "Essential Server" + ChatColor.DARK_GRAY + "]" + ChatColor.RED + " is out of date! Get the new version ");
-                    TextComponent subComponent = new TextComponent("here");
-                    subComponent.setColor(ChatColor.AQUA);
-                    subComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GOLD + "Click Me!").create()));
-                    subComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/essential-server.71299/"));
-                    mainComponent.addExtra(subComponent);
-                    player.spigot().sendMessage(mainComponent);
+                    JsonMessage message = new JsonMessage().append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save().append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save().append(format("&c!")).save();
+                    message.send(p);
                 }
             }
         }
@@ -58,4 +49,5 @@ public class PlayerJoinLeave implements Listener {
             e.setQuitMessage(format(quitMsg.replace("%player%", player.getDisplayName())));
         }
     }
+
 }

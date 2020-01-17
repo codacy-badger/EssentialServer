@@ -1,12 +1,7 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-
+import io.github.coachluck.utils.JsonMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -73,14 +68,8 @@ public class esHelp implements CommandExecutor {
         }
         else if(cmd.getName().equalsIgnoreCase("es")) {
             if(sender instanceof Player) {
-                Player player = (Player) sender;
-                TextComponent mainComponent = new TextComponent(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "Essential Server" + ChatColor.DARK_GRAY + "] " + ChatColor.YELLOW + "v" + plugin.getDescription().getVersion() + ChatColor.DARK_GRAY + " by ");
-                TextComponent subComponent = new TextComponent("CoachL_ck");
-                subComponent.setColor(ChatColor.AQUA);
-                subComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + "Author information").create()));
-                subComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/essential-server.71299/"));
-                mainComponent.addExtra(subComponent);
-                player.spigot().sendMessage(mainComponent);
+                JsonMessage message = new JsonMessage().append(format("&8[&bEssential Server&8]&e v" + plugin.getDescription().getVersion() + " &7created by ")).save().append(format("&bCoachL_ck")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&eClick Me")).save().append(format("&7!")).save();
+                message.send((Player) sender);
             }
             else logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &bCoachL_ck");
         }

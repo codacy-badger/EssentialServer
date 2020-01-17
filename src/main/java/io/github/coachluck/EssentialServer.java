@@ -26,7 +26,7 @@ public class EssentialServer extends JavaPlugin {
                 logMsg("&rRunning the latest version -&b " + this.getDescription().getVersion());
                 updateMsg = false;
             } else {
-                logMsg("&cThere is a new update available! Go to the spigot page:&e http://bit.ly/346mO6j");
+                logMsg("&cThere is a new update available! Go to the bukkit page:&e https://bit.ly/37eMbW5");
                 updateMsg = true;
             }
         });

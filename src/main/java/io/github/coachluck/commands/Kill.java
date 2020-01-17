@@ -36,19 +36,7 @@ public class Kill implements CommandExecutor {
             try {
                 Player target = Bukkit.getPlayerExact(args[0]);
                 target.setHealth(0);
-                if (enableMsg) {
-                    if(sender instanceof ConsoleCommandSender) {
-                        msg(target, killMsg);
-                        msg(sender, killOtherMsg.replace("%player%", target.getDisplayName()));
-                    }
-                    if(sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if(!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, killMsg);
-                            msg(p, killOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else msg(p, suicideMsg);
-                    }
-                }
+                sendMessages(sender, killMsg, killOtherMsg, suicideMsg, enableMsg, target);
             }
             catch (NullPointerException e){
                 msg(sender, "&cThe specified player could not be found!");

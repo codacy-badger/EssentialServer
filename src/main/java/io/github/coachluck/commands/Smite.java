@@ -38,18 +38,7 @@ public class Smite implements CommandExecutor {
                 Player target = Bukkit.getPlayerExact(args[0]);
                 Location tLoc = target.getLocation();
                 target.getWorld().strikeLightning(tLoc);
-                if (enableMsg) {
-                    if(sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, smiteMsg);
-                            msg(p,smiteOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else msg(p, selfMsg);
-                    } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, smiteMsg);
-                        msg(sender, smiteOtherMsg.replace("%player%", target.getDisplayName()));
-                    }
-                }
+                sendMessages(sender, smiteMsg, smiteOtherMsg, selfMsg, enableMsg, target);
             } catch (NullPointerException e) {
                 msg(sender, "&cThe specified player could not be found!");
             }

@@ -38,18 +38,7 @@ public class Burn implements CommandExecutor {
             try{
                 Player target = Bukkit.getPlayerExact(args[0]);
                 target.setFireTicks(BURN);
-                if (enableMsg) {
-                    if(sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, burnMsg);
-                            msg(p, burnOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else msg(p, burnMsg);
-                    } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, burnMsg);
-                        msg(sender, burnOtherMsg.replace("%player%", target.getDisplayName()));
-                    }
-                }
+                sendMessages(sender, burnMsg, burnOtherMsg, burnMsg, enableMsg, target);
             }catch (NullPointerException e){
                 msg(sender, "&cThe specified player could not be found!");
             }

@@ -35,20 +35,7 @@ public class Feed implements CommandExecutor {
                 int foodLvL = target.getFoodLevel();
                 int finalAmt = foodLvL + amt;
                 target.setFoodLevel(finalAmt);
-                if (enableMsg) {
-                    if (sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if (!p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                            msg(target, feedMsg);
-                            msg(p, feedOtherMsg.replace("%player%", target.getDisplayName()));
-                        } else {
-                            msg(p, feedMsg);
-                        }
-                    } else if (sender instanceof ConsoleCommandSender) {
-                        msg(target, feedMsg);
-                        msg(sender, feedOtherMsg.replace("%player%", target.getDisplayName()));
-                    }
-                }
+                sendMessages(sender, feedMsg, feedOtherMsg, feedMsg, enableMsg, target);
             } catch (NullPointerException e) {
                 msg(sender, "&cThe specified player could not be found!");
             }

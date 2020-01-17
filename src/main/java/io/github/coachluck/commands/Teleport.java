@@ -71,7 +71,7 @@ public class Teleport implements CommandExecutor {
                     }
 
                 } catch (NullPointerException e) {
-                    msg(player, ("&cThe specified player could not be found!"));
+                    msg(player, "&cThe specified player could not be found!");
                     return true;
                 }
             }else if(args.length == 2 && player.hasPermission("essentialserver.tp.others")){
@@ -108,7 +108,6 @@ public class Teleport implements CommandExecutor {
             else if(args.length > 2) {
                 if(sender.hasPermission("essentialserver.tp")) msg(sender, "&cToo many arguments! Try /tp <player>");
                 if(sender.hasPermission("essentialserver.tp.others")) msg(sender, "&cToo many arguments! Try /tp <player> <player>");
-
             }
         }
         else logMsg("&cYou have to be a player to use this command!");
