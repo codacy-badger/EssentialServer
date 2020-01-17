@@ -46,7 +46,7 @@ feed:
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #                               Heal messages and amount.                         #
-# amount: (0 - 20) - controls how much a player gets fed when they do /feed.      #
+# amount: (0 - 20) - controls how much a player gets healed when they do /heal    #
 # other-message: %player% - the player the user is feading                        #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 heal:

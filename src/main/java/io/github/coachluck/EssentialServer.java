@@ -4,7 +4,7 @@ import io.github.coachluck.commands.*;
 import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.tabcompleters.PlayerTabList;
 import io.github.coachluck.tabcompleters.TabList;
-import io.github.coachluck.utils.UpdateChecker;
+import io.github.coachluck.utils.Updater;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,16 +20,7 @@ public class EssentialServer extends JavaPlugin {
     public void onEnable() {
         //Handles Configuration File
         Logger logger = this.getLogger();
-
-        new UpdateChecker(this, 71299).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                logMsg("&rRunning the latest version -&b " + this.getDescription().getVersion());
-                updateMsg = false;
-            } else {
-                logMsg("&cThere is a new update available! Go to the bukkit page:&e https://bit.ly/37eMbW5");
-                updateMsg = true;
-            }
-        });
+        Updater update = new Updater(this, 72032, this.getFile(), Updater.UpdateType.DEFAULT, true);
         enableConfig();
 
         //Enables Event Listeners
