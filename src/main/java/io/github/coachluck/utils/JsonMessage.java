@@ -1,5 +1,4 @@
 package io.github.coachluck.utils;
-
 //Created by Justis Root. Released into the public domain.
 //https://gist.github.com/justisr
 //

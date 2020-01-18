@@ -16,17 +16,23 @@ import static io.github.coachluck.utils.ChatUtils.*;
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
     private String pMsg = this.getConfig().getString("permission-message");
+    private boolean updateType = this.getConfig().getBoolean("enable-auto-update");
+    private Updater.UpdateType UPDATE_CHOICE = Updater.UpdateType.DEFAULT;
+
     @Override
     public void onEnable() {
-        //Handles Configuration File
+        if(!updateType)  UPDATE_CHOICE = Updater.UpdateType.NO_DOWNLOAD;
         Logger logger = this.getLogger();
-        Updater update = new Updater(this, 72032, this.getFile(), Updater.UpdateType.DEFAULT, true);
+        Updater update = new Updater(this, 72032, this.getFile(), UPDATE_CHOICE, true);
+        if(update.getResult() == Updater.UpdateResult.UPDATE_AVAILABLE && !updateType) {
+            updateMsg = true;
+            logMsg("&bThere is a new update available! &ehttps://bit.ly/37eMbW5");
+        } else {
+            updateMsg = false;
+            logMsg("&bYou can disable auto-updates in the &econfig.yml");
+        }
         enableConfig();
-
-        //Enables Event Listeners
         registerEvents();
-
-        //Enables Command Classes
         enableCommands();
         enableCommandP();
         enableCommandTabs();
@@ -45,6 +51,7 @@ public class EssentialServer extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
     }
+
     private void enableCommands() {
         this.getCommand("esHelp").setExecutor(new esHelp(this));
         this.getCommand("es").setExecutor(new esHelp(this));
@@ -63,6 +70,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
     }
+
     private void enableCommandP() {
         this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
         this.getServer().getPluginCommand("Clear").setPermissionMessage(format(pMsg));
@@ -97,6 +105,5 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Burn").setTabCompleter(new PlayerTabList());
         this.getCommand("Smite").setTabCompleter(new PlayerTabList());
         this.getCommand("Kill").setTabCompleter(new PlayerTabList());
-
     }
 }

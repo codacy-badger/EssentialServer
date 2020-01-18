@@ -37,7 +37,6 @@ public class ChatUtils {
     public static final String LIGHTNING_BOLT = "⚡";
     public static final String SNOWFLAKE_2 = "❅";
 
-    //simple chat formatter
     public static String format(String format) {
         return ChatColor.translateAlternateColorCodes('&', format);
     }
