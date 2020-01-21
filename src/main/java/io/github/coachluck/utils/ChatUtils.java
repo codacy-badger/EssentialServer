@@ -13,29 +13,7 @@ public class ChatUtils {
     public ChatUtils(EssentialServer plugin) {
         this.plugin = plugin;
     }
-    public static final String DARK_STAR = "★";
-    public static final String WHITE_STAR = "☆";
-    public static final String BIG_BLOCK = "█";
-    public static final String SMALL_BLOCK = "▌";
-    public static final String SMALL_DOT = "•";
-    public static final String LARGE_DOT = "●";
     public static final String SMALL_ARROWS_RIGHT = "»";
-    public static final String SMALL_ARROWS_LEFT = "«";
-    public static final String ALERT = "⚠";
-    public static final String PLUS = "✚";
-    public static final String BIG_HORIZONTAL_LINE = "▍";
-    public static final String SMALL_HORIZONTAL_LINE = "▏";
-    public static final String CROSS = "✖";
-    public static final String SLIM_CROSS = "✘";
-    public static final String BOXED_CROSS = "☒";
-    public static final String CHECKMARK = "✔";
-    public static final String BOXED_CHECKMARK = "☑";
-    public static final String LETTER = "✉";
-    public static final String PICK = "⛏";
-    public static final String SEPARATOR = "▬";
-    public static final String TIMER = "⌛";
-    public static final String LIGHTNING_BOLT = "⚡";
-    public static final String SNOWFLAKE_2 = "❅";
 
     public static String format(String format) {
         return ChatColor.translateAlternateColorCodes('&', format);
@@ -48,10 +26,7 @@ public class ChatUtils {
     public static void logMsg(String message) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&eEssentialServer&7]&r " + message));
     }
-    //simple log formatter
-    public static String logFormat(String logFormat) {
-        return logFormat.replaceAll("&[a-z]", "").replaceAll("&[0-9]", "");
-    }
+
     public static void sendMessages(CommandSender sender, String mainMsg, String otherMsg, String selfMsg, boolean enableMsg, Player target) {
         if (enableMsg) {
             if(sender instanceof Player) {

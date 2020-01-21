@@ -1,5 +1,5 @@
 #The auto updater (True to download on its own) (False to prompt you to download on your own)
-enable-auto-update: true
+enable-auto-update: false
 
 # The message to send the player when they do not have permission
 permission-message: '&cYou do not have permission to use this command!'
@@ -10,7 +10,8 @@ permission-message: '&cYou do not have permission to use this command!'
 # (False) disable command messages                  #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 join-message: '&bWelcome, &6%player%&b, to the server!'
-leave-message: '&aAdios, &c%player%&a, see you soon!'
+leave-message: '&bAdios, &6%player%&b, see you soon!'
+enable-message: true
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 #                Spawn Settings                 #

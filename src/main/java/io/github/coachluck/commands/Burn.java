@@ -31,7 +31,6 @@ public class Burn implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (enableMsg) msg(player, selfMsg);
-
                 player.setFireTicks(BURN);
             } else logMsg("&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.burn.others")) {

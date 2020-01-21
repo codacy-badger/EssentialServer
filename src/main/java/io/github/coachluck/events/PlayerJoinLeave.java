@@ -15,14 +15,16 @@ import static io.github.coachluck.utils.ChatUtils.format;
 public class PlayerJoinLeave implements Listener {
     private final EssentialServer plugin;
 
+    private String joinMsg;
+    private String quitMsg;
+    private boolean enableMsg;
+
     public PlayerJoinLeave(EssentialServer plugin) {
         this.plugin = plugin; //stores plugin
         joinMsg = plugin.getConfig().getString("join-message");
         quitMsg = plugin.getConfig().getString("leave-message");
+        enableMsg = plugin.getConfig().getBoolean("enable-message");
     }
-
-    private String joinMsg;
-    private String quitMsg;
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -30,24 +32,18 @@ public class PlayerJoinLeave implements Listener {
         for(int i = 0; i < Vanish.vanish_players.size(); i++) {
             player.hidePlayer(plugin, Bukkit.getPlayer(Vanish.vanish_players.get(i)));
         }
-        for (Player player1: Bukkit.getServer().getOnlinePlayers()) {
-            e.setJoinMessage(format(joinMsg.replace("%player%", player1.getDisplayName())));
-        }
+        if(enableMsg) e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
+
         if(plugin.updateMsg) {
-            for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-                if(p.isOp()) {
-                    JsonMessage message = new JsonMessage().append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save().append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save().append(format("&c!")).save();
-                    message.send(p);
-                }
+            if(player.isOp()) {
+                JsonMessage message = new JsonMessage().append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save().append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save().append(format("&c!")).save();
+                message.send(player);
             }
         }
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
-        for (Player player: Bukkit.getServer().getOnlinePlayers()) {
-            e.setQuitMessage(format(quitMsg.replace("%player%", player.getDisplayName())));
-        }
+        if(enableMsg) e.setQuitMessage(format(quitMsg.replace("%player%", e.getPlayer().getDisplayName())));
     }
-
 }

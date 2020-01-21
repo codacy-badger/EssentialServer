@@ -103,6 +103,7 @@ permissions:
       essentialserver.vanish.others: true
       essentialserver.tp: true
       essentialserver.tp.others: true
+      essentialserver.tp.bypass: true
       essentialserver.invsee: true
 
   essentialserver.info:
