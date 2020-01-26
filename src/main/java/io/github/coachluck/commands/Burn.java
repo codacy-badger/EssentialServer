@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
@@ -32,7 +31,7 @@ public class Burn implements CommandExecutor {
                 Player player = (Player) sender;
                 if (enableMsg) msg(player, selfMsg);
                 player.setFireTicks(BURN);
-            } else logMsg("&cYou must be a player to execute this command!");
+            } else msg(sender,"&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.burn.others")) {
             try{
                 Player target = Bukkit.getPlayerExact(args[0]);

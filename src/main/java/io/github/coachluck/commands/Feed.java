@@ -5,8 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
-import java.util.*;
-
 import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Feed implements CommandExecutor {

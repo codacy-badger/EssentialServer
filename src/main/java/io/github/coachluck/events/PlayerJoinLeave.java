@@ -1,7 +1,6 @@
 package io.github.coachluck.events;
 
 import io.github.coachluck.EssentialServer;
-import io.github.coachluck.commands.Vanish;
 import io.github.coachluck.utils.JsonMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -29,11 +28,10 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        for(int i = 0; i < Vanish.vanish_players.size(); i++) {
-            player.hidePlayer(plugin, Bukkit.getPlayer(Vanish.vanish_players.get(i)));
+        for(int i = 0; i < plugin.vanish_players.size(); i++) {
+            player.hidePlayer(plugin, Bukkit.getPlayer(plugin.vanish_players.get(i)));
         }
         if(enableMsg) e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
-
         if(plugin.updateMsg) {
             if(player.isOp()) {
                 JsonMessage message = new JsonMessage().append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save().append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save().append(format("&c!")).save();
@@ -45,5 +43,9 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         if(enableMsg) e.setQuitMessage(format(quitMsg.replace("%player%", e.getPlayer().getDisplayName())));
+        if(plugin.vanish_players.contains(e.getPlayer().getUniqueId())) {
+            plugin.vanish_players.remove(e.getPlayer().getUniqueId());
+            e.getPlayer().setInvulnerable(false);
+        }
     }
 }

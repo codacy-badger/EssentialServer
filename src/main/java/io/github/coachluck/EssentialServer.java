@@ -8,16 +8,21 @@ import io.github.coachluck.utils.Updater;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.UUID;
 import java.util.logging.Logger;
 
-import static io.github.coachluck.utils.ChatUtils.*;
+import static io.github.coachluck.utils.ChatUtils.format;
+import static io.github.coachluck.utils.ChatUtils.logMsg;
+
 
 @SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
-    private String pMsg = this.getConfig().getString("permission-message");
+    private String pMsg = format(this.getConfig().getString("permission-message"));
     private boolean updateType = this.getConfig().getBoolean("enable-auto-update");
     private Updater.UpdateType UPDATE_CHOICE = Updater.UpdateType.DEFAULT;
+    public ArrayList<UUID> vanish_players = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -72,38 +77,39 @@ public class EssentialServer extends JavaPlugin {
     }
 
     private void enableCommandP() {
-        this.getServer().getPluginCommand("esHelp").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Clear").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Smite").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Fly").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("God").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Kill").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Heal").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Feed").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("gameMode").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Teleport").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Vanish").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Burn").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("Spawn").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("SetSpawn").setPermissionMessage(format(pMsg));
-        this.getServer().getPluginCommand("InvSee").setPermissionMessage(format(pMsg));
+        this.getServer().getPluginCommand("es").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("esHelp").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Clear").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Smite").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Fly").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("God").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Kill").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Heal").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Feed").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("gameMode").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Teleport").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Vanish").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Burn").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("Spawn").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("SetSpawn").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("InvSee").setPermissionMessage(pMsg);
     }
 
     private void enableCommandTabs() {
-        this.getCommand("gameMode").setTabCompleter(new TabList());
-        this.getCommand("esHelp").setTabCompleter(new TabList());
-        this.getCommand("InvSee").setTabCompleter(new TabList());
-        this.getCommand("Teleport").setTabCompleter(new TabList());
-        this.getCommand("SetSpawn").setTabCompleter(new TabList());
-        this.getCommand("Clear").setTabCompleter(new PlayerTabList());
-        this.getCommand("Spawn").setTabCompleter(new PlayerTabList());
-        this.getCommand("God").setTabCompleter(new PlayerTabList());
-        this.getCommand("Fly").setTabCompleter(new PlayerTabList());
-        this.getCommand("Heal").setTabCompleter(new PlayerTabList());
-        this.getCommand("Feed").setTabCompleter(new PlayerTabList());
-        this.getCommand("Vanish").setTabCompleter(new PlayerTabList());
-        this.getCommand("Burn").setTabCompleter(new PlayerTabList());
-        this.getCommand("Smite").setTabCompleter(new PlayerTabList());
-        this.getCommand("Kill").setTabCompleter(new PlayerTabList());
+        this.getCommand("gameMode").setTabCompleter(new TabList(this));
+        this.getCommand("esHelp").setTabCompleter(new TabList(this));
+        this.getCommand("InvSee").setTabCompleter(new TabList(this));
+        this.getCommand("Teleport").setTabCompleter(new TabList(this));
+        this.getCommand("SetSpawn").setTabCompleter(new TabList(this));
+        this.getCommand("Clear").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Spawn").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("God").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Fly").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Heal").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Feed").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Vanish").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Burn").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Smite").setTabCompleter(new PlayerTabList(this));
+        this.getCommand("Kill").setTabCompleter(new PlayerTabList(this));
     }
 }

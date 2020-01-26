@@ -6,13 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-
-import static io.github.coachluck.utils.ChatUtils.logMsg;
 import static io.github.coachluck.utils.ChatUtils.msg;
 
 public class InvSee implements CommandExecutor {
@@ -45,12 +40,9 @@ public class InvSee implements CommandExecutor {
                     msg(p, "&cIncorrect usage! Try &a/invsee [&bplayer&a]");
                 }
             }
-            else if(label.equalsIgnoreCase("enderchest") && sender.hasPermission("essentialserver.enderchest")) {
-
-            }
         }
         else {
-            logMsg("&cYou must be a player to execute this command!");
+            msg(sender, "&cYou must be a player to execute this command!");
         }
         return true;
     }

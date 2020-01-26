@@ -26,7 +26,6 @@ public class ChatUtils {
     public static void logMsg(String message) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&eEssentialServer&7]&r " + message));
     }
-
     public static void sendMessages(CommandSender sender, String mainMsg, String otherMsg, String selfMsg, boolean enableMsg, Player target) {
         if (enableMsg) {
             if(sender instanceof Player) {
