@@ -83,6 +83,7 @@ burn:
   others-message: '&cYou have set &4&l&6&l%player%&r&c on fire!'
   self-message: '&cYou have set &4&lYourself??&r&c on fire!'
   message-enable: true
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #                               Rest of Config                            #
 # others-message: %player%, the player you are performing the command on  #
