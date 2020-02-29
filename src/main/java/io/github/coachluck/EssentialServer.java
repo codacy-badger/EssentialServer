@@ -20,23 +20,14 @@ import static io.github.coachluck.utils.ChatUtils.logMsg;
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
     private String pMsg = format(this.getConfig().getString("permission-message"));
-    private boolean updateType = this.getConfig().getBoolean("enable-auto-update");
-    private Updater.UpdateType UPDATE_CHOICE = Updater.UpdateType.DEFAULT;
     public ArrayList<UUID> vanish_players = new ArrayList<>();
 
     @Override
     public void onEnable() {
-        if(!updateType)  UPDATE_CHOICE = Updater.UpdateType.NO_DOWNLOAD;
-        Logger logger = this.getLogger();
-        Updater update = new Updater(this, 72032, this.getFile(), UPDATE_CHOICE, true);
-        if(update.getResult() == Updater.UpdateResult.UPDATE_AVAILABLE && !updateType) {
-            updateMsg = true;
-            logMsg("&bThere is a new update available! &ehttps://bit.ly/37eMbW5");
-        } else {
-            updateMsg = false;
-            logMsg("&bYou can disable auto-updates in the &econfig.yml");
-        }
         enableConfig();
+        Logger logger = this.getLogger();
+        Updater update = new Updater(this, 72032, this.getFile(), false);
+        checkUpdate(update);
         registerEvents();
         enableCommands();
         enableCommandP();
@@ -111,5 +102,23 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Burn").setTabCompleter(new PlayerTabList(this));
         this.getCommand("Smite").setTabCompleter(new PlayerTabList(this));
         this.getCommand("Kill").setTabCompleter(new PlayerTabList(this));
+    }
+
+    private void checkUpdate(Updater update) {
+        Updater.UpdateResult up = update.getResult();
+        if (Updater.UpdateResult.DISABLED != up) {
+            if (up == Updater.UpdateResult.UPDATE_AVAILABLE) {
+                updateMsg = true;
+                logMsg("&bThere is a new update available! &ehttps://bit.ly/37eMbW5");
+                logMsg("&bYou can enable automatic updates in the &e'auto-update.yml&b' by changing '&eforce-download&b' to true");
+            }
+            else if (up == Updater.UpdateResult.SUCCESS) {
+                logMsg("&bSuccessfully installed the newest version:&e " + update.getLatestName());
+                logMsg("&bPlease reload the server for this to take effect.");
+            }
+            else if (up == Updater.UpdateResult.NO_UPDATE) {
+                logMsg("&bYou are running the latest version.");
+            }
+        }
     }
 }

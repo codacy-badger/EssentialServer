@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.coachluck</groupId>
     <artifactId>EssentialServer</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <repositories>
         <repository>
             <id>bukkit-repo</id>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.15-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

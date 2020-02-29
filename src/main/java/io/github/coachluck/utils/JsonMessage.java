@@ -6,8 +6,6 @@ package io.github.coachluck.utils;
 //Modifications not expressly accepted by the author should be noted in the license of any forks.
 //No warranty for any purpose whatsoever is implied or expressed,
 //and the author shall not be held liable for any losses, direct or indirect as a result of using this software.
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import org.bukkit.Bukkit;
@@ -43,17 +41,6 @@ public class JsonMessage {
     private static String getServerVersion() {
         return Bukkit.getServer().getClass().getPackage().getName().substring(23);
     }
-
-    /**
-     * Send the json string to all players on the server.
-     */
-    public void send() {
-        List<Object> players = new ArrayList<>();
-        for(Player p : Bukkit.getOnlinePlayers())
-            players.add(p);
-        send(players.toArray(new Player[players.size()]));
-    }
-
     /**
      * Send the json string to specified player(s)
      *

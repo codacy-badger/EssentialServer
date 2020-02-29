@@ -1,6 +1,3 @@
-#The auto updater (True to download on its own) (False to prompt you to download on your own)
-enable-auto-update: false
-
 # The message to send the player when they do not have permission
 permission-message: '&cYou do not have permission to use this command!'
 

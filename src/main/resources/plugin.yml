@@ -1,5 +1,5 @@
 name: EssentialServer
-version: 1.2.6
+version: 1.2.7
 main: io.github.coachluck.EssentialServer
 load: STARTUP
 commands:

@@ -1,4 +1,5 @@
 package io.github.coachluck.utils;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -61,17 +62,21 @@ public class Updater {
     private static final String API_KEY_CONFIG_KEY = "api-key";
     // Config key for disabling Updater
     private static final String DISABLE_CONFIG_KEY = "disable";
+    // Config key for enabing Force Download
+    private static final String FORCE_CONFIG_KEY = "force-download";
     // Default api key value in config
     private static final String API_KEY_DEFAULT = "PUT_API_KEY_HERE";
     // Default disable value in config
     private static final boolean DISABLE_DEFAULT = false;
+    // Default force download value in config
+    private static final boolean FORCE_DEFAULT = false;
 
     /* User-provided variables */
 
     // Plugin running Updater
     private final Plugin plugin;
     // Type of update check to run
-    private final UpdateType type;
+    private UpdateType type;
     // Whether to announce file downloads
     private final boolean announce;
     // The plugin file (jar)
@@ -185,11 +190,10 @@ public class Updater {
      * @param plugin   The plugin that is checking for an update.
      * @param id       The dev.bukkit.org id of the project.
      * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param type     Specify the type of update this will be. See {@link UpdateType}
      * @param announce True if the program should announce the progress of new updates in console.
      */
-    public Updater(Plugin plugin, int id, File file, UpdateType type, boolean announce) {
-        this(plugin, id, file, type, null, announce);
+    public Updater(Plugin plugin, int id, File file, boolean announce) {
+        this(plugin, id, file, null, announce);
     }
 
     /**
@@ -198,11 +202,10 @@ public class Updater {
      * @param plugin   The plugin that is checking for an update.
      * @param id       The dev.bukkit.org id of the project.
      * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param type     Specify the type of update this will be. See {@link UpdateType}
      * @param callback The callback instance to notify when the Updater has finished
      */
-    public Updater(Plugin plugin, int id, File file, UpdateType type, UpdateCallback callback) {
-        this(plugin, id, file, type, callback, false);
+    public Updater(Plugin plugin, int id, File file, UpdateCallback callback) {
+        this(plugin, id, file, callback, false);
     }
 
     /**
@@ -211,13 +214,11 @@ public class Updater {
      * @param plugin   The plugin that is checking for an update.
      * @param id       The dev.bukkit.org id of the project.
      * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param type     Specify the type of update this will be. See {@link UpdateType}
      * @param callback The callback instance to notify when the Updater has finished
      * @param announce True if the program should announce the progress of new updates in console.
      */
-    public Updater(Plugin plugin, int id, File file, UpdateType type, UpdateCallback callback, boolean announce) {
+    public Updater(Plugin plugin, int id, File file, UpdateCallback callback, boolean announce) {
         this.plugin = plugin;
-        this.type = type;
         this.announce = announce;
         this.file = file;
         this.id = id;
@@ -225,15 +226,17 @@ public class Updater {
         this.callback = callback;
 
         final File pluginFile = this.plugin.getDataFolder().getParentFile();
-        final File updaterFile = new File(pluginFile, "Updater");
-        final File updaterConfigFile = new File(updaterFile, "config.yml");
+        final File updaterFile = new File(pluginFile, "EssentialServer");
+        final File updaterConfigFile = new File(updaterFile, "auto-update.yml");
 
         YamlConfiguration config = new YamlConfiguration();
-        config.options().header("This configuration file affects all plugins using the Updater system (version 2+ - http://forums.bukkit.org/threads/96681/ )" + '\n'
-                + "If you wish to use your API key, read http://wiki.bukkit.org/ServerMods_API and place it below." + '\n'
-                + "Some updating systems will not adhere to the disabled value, but these may be turned off in their plugin's configuration.");
+        config.options().header("This configuration file only affects Essential Server, not other plugins using the Updater System" + '\n'
+                + "If you wish to use your BUKKIT API key, read http://wiki.bukkit.org/ServerMods_API and place it below." + '\n'
+                + "To completely disable the Updater, change 'disable' to true." + '\n'
+                + "If you would like to download updates automatically change 'force-download' to true.");
         config.addDefault(API_KEY_CONFIG_KEY, API_KEY_DEFAULT);
         config.addDefault(DISABLE_CONFIG_KEY, DISABLE_DEFAULT);
+        config.addDefault(FORCE_CONFIG_KEY, FORCE_DEFAULT);
 
         if (!updaterFile.exists()) {
             this.fileIOOrError(updaterFile, updaterFile.mkdir(), true);
@@ -269,6 +272,13 @@ public class Updater {
         }
 
         this.apiKey = key;
+
+        if(!config.getBoolean(FORCE_CONFIG_KEY)) {
+            this.type = UpdateType.NO_DOWNLOAD;
+        }
+        else if(config.getBoolean(FORCE_CONFIG_KEY)) {
+            this.type = UpdateType.DEFAULT;
+        }
 
         try {
             this.url = new URL(Updater.HOST + Updater.QUERY + this.id);
@@ -632,6 +642,9 @@ public class Updater {
      * @return true if Updater should consider the remote version an update, false if not.
      */
     public boolean shouldUpdate(String localVersion, String remoteVersion) {
+        int local = Integer.parseInt(localVersion.replace(".", ""));
+        int remote = Integer.parseInt(remoteVersion.replace(".", ""));
+        if(local >= remote) return false;
         return !localVersion.equalsIgnoreCase(remoteVersion);
     }
 
