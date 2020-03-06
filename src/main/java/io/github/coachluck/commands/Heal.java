@@ -13,7 +13,7 @@ import static io.github.coachluck.utils.ChatUtils.*;
 public class Heal implements CommandExecutor {
     private final EssentialServer plugin;
     public Heal(EssentialServer plugin) {
-        this.plugin = plugin; //stores plugin
+        this.plugin = plugin;
     }
 
     @Override

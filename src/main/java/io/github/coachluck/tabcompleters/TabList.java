@@ -18,7 +18,6 @@ public class TabList implements TabCompleter {
     }
 
     private static final List<String> GAME_MODES = Arrays.asList("Adventure", "Creative", "Survival");
-    private static final List<String> PAGE_NUMBERS = Arrays.asList("1", "2", "3");
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         List<String> tabs = new ArrayList<>();
@@ -37,11 +36,7 @@ public class TabList implements TabCompleter {
             else return new ArrayList<>();
         }
         if(cmd.getName().equalsIgnoreCase("eshelp")) {
-            if(args.length == 1) {
-                StringUtil.copyPartialMatches(args[0], PAGE_NUMBERS, new ArrayList<>());
-                return PAGE_NUMBERS;
-            }
-            else return new ArrayList<>();
+            return new ArrayList<>();
         }
         if(cmd.getName().equalsIgnoreCase("teleport")) {
             if(args.length == 1) {

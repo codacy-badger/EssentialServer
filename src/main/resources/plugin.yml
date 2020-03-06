@@ -6,72 +6,72 @@ commands:
   es:
     description: "Basic plugin information."
     aliases: [esinfo, essentialserver, essentials]
-    usage: /<command>
+    usage: /es
     permission: essentialserver.info
+  eshelp:
+    description: "Shows the basic help for commands in this plugin."
+    usage: /eshelp
+    permission: essentialserver.help
   clear:
     description: "Clears your inventory or the player specified."
     aliases: [ci, clearinv, clearinventory]
-    usage: /<command> [player]
+    usage: /clear [player]
     permission: essentialserver.clear
   feed:
     description: "Fill your tummy with some invisible food."
-    usage: /<command> [player]
+    usage: /feed [player]
     permission: essentialserver.feed
   god:
-    description: "Become absolutley invincible, not even thanos could stop you."
-    usage: /<command> [player]
+    description: "Makes you or the player completely invincible."
+    usage: /god [player]
     permission: essentialserver.god
   heal:
-    description: "Heals the player or yourself if left unspecified."
-    usage: /<command> [player]
+    description: "Heal yourself or the player specified."
+    usage: /heal [player]
     permission: essentialserver.heal
   kill:
-    description: "Makes you do the unspeakable..."
-    usage: /<command> [player]
+    description: "Kill yourself or the player specified."
+    usage: /kill [player]
     permission: essentialserver.kill
   fly:
-    description: "Makes you take flight."
-    usage: /<command> [player]
+    description: "Makes you or the player take flight."
+    usage: /fly [player]
     permission: essentialserver.fly
   teleport:
-    description: "Teleports you to the specified player, or teleports the first player to the second."
-    usage: /command [player] <player>
+    description: "Teleports you to the specified player or teleports player1 to player2"
+    usage: /teleport [player1] <player2>
     aliases: [tp]
     permission: essentialserver.teleport
   burn:
-    description: "Burns you or the specified player!"
+    description: "Burns you or the specified player."
     aliases: [burnplayer, b]
-    usage: /<command> [player]
+    usage: /burn [player]
     permission: essentialserver.burn
   smite:
-    description: "Strikes you or the specified player with a glistening beam of lightning!"
+    description: "May the power of thor be bestowed upon you."
     aliases: [thor, lightning]
-    usage: /<command> [player]
+    usage: /smite [player]
     permission: essentialserver.smite
   spawn:
-    description: "Teleports the player to the spawnpoint."
-    usage: /<command> [player]
+    description: "Teleports you or the player to spawn."
+    usage: /spawn [player]
     permission: essentialserver.spawn
   vanish:
     description: "Become invisible to everyone on the server!"
-    usage: /<command> [player]
+    usage: /vanish [player]
     permission: essentialserver.vanish
   setspawn:
-    description: "Set the spawn location!"
-    usage: /<command>
+    description: "Set the spawn for the server."
+    usage: /setspawn
     permission: essentialserver.setspawn
-  eshelp:
-    description: "Shows the basic information of EssentialServer."
-    usage: /<command>
-    permission: essentialserver.help
   gamemode:
-    description: "Changes your or the specified players gamemode."
-    usage: /<command> <mode> [player]
+    description: "Changes your gamemode or the player."
+    usage: /gamemode <mode> [player]
     permission: essentialserver.gamemode
     aliases: [gm]
   invsee:
     description: "Allows you to look inside of players inventory"
-    usage: /<command> <player>
+    usage: /invsee <player>
     permission: essentialserver.invsee
 permissions:
   essentialserver.*:

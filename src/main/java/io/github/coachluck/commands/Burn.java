@@ -11,11 +11,9 @@ import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Burn implements CommandExecutor {
     private final EssentialServer plugin;
-
     public Burn(EssentialServer plugin) {
         this.plugin = plugin; //stores plugin
     }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String burnMsg = plugin.getConfig().getString("burn.message");
