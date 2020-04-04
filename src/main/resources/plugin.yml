@@ -1,7 +1,8 @@
 name: EssentialServer
+api-version: 1.15
 version: 1.2.7
 main: io.github.coachluck.EssentialServer
-load: STARTUP
+load: POSTWORLD
 commands:
   es:
     description: "Basic plugin information."
@@ -73,6 +74,20 @@ commands:
     description: "Allows you to look inside of players inventory"
     usage: /invsee <player>
     permission: essentialserver.invsee
+  warp:
+    description: "Teleport to the specified warp"
+    usage: /warp <warp>
+    permission: essentialserver.warp
+    aliases:
+      - warps
+  setwarp:
+    description: "Add your current location as a warp"
+    usage: /setwarp <name>
+    permission: essentialserver.setwarp
+  delwarp:
+    description: "Delete a warp"
+    usage: /delwarp <warp>
+    permission: essentialserver.delwarp
 permissions:
   essentialserver.*:
     description: "Give access to all Essential Server commands"
@@ -105,6 +120,9 @@ permissions:
       essentialserver.tp.others: true
       essentialserver.tp.bypass: true
       essentialserver.invsee: true
+      essentialserver.warp: true
+      essentialserver.setwarp: true
+      essentialserver.delwarp: true
 
   essentialserver.info:
     description: "Display author information"
@@ -208,3 +226,16 @@ permissions:
   essentialserver.invsee:
     description: "Allows you to view a players inventory"
     default: op
+  essentialserver.warp:
+    description: "Allows a player to warp to a location"
+    default: op
+  essentialserver.setwarp:
+    description: "Allows you to set and create new warps"
+    default: op
+    children:
+      essentialserver.warp: true
+  essentialserver.delwarp:
+    description: "Allows you to delete a warp"
+    default: op
+    children:
+      essentialserver.warp: true

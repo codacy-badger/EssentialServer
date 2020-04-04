@@ -5,38 +5,56 @@ import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.tabcompleters.PlayerTabList;
 import io.github.coachluck.tabcompleters.TabList;
 import io.github.coachluck.utils.Updater;
+import io.github.coachluck.warps.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import static io.github.coachluck.utils.ChatUtils.format;
 import static io.github.coachluck.utils.ChatUtils.logMsg;
 
 
-@SuppressWarnings("unused")
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
     private String pMsg = format(this.getConfig().getString("permission-message"));
     public ArrayList<UUID> vanish_players = new ArrayList<>();
 
+
+    public HashMap<String, Warp> warpMap = new HashMap<>();
+    public File warpDataFile;
+    public YamlConfiguration warpData;
+    public WarpFile warpFile;
+
+    @Override
+    public void onLoad() {
+        enableConfig();
+    }
+
     @Override
     public void onEnable() {
-        enableConfig();
-        Logger logger = this.getLogger();
         Updater update = new Updater(this, 72032, this.getFile(), false);
         checkUpdate(update);
         registerEvents();
         enableCommands();
         enableCommandP();
         enableCommandTabs();
+        loadWarps();
+        reloadWarpsMap();
     }
 
     @Override
     public void onDisable() {
         saveDefaultConfig();
+        warpMap.clear();
     }
 
     private void registerEvents() {
@@ -46,6 +64,8 @@ public class EssentialServer extends JavaPlugin {
     private void enableConfig() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+
+
     }
 
     private void enableCommands() {
@@ -65,6 +85,9 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
+        this.getCommand("warp").setExecutor(new WarpCommand(this));
+        this.getCommand("setwarp").setExecutor(new SetWarp(this));
+        this.getCommand("delwarp").setExecutor(new DelWarp(this));
     }
 
     private void enableCommandP() {
@@ -84,6 +107,9 @@ public class EssentialServer extends JavaPlugin {
         this.getServer().getPluginCommand("Spawn").setPermissionMessage(pMsg);
         this.getServer().getPluginCommand("SetSpawn").setPermissionMessage(pMsg);
         this.getServer().getPluginCommand("InvSee").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("setWarp").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("warp").setPermissionMessage(pMsg);
+        this.getServer().getPluginCommand("delwarp").setPermissionMessage(pMsg);
     }
 
     private void enableCommandTabs() {
@@ -120,5 +146,61 @@ public class EssentialServer extends JavaPlugin {
                 logMsg("&bYou are running the latest version.");
             }
         }
+    }
+
+    private void loadWarps() {
+        if(!getDataFolder().exists()) {
+            getDataFolder().mkdir();
+        }
+        warpDataFile = new File(getDataFolder(), "warps.yml");
+        if(!warpDataFile.exists()) {
+            try {
+                warpDataFile.createNewFile();
+                warpData = YamlConfiguration.loadConfiguration(warpDataFile);
+                warpData.options().header("This holds all information for the warps" +
+                        "\n'warps' will contain all of the current warps on the server" +
+                        "\n'warps.<warpname>.name - sets the display name for the warp");
+                warpData.set("cooldown", 5);
+                warpData.createSection("messages");
+                ArrayList<String> header = new ArrayList<>();
+                header.add("");
+                header.add("&b&m                                  &r&7[ &c&lWarps&r &7]&b&m                                 ");
+                header.add("&7Click on a warp to &eteleport there.");
+                header.add("");
+                warpData.set("messages.warp-list-header", header);
+                warpData.set("messages.warp-list-color", "&e");
+                warpData.set("messages.warp-list-separator", "&7, ");
+                ArrayList<String> footer = new ArrayList<>();
+                footer.add("");
+                warpData.set("messages.warp-list-footer", footer);
+                warpData.set("messages.warp-not-found", "&7Could not find warp&f: &c%warp%");
+                warpData.set("messages.no-perm-for-warp", "&7You do not have permission to warp to &c%warp%");
+                warpData.set("messages.warp-already-exists", "&c%warp% &7already exists! Try using a different name.");
+                warpData.createSection("warps");
+                // Add the example warp
+                warpData.createSection("warps.example");
+                warpData.set("warps.example.name", "&cExample Warp");
+                warpData.set("warps.example.on-warp-message", "&7Successfully warped to &eExample &7this is default set to the spawn location.");
+                warpData.set("warps.example.on-warp-sound", Sound.BLOCK_PORTAL_TRAVEL.toString());
+                warpData.createSection("warps.example.location");
+                final World world = Bukkit.getWorlds().get(0);
+                warpData.set("warps.example.location", world.getSpawnLocation());
+                warpData.save(warpDataFile);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            warpData = YamlConfiguration.loadConfiguration(warpDataFile);
+        }
+        warpFile = new WarpFile(this);
+    }
+
+    public void reloadWarpsMap() {
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            if(!warpMap.isEmpty()) warpMap.clear();
+            for(String s : warpFile.getAllWarps()) {
+                warpMap.put(s, new Warp(warpFile.getLocation(s), warpFile.getSound(s), warpFile.getWarpMessage(s)));
+            }
+        });
     }
 }

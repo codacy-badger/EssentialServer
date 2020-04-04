@@ -2,6 +2,7 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,11 +43,11 @@ public class Heal implements CommandExecutor {
     }
 
     private void setHealth(int amt, Player p) {
-        @SuppressWarnings("deprecation")
         double h = p.getHealth();
         int f = p.getFoodLevel();
         double hAmt = h + amt;
-        if(hAmt > p.getMaxHealth()) hAmt = p.getMaxHealth();
+        double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        if(hAmt > maxHealth) hAmt = maxHealth;
         int fAmt = f + amt;
         if(fAmt > 20) fAmt = 20;
         p.setHealth(hAmt);

@@ -2,7 +2,9 @@ package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import io.github.coachluck.utils.JsonMessage;
+import io.github.coachluck.warps.WarpFile;
 import org.bukkit.command.*;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
@@ -20,12 +22,23 @@ public class esHelp implements CommandExecutor  {
             sendHelp(sender);
         return true;
         }
-        else if(cmd.getName().equalsIgnoreCase("es")) {
-            if(sender instanceof Player) {
-                JsonMessage message = new JsonMessage().append(format("&8[&bEssential Server&8]&e v" + plugin.getDescription().getVersion() + " &7created by ")).save().append(format("&bCoachL_ck")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&eClick Me")).save().append(format("&7!")).save();
-                message.send((Player) sender);
+        else if(cmd.getName().equalsIgnoreCase("es") && sender.hasPermission("essentialserver.info")) {
+            if(args.length != 1) {
+                if (sender instanceof Player) {
+                    JsonMessage message = new JsonMessage()
+                            .append(format("&8[&bEssential Server&8]&e v" + plugin.getDescription().getVersion() + " &7created by ")).save()
+                            .append(format("&bCoachL_ck")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&eClick Me")).save()
+                            .append(format("&7!")).save();
+                    message.send((Player) sender);
+                } else logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &bCoachL_ck");
+            } else  {
+                if(args[0].equalsIgnoreCase("reload") && sender.hasPermission("essentialserver.reload")) {
+                    plugin.reloadConfig();
+                    plugin.warpData = YamlConfiguration.loadConfiguration(plugin.warpDataFile);
+                    plugin.warpFile = new WarpFile(plugin);
+                    msg(sender, "&aSuccessfully configuration files & warps!");
+                }
             }
-            else logMsg("&ev" + plugin.getDescription().getVersion() + " &7created by &bCoachL_ck");
         }
         return true;
     }
@@ -40,7 +53,9 @@ public class esHelp implements CommandExecutor  {
             List<Command> cmdList = PluginCommandYamlParser.parse(plugin);
             p.sendMessage("");
             p.sendMessage(format("&b&m                                   &r&7[ &e&lHelp&r &7]&b&m                                  "));
-            JsonMessage info = new JsonMessage().append(format("&7Hover over &ecommands &7for more info, &6click &7to run the command")).setHoverAsTooltip(format("&7Usage with &b<> &7 is required. &c[] &7is optional")).save();
+            JsonMessage info = new JsonMessage()
+                    .append(format("&7Hover over &ecommands &7for more info, &6click &7to run the command"))
+                    .setHoverAsTooltip(format("&7Usage with &b<> &7 is required. &c[] &7is optional")).save();
             info.send(p);
             p.sendMessage("");
             JsonMessage main = new JsonMessage();

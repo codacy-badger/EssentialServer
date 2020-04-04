@@ -31,7 +31,10 @@ public class gameMode implements CommandExecutor {
             else if (args.length == 2 && sender.hasPermission("essentialserver.gamemode.others")) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
-                    if (enableMsg && !p.getDisplayName().equalsIgnoreCase(target.getDisplayName())) msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
+                    if (enableMsg && !p.getDisplayName().equalsIgnoreCase(target.getDisplayName()))
+                        msg(sender, gOtherMsg
+                                .replaceAll("%player%", target.getDisplayName())
+                                .replaceAll("%mode%", args[0].toLowerCase()));
                     changeGM(args[0], target, sender);
                 } else msg(sender, noPlayer);
             } else badUse(sender);
@@ -41,32 +44,48 @@ public class gameMode implements CommandExecutor {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     Player target = Bukkit.getPlayerExact(args[1]);
                     changeGM(args[0], target, sender);
-                    if (enableMsg) msg(sender, gOtherMsg.replaceAll("%player%", target.getDisplayName()));
+                    if (enableMsg)
+                        msg(sender, gOtherMsg
+                            .replaceAll("%player%", target.getDisplayName())
+                            .replaceAll("%mode%", args[0].toLowerCase()));
                 } else msg(sender, noPlayer);
             }
         }
     return true;
     }
 
-    //handles the gamemode change, take args of the command and player to change the gamemode of
-    private void changeGM(String args, Player target, CommandSender s) {
+    /**
+     * Changes the gamemode of the player w the args
+     * @param GAMEMODE the gamemode to switch too
+     * @param target the player to change the gamemode of
+     * @param s the player changing the gamemode
+     */
+    private void changeGM(String GAMEMODE, Player target, CommandSender s) {
         boolean enableMsg = plugin.getConfig().getBoolean("gamemode.message-enable");
         String gMsg = plugin.getConfig().getString("gamemode.message");
         if (target != null) {
-            if (args.equalsIgnoreCase("survival") || args.equalsIgnoreCase("0")) {
+            if (GAMEMODE.equalsIgnoreCase("survival") || GAMEMODE.equalsIgnoreCase("0")) {
                 target.setGameMode(GameMode.SURVIVAL);
-                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Survival"));
+                if (enableMsg)
+                    msg(target, gMsg.replaceAll("%mode%", "Survival"));
             }
-            else if (args.equalsIgnoreCase("creative") || args.equalsIgnoreCase("1")) {
+            else if (GAMEMODE.equalsIgnoreCase("creative") || GAMEMODE.equalsIgnoreCase("1")) {
                 target.setGameMode(GameMode.CREATIVE);
-                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Creative"));
+                if (enableMsg)
+                    msg(target, gMsg.replaceAll("%mode%", "Creative"));
             }
-            else if (args.equalsIgnoreCase("adventure") || args.equalsIgnoreCase("2")) {
+            else if (GAMEMODE.equalsIgnoreCase("adventure") || GAMEMODE.equalsIgnoreCase("2")) {
                 target.setGameMode(GameMode.ADVENTURE);
-                if (enableMsg) msg(target, gMsg.replaceAll("%mode%", "Adventure"));
+                if (enableMsg)
+                    msg(target, gMsg.replaceAll("%mode%", "Adventure"));
             } else badUse(s);
         }
     }
+
+    /**
+     * Send the bad usage message
+     * @param s the sender of the command
+     */
     private void badUse(CommandSender s) {
         if(s.hasPermission("essentialserver.tp.others")) msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a] <&bplayer&a>");
         else msg(s, "&cIncorrect usage! Try &a/gamemode [&bmode&a]");

@@ -34,7 +34,10 @@ public class PlayerJoinLeave implements Listener {
         if(enableMsg) e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
         if(plugin.updateMsg) {
             if(player.isOp()) {
-                JsonMessage message = new JsonMessage().append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save().append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save().append(format("&c!")).save();
+                JsonMessage message = new JsonMessage()
+                        .append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save()
+                        .append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save()
+                        .append(format("&c!")).save();
                 message.send(player);
             }
         }
