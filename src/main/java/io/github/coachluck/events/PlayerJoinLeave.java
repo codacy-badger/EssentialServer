@@ -19,7 +19,7 @@ public class PlayerJoinLeave implements Listener {
     private boolean enableMsg;
 
     public PlayerJoinLeave(EssentialServer plugin) {
-        this.plugin = plugin; //stores plugin
+        this.plugin = plugin;
         joinMsg = plugin.getConfig().getString("join-message");
         quitMsg = plugin.getConfig().getString("leave-message");
         enableMsg = plugin.getConfig().getBoolean("enable-message");
