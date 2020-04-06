@@ -28,16 +28,18 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        for(int i = 0; i < plugin.vanish_players.size(); i++) {
-            player.hidePlayer(plugin, Bukkit.getPlayer(plugin.vanish_players.get(i)));
+        if(!plugin.vanish_players.isEmpty()) {
+            for (int i = 0; i < plugin.vanish_players.size(); i++) {
+                player.hidePlayer(plugin, Bukkit.getPlayer(plugin.vanish_players.get(i)));
+            }
         }
         if(enableMsg) e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
         if(plugin.updateMsg) {
             if(player.isOp()) {
                 JsonMessage message = new JsonMessage()
-                        .append(format("&8[&eEssential Server&8]&c is out of date! Get the new version ")).save()
+                        .append(format("&8[&eEssential Server&8]&c is out of date! &7Get the new version ")).save()
                         .append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save()
-                        .append(format("&c!")).save();
+                        .append(format("&7!")).save();
                 message.send(player);
             }
         }

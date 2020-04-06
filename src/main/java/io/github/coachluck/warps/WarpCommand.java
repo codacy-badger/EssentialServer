@@ -42,7 +42,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                         ChatUtils.msg(p, plugin.warpData.getString("messages.no-perm-for-warp").replaceAll("%warp%", warpName));
                     }
                 } else {
-                    ChatUtils.msg(p, "&c" + args[0] + " &7does not exist!");
+                    ChatUtils.msg(p, plugin.warpData.getString("messages.warp-not-found").replaceAll("%warp%", warpName));
                 }
             } else {
                 JsonMessage warpList = new JsonMessage();
@@ -60,14 +60,14 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 // header
                 for(String s : plugin.warpData.getStringList("messages.warp-list-header"))
                     p.sendMessage(format(s));
-                // body
+                // body - JsonMessage
                 warpList.send(p);
                 // footer
                 for(String s : plugin.warpData.getStringList("messages.warp-list-footer"))
                     p.sendMessage(format(s));
             }
         } else {
-            ChatUtils.logMsg("&cThis can only be used by players");
+            ChatUtils.logMsg("&cYou must be a player to use this command.");
         }
         return true;
     }

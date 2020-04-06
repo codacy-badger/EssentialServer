@@ -165,7 +165,7 @@ public class EssentialServer extends JavaPlugin {
                 ArrayList<String> header = new ArrayList<>();
                 header.add("");
                 header.add("&b&m                                  &r&7[ &c&lWarps&r &7]&b&m                                 ");
-                header.add("&7Click on a warp to &eteleport there.");
+                header.add("&7Click on any warp to &eteleport there.");
                 header.add("");
                 warpData.set("messages.warp-list-header", header);
                 warpData.set("messages.warp-list-color", "&e");
@@ -176,10 +176,10 @@ public class EssentialServer extends JavaPlugin {
                 warpData.set("messages.warp-not-found", "&7Could not find warp&f: &c%warp%");
                 warpData.set("messages.no-perm-for-warp", "&7You do not have permission to warp to &c%warp%");
                 warpData.set("messages.warp-already-exists", "&c%warp% &7already exists! Try using a different name.");
+                warpData.set("messages.create-warp", "You have created a new warp &e%warp%");
                 warpData.createSection("warps");
                 // Add the example warp
                 warpData.createSection("warps.example");
-                warpData.set("warps.example.name", "&cExample Warp");
                 warpData.set("warps.example.on-warp-message", "&7Successfully warped to &eExample &7this is default set to the spawn location.");
                 warpData.set("warps.example.on-warp-sound", Sound.BLOCK_PORTAL_TRAVEL.toString());
                 warpData.createSection("warps.example.location");

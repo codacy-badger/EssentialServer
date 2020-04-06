@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.coachluck.utils.ChatUtils.format;
+import static io.github.coachluck.utils.ChatUtils.logMsg;
 
 public class SetWarp implements TabCompleter, CommandExecutor {
     EssentialServer plugin;
@@ -32,12 +33,12 @@ public class SetWarp implements TabCompleter, CommandExecutor {
                 }
                 plugin.warpFile.addWarp(warpName, p.getLocation());
                 plugin.reloadWarpsMap();
-                ChatUtils.msg(p, "You have created a new warp &e" + args[0]);
+                ChatUtils.msg(p, plugin.warpData.getString("messages.create-warp").replaceAll("%warp%", warpName));
             } else {
                 ChatUtils.msg(p, "&cIncorrect usage: &e/setwarp &b<WarpName>");
             }
         } else {
-            sender.sendMessage("&cYou must be a player to use this command.");
+            logMsg("&cYou must be a player to use this command.");
         }
         return true;
     }
