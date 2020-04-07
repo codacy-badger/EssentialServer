@@ -4,7 +4,19 @@
 2. [Supported Versions](#Supported-Versions)
 3. [Commands](#Commands)
 ---
-
+### Commands
+|<div style="width:174px">Command</div> | **Permission** | **Description** |
+| :--------  |:---------------:|:----- |
+|`/es`| `essentialserver.info`| Shows basic plugin information |
+|`/es reload` |`essentialserver.reload`| Reloads the configuration files | 
+|`/eshelp`|`essentialserver.help`|Shows the plugin help page (only shows commands you have permission for)| 
+|`/setspawn`|`essentialserver.setspawn`|Sets the spawn point for the server|
+|`/spawn`|`essentialserver.spawn` <br> `essentialserver.spawn.others`| Teleports you to the spawn point <br> Teleports the player to the spawn point| 
+|`/feed`<br>`/feed <player>`|`essentialserver.feed`<br> `essentialserver.feed.others`|Feed yourself <br> Feed the specified player!| 
+|`/heal`<br>`/heal <player`|`essentialserver.heal`<br>`essentialserver.heal.others`|Heals yourself <br> Heals the specified player |
+|`/teleport <player>`<br>`/teleport <p1> <player2>` |`essentialserver.tp`<br> `essentialserver.tp.others` | Teleports you to the specified player <br>Teleports player1 to player2|
+|`/`|`essentialserver.`| desc |
+---
 #### Supported Platforms
 - [x] CraftBukkit
 - [x] Spigot
@@ -24,15 +36,3 @@
 - [ ] 1.9
 - [ ] 1;8
 ------------
-### Commands
-|<div style="width:174px">Command</div> | **Permission** | **Description** |
-| :--------  |:---------------:|:----- |
-|`/es`| `essentialserver.info`| Shows basic plugin information |
-|`/es reload` |`essentialserver.reload`| Reloads the configuration files | 
-|`/eshelp`|`essentialserver.help`|Shows the plugin help page (only shows commands you have permission for)| 
-|`/setspawn`|`essentialserver.setspawn`|Sets the spawn point for the server|
-|`/spawn`|`essentialserver.spawn` <br> `essentialserver.spawn.others`| Teleports you to the spawn point <br> Teleports the player to the spawn point| 
-|`/feed`<br>`/feed <player>`|`essentialserver.feed`<br> `essentialserver.feed.others`|Feed yourself <br> Feed the specified player!| 
-|`/heal`<br>`/heal <player`|`essentialserver.heal`<br>`essentialserver.heal.others`|Heals yourself <br> Heals the specified player |
-|`/teleport <player>`<br>`/teleport <p1> <player2>` |`essentialserver.tp`<br> `essentialserver.tp.others` | Teleports you to the specified player <br>Teleports player1 to player2|
-|`/`|`essentialserver.`| desc |
