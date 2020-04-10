@@ -159,16 +159,19 @@ public class Updater {
         final File updaterFile = new File(pluginFile, "EssentialServer");
         final File updaterConfigFile = new File(updaterFile, "auto-update.yml");
 
-        loadConfig(updaterConfigFile, updaterFile);
+        YamlConfiguration config = new YamlConfiguration();
+
+        makeHeader(config);
+
+        checkConfig(updaterConfigFile, updaterFile);
+
+        attemptLoad(updaterConfigFile, updaterFile, config);
+
+        setValues(config);
+        doUpdate();
     }
 
-    /**
-     * Loads the configuration file
-     * @param updaterConfigFile the auto-update file
-     * @param updaterFile the directory
-     */
-    private void loadConfig(File updaterConfigFile, File updaterFile) {
-        YamlConfiguration config = new YamlConfiguration();
+    private YamlConfiguration makeHeader(YamlConfiguration config) {
         config.options().header("This configuration file only affects Essential Server, not other plugins using the Updater System" + '\n'
                 + "If you wish to use your BUKKIT API key, read http://wiki.bukkit.org/ServerMods_API and place it below." + '\n'
                 + "To completely disable the Updater, change 'disable' to true." + '\n'
@@ -176,11 +179,10 @@ public class Updater {
         config.addDefault(API_KEY_CONFIG_KEY, API_KEY_DEFAULT);
         config.addDefault(DISABLE_CONFIG_KEY, DISABLE_DEFAULT);
         config.addDefault(FORCE_CONFIG_KEY, FORCE_DEFAULT);
+        return config;
+    }
 
-        if (!updaterFile.exists()) {
-            this.fileIOOrError(updaterFile, updaterFile.mkdir(), true);
-        }
-
+    private YamlConfiguration attemptLoad(File updaterConfigFile, File updaterFile, YamlConfiguration config) {
         boolean createFile = !updaterConfigFile.exists();
         try {
             if (createFile) {
@@ -199,7 +201,14 @@ public class Updater {
             }
             this.plugin.getLogger().log(Level.SEVERE, message, e);
         }
+        return config;
+    }
 
+    /**
+     *
+     * @param config
+     */
+    private void setValues(YamlConfiguration config) {
         if (config.getBoolean(DISABLE_CONFIG_KEY)) {
             this.result = UpdateResult.DISABLED;
             return;
@@ -209,7 +218,6 @@ public class Updater {
         if (API_KEY_DEFAULT.equalsIgnoreCase(key) || "".equals(key)) {
             key = null;
         }
-
         this.apiKey = key;
 
         if(!config.getBoolean(FORCE_CONFIG_KEY)) {
@@ -218,7 +226,12 @@ public class Updater {
         else if(config.getBoolean(FORCE_CONFIG_KEY)) {
             this.type = UpdateType.DEFAULT;
         }
+    }
 
+    /**
+     *
+     */
+    private void doUpdate() {
         try {
             this.url = new URL(Updater.HOST + Updater.QUERY + this.id);
         } catch (final MalformedURLException e) {
@@ -231,6 +244,17 @@ public class Updater {
             this.thread.start();
         } else {
             runUpdater();
+        }
+    }
+
+    /**
+     * Loads the configuration file
+     * @param updaterConfigFile the auto-update file
+     * @param updaterFile the directory
+     */
+    private void checkConfig(File updaterConfigFile, File updaterFile) {
+        if (!updaterFile.exists()) {
+            this.fileIOOrError(updaterFile, updaterFile.mkdir(), true);
         }
     }
 
