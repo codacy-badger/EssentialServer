@@ -1,4 +1,4 @@
-package io.github.coachluck.warps;
+package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import io.github.coachluck.utils.ChatUtils;

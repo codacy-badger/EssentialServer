@@ -12,7 +12,6 @@ import java.util.zip.ZipFile;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -23,17 +22,11 @@ import org.json.simple.JSONValue;
  */
 
 public class Updater {
-
-    /* Constants */
-
     // Remote file's title
     private static final String TITLE_VALUE = "name";
     // Remote file's download link
     private static final String LINK_VALUE = "downloadUrl";
     // Remote file's release type
-    private static final String TYPE_VALUE = "releaseType";
-    // Remote file's build version
-    private static final String VERSION_VALUE = "gameVersion";
     // Path to GET
     private static final String QUERY = "/servermods/files?projectIds=";
     // Slugs will be appended to this to get to the project's RSS feed
@@ -60,33 +53,26 @@ public class Updater {
     private static final boolean FORCE_DEFAULT = false;
 
     /* User-provided variables */
-
     // Plugin running Updater
     private final Plugin plugin;
     // Type of update check to run
     private UpdateType type;
-    // Whether to announce file downloads
-    private final boolean announce;
     // The plugin file (jar)
     private final File file;
     // The folder that downloads will be placed in
     private final File updateFolder;
     // The provided callback (if any)
-    private final UpdateCallback callback;
+    //private final UpdateCallback callback;
     // Project's Curse ID
-    private int id = -1;
+    private int id;
     // BukkitDev ServerMods API key
     private String apiKey = null;
 
     /* Collected from Curse API */
-
     private String versionName;
     private String versionLink;
-    private String versionType;
-    private String versionGameVersion;
 
     /* Update process variables */
-
     // Connection to RSS
     private URL url;
     // Updater thread
@@ -154,35 +140,6 @@ public class Updater {
         NO_DOWNLOAD
     }
 
-    /**
-     * Represents the various release types of a file on BukkitDev.
-     */
-    public enum ReleaseType {
-        /**
-         * An "alpha" file.
-         */
-        ALPHA,
-        /**
-         * A "beta" file.
-         */
-        BETA,
-        /**
-         * A "release" file.
-         */
-        RELEASE
-    }
-
-    /**
-     * Initialize the updater.
-     *
-     * @param plugin   The plugin that is checking for an update.
-     * @param id       The dev.bukkit.org id of the project.
-     * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param announce True if the program should announce the progress of new updates in console.
-     */
-    public Updater(Plugin plugin, int id, File file, boolean announce) {
-        this(plugin, id, file, null, announce);
-    }
 
     /**
      * Initialize the updater with the provided callback.
@@ -190,28 +147,14 @@ public class Updater {
      * @param plugin   The plugin that is checking for an update.
      * @param id       The dev.bukkit.org id of the project.
      * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param callback The callback instance to notify when the Updater has finished
-     */
-    public Updater(Plugin plugin, int id, File file, UpdateCallback callback) {
-        this(plugin, id, file, callback, false);
-    }
-
-    /**
-     * Initialize the updater with the provided callback.
      *
-     * @param plugin   The plugin that is checking for an update.
-     * @param id       The dev.bukkit.org id of the project.
-     * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
-     * @param callback The callback instance to notify when the Updater has finished
-     * @param announce True if the program should announce the progress of new updates in console.
      */
-    public Updater(Plugin plugin, int id, File file, UpdateCallback callback, boolean announce) {
+    public Updater(Plugin plugin, int id, File file) {
         this.plugin = plugin;
-        this.announce = announce;
         this.file = file;
         this.id = id;
         this.updateFolder = this.plugin.getServer().getUpdateFolderFile();
-        this.callback = callback;
+        //this.callback = null;
 
         final File pluginFile = this.plugin.getDataFolder().getParentFile();
         final File updaterFile = new File(pluginFile, "EssentialServer");
@@ -254,12 +197,7 @@ public class Updater {
             return;
         }
 
-        String key = config.getString(API_KEY_CONFIG_KEY);
-        if (API_KEY_DEFAULT.equalsIgnoreCase(key) || "".equals(key)) {
-            key = null;
-        }
-
-        this.apiKey = key;
+        this.apiKey = config.getString(API_KEY_CONFIG_KEY);
 
         if(!config.getBoolean(FORCE_CONFIG_KEY)) {
             this.type = UpdateType.NO_DOWNLOAD;
@@ -295,34 +233,6 @@ public class Updater {
     }
 
     /**
-     * Get the latest version's release type.
-     *
-     * @return latest version's release type.
-     * @see ReleaseType
-     */
-    public ReleaseType getLatestType() {
-        this.waitForThread();
-        if (this.versionType != null) {
-            for (ReleaseType type : ReleaseType.values()) {
-                if (this.versionType.equalsIgnoreCase(type.name())) {
-                    return type;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get the latest version's game version (such as "CB 1.2.5-R1.0").
-     *
-     * @return latest version's game version.
-     */
-    public String getLatestGameVersion() {
-        this.waitForThread();
-        return this.versionGameVersion;
-    }
-
-    /**
      * Get the latest version's name (such as "Project v1.0").
      *
      * @return latest version's name.
@@ -330,16 +240,6 @@ public class Updater {
     public String getLatestName() {
         this.waitForThread();
         return this.versionName;
-    }
-
-    /**
-     * Get the latest version's direct file link.
-     *
-     * @return latest version's file link.
-     */
-    public String getLatestFileLink() {
-        this.waitForThread();
-        return this.versionLink;
     }
 
     /**
@@ -376,9 +276,6 @@ public class Updater {
             // Unzip
             this.unzip(dFile.getAbsolutePath());
         }
-        if (this.announce) {
-            this.plugin.getLogger().info("Finished updating.");
-        }
     }
 
     /**
@@ -389,23 +286,14 @@ public class Updater {
         FileOutputStream fout = null;
         try {
             URL fileUrl = followRedirects(this.versionLink);
-            final int fileLength = fileUrl.openConnection().getContentLength();
             in = new BufferedInputStream(fileUrl.openStream());
             fout = new FileOutputStream(new File(this.updateFolder, file.getName()));
 
             final byte[] data = new byte[Updater.BYTE_SIZE];
             int count;
-            if (this.announce) {
-                this.plugin.getLogger().info("About to download a new update: " + this.versionName);
-            }
-            long downloaded = 0;
             while ((count = in.read(data, 0, Updater.BYTE_SIZE)) != -1) {
-                downloaded += count;
                 fout.write(data, 0, count);
-                final int percent = (int) ((downloaded * 100) / fileLength);
-                if (this.announce && ((percent % 10) == 0)) {
-                    this.plugin.getLogger().info("Downloading update: " + percent + "% of " + fileLength + " bytes.");
-                }
+
             }
         } catch (Exception ex) {
             this.plugin.getLogger().log(Level.WARNING, "The auto-updater tried to download a new update, but was unsuccessful.", ex);
@@ -682,8 +570,6 @@ public class Updater {
             JSONObject latestUpdate = (JSONObject) array.get(array.size() - 1);
             this.versionName = (String) latestUpdate.get(Updater.TITLE_VALUE);
             this.versionLink = (String) latestUpdate.get(Updater.LINK_VALUE);
-            this.versionType = (String) latestUpdate.get(Updater.TYPE_VALUE);
-            this.versionGameVersion = (String) latestUpdate.get(Updater.VERSION_VALUE);
 
             return true;
         } catch (final IOException e) {
@@ -723,18 +609,6 @@ public class Updater {
         }
     }
 
-    /**
-     * Called on main thread when the Updater has finished working, regardless
-     * of result.
-     */
-    public interface UpdateCallback {
-        /**
-         * Called when the updater has finished working.
-         * @param updater The updater instance
-         */
-        void onFinish(Updater updater);
-    }
-
     private class UpdateRunnable implements Runnable {
         @Override
         public void run() {
@@ -757,17 +631,6 @@ public class Updater {
             }
         }
 
-        if (this.callback != null) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    runCallback();
-                }
-            }.runTask(this.plugin);
-        }
     }
 
-    private void runCallback() {
-        this.callback.onFinish(this);
-    }
 }

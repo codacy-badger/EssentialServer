@@ -1,6 +1,5 @@
 package io.github.coachluck.utils;
 
-import io.github.coachluck.EssentialServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,12 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("unused")
 public class ChatUtils {
-    EssentialServer plugin;
-    public ChatUtils(EssentialServer plugin) {
-        this.plugin = plugin;
-    }
     public static final String SMALL_ARROWS_RIGHT = "»";
 
     /**
@@ -30,7 +24,8 @@ public class ChatUtils {
      * @param message the message to send
      * **/
     public static void msg(CommandSender s, String message) {
-        if(s instanceof Player) s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
+        if(s instanceof Player) s.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "&c" + SMALL_ARROWS_RIGHT + "&r " + message));
         else logMsg(message);
     }
     /**

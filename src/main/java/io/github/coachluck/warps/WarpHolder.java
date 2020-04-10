@@ -3,13 +3,13 @@ package io.github.coachluck.warps;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 
-public class Warp {
+public class WarpHolder {
 
     private Location location;
     private Sound warpSound;
     private String warpMessage;
 
-    public Warp(Location location, Sound warpSound, String warpMessage) {
+    public WarpHolder(Location location, Sound warpSound, String warpMessage) {
         this.location = location;
         this.warpSound = warpSound;
         this.warpMessage = warpMessage;

@@ -34,14 +34,12 @@ public class PlayerJoinLeave implements Listener {
             }
         }
         if(enableMsg) e.setJoinMessage(format(joinMsg.replace("%player%", player.getDisplayName())));
-        if(plugin.updateMsg) {
-            if(player.isOp()) {
+        if(plugin.updateMsg && player.isOp()) {
                 JsonMessage message = new JsonMessage()
                         .append(format("&8[&eEssential Server&8]&c is out of date! &7Get the new version ")).save()
                         .append(format("&ehere")).setClickAsURL("https://bit.ly/37eMbW5").setHoverAsTooltip(format("&6Click Me")).save()
                         .append(format("&7!")).save();
                 message.send(player);
-            }
         }
     }
 

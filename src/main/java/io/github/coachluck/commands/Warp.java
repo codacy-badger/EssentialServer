@@ -1,8 +1,9 @@
-package io.github.coachluck.warps;
+package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
 import io.github.coachluck.utils.ChatUtils;
 import io.github.coachluck.utils.JsonMessage;
+import io.github.coachluck.warps.WarpHolder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,12 +16,24 @@ import java.util.List;
 
 import static io.github.coachluck.utils.ChatUtils.format;
 
-public class WarpCommand implements CommandExecutor, TabCompleter {
+public class Warp implements CommandExecutor, TabCompleter {
 
-    EssentialServer plugin;
+    private EssentialServer plugin;
 
-    public WarpCommand(EssentialServer plugin) {
-        this.plugin = plugin;
+    private String noPermWarp;
+    private String warpNotFound;
+    private List<String> warpListHeader;
+    private List<String> warpListFooter;
+    private String warpListColor;
+
+
+    public Warp(EssentialServer ins) {
+        this.plugin = ins;
+        noPermWarp = plugin.warpData.getString("messages.no-perm-for-warp");
+        warpNotFound = plugin.warpData.getString("messages.warp-not-found");
+        warpListHeader = plugin.warpData.getStringList("messages.warp-list-header");
+        warpListFooter = plugin.warpData.getStringList("messages.warp-list-footer");
+        warpListColor = plugin.warpData.getString("messages.warp-list-color");
     }
 
     @Override
@@ -34,15 +47,15 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 String warpName = args[0].toLowerCase();
                 if(plugin.warpFile.getAllWarps().contains(warpName)) {
                     if(p.hasPermission("warps.*") || p.hasPermission("warps." + warpName)) {
-                        Warp warp = plugin.warpMap.get(warpName);
+                        WarpHolder warp = plugin.warpMap.get(warpName);
                         p.playSound(warp.getLocation(), warp.getWarpSound(), 1.0F, 1.0F);
                         p.teleport(warp.getLocation());
                         ChatUtils.msg(p, warp.getWarpMessage());
                     } else {
-                        ChatUtils.msg(p, plugin.warpData.getString("messages.no-perm-for-warp").replaceAll("%warp%", warpName));
+                        ChatUtils.msg(p, noPermWarp.replaceAll("%warp%", warpName));
                     }
                 } else {
-                    ChatUtils.msg(p, plugin.warpData.getString("messages.warp-not-found").replaceAll("%warp%", warpName));
+                    ChatUtils.msg(p, warpNotFound.replaceAll("%warp%", warpName));
                 }
             } else {
                 JsonMessage warpList = new JsonMessage();
@@ -50,7 +63,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                 Collections.sort(currentWarps);
                 for(String s : currentWarps) {
                     if(p.hasPermission("warps." + s)) {
-                        warpList.append(format(plugin.warpData.getString("messages.warp-list-color") + s
+                        warpList.append(format(warpListColor + s
                                 + plugin.warpData.getString("messages.warp-list-separator")))
                                 .setHoverAsTooltip(format("&7Click me to warp to &e" + s))
                                 .setClickAsExecuteCmd("/warp " + s)
@@ -58,13 +71,11 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
                     }
                 }
                 // header
-                for(String s : plugin.warpData.getStringList("messages.warp-list-header"))
-                    p.sendMessage(format(s));
+                for(String s : warpListHeader) p.sendMessage(format(s));
                 // body - JsonMessage
                 warpList.send(p);
                 // footer
-                for(String s : plugin.warpData.getStringList("messages.warp-list-footer"))
-                    p.sendMessage(format(s));
+                for(String s : warpListFooter) p.sendMessage(format(s));
             }
         } else {
             ChatUtils.logMsg("&cYou must be a player to use this command.");

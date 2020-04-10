@@ -13,27 +13,31 @@ import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Heal implements CommandExecutor {
     private final EssentialServer plugin;
+    private String healMsg;
+    private int healAmount;
+    private String healOtherMsg;
+    private boolean enableMsg;
+
     public Heal(EssentialServer plugin) {
         this.plugin = plugin;
+        healMsg = plugin.getConfig().getString("heal.message");
+        healAmount = plugin.getConfig().getInt("heal.amount");
+        healOtherMsg = plugin.getConfig().getString("heal.other-message");
+        enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String healMsg = plugin.getConfig().getString("heal.message");
-        int amt = plugin.getConfig().getInt("heal.amount");
-        String healOtherMsg = plugin.getConfig().getString("heal.other-message");
-        boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
-
         if (args.length == 0 && sender.hasPermission("essentialserver.heal")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                setHealth(amt, player);
+                setHealth(player);
                 if (enableMsg) msg(player, healMsg);
             } else msg(sender, "&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
             try {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                setHealth(amt, target);
+                setHealth(target);
                 sendMessages(sender, healMsg, healOtherMsg, healMsg, enableMsg, target);
             } catch (NullPointerException e) {
                 msg(sender, "&cThe specified player could not be found!");
@@ -42,13 +46,13 @@ public class Heal implements CommandExecutor {
         return true;
     }
 
-    private void setHealth(int amt, Player p) {
+    private void setHealth(Player p) {
         double h = p.getHealth();
         int f = p.getFoodLevel();
-        double hAmt = h + amt;
+        double hAmt = h + healAmount;
         double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
         if(hAmt > maxHealth) hAmt = maxHealth;
-        int fAmt = f + amt;
+        int fAmt = f + healAmount;
         if(fAmt > 20) fAmt = 20;
         p.setHealth(hAmt);
         p.setFoodLevel(fAmt);

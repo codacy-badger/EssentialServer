@@ -13,19 +13,26 @@ import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Vanish implements CommandExecutor {
 
-    EssentialServer plugin;
+    private EssentialServer plugin;
+    private String vanishOtherMsg;
+    private String vanishOtherOffMsg;
+    private String vanishMsg;
+    private String vanishOffMsg;
+    private String offlinePlayer;
+    private boolean enableMsg;
 
-    public Vanish(EssentialServer plugin) {
-        this.plugin = plugin;
+    public Vanish(EssentialServer ins) {
+        this.plugin = ins;
+        vanishOtherMsg = plugin.getConfig().getString("vanish.other-on-message");
+        vanishOtherOffMsg = plugin.getConfig().getString("vanish.other-off-message");
+        enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
+        vanishMsg = plugin.getConfig().getString("vanish.on-message");
+        vanishOffMsg = plugin.getConfig().getString("vanish.off-message");
+        offlinePlayer = ins.getConfig().getString("offline-player");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        String vanishOtherMsg = plugin.getConfig().getString("vanish.other-on-message");
-        String vanishOtherOffMsg = plugin.getConfig().getString("vanish.other-off-message");
-        boolean enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
-
         if(args.length == 0 && sender.hasPermission("essentialserver.vanish")) {
             if(sender instanceof Player) {
                 Player p = (Player) sender;
@@ -44,7 +51,7 @@ public class Vanish implements CommandExecutor {
                         msg(sender, vanishOtherOffMsg.replaceAll("%player%", tP.getDisplayName()));
                 }
             }catch (NullPointerException e) {
-                msg(sender,"&cThe specified player could not be found!");
+                msg(sender,offlinePlayer.replaceAll("%player%", args[0]));
             }
         }
         else if (args.length > 1) msg(sender, "&cToo many arguments! Try /vanish <player> or /vanish.");
@@ -53,9 +60,6 @@ public class Vanish implements CommandExecutor {
 
     private void vanishCheck(UUID pUUID) {
         Player player = Bukkit.getServer().getPlayer(pUUID);
-        String vanishMsg = plugin.getConfig().getString("vanish.on-message");
-        String vanishOffMsg = plugin.getConfig().getString("vanish.off-message");
-        boolean enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
         if (plugin.vanish_players.contains(pUUID)) {
             for(Player people : Bukkit.getServer().getOnlinePlayers()) {
                 people.showPlayer(plugin, player);

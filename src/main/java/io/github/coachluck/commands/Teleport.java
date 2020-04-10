@@ -15,21 +15,29 @@ import static io.github.coachluck.utils.ChatUtils.logMsg;
 import static io.github.coachluck.utils.ChatUtils.msg;
 
 public class Teleport implements CommandExecutor {
-    EssentialServer plugin;
     public static HashMap<UUID, Integer> cooldownTime  = new HashMap<>();
     public static HashMap<UUID, BukkitRunnable> cooldownTask  = new HashMap<>();
+
+    private EssentialServer plugin;
+    private String tpOtherMsg;
+    private String tpMsg;
+    private String coolDownMsg;
+    private String offlinePlayer;
+    private int COOL_DOWN;
+    private boolean enableMsg;
+
     public Teleport(EssentialServer plugin) {
         this.plugin = plugin;
+        tpOtherMsg = plugin.getConfig().getString("teleport.others-message");
+        tpMsg = plugin.getConfig().getString("teleport.message");
+        coolDownMsg = plugin.getConfig().getString("teleport.cooldown-message");
+        offlinePlayer = plugin.getConfig().getString("offline-player");
+        COOL_DOWN = plugin.getConfig().getInt("teleport.cooldown-time");
+        enableMsg = plugin.getConfig().getBoolean("teleport.message-enable");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String tpOtherMsg = plugin.getConfig().getString("teleport.others-message");
-        String tpMsg = plugin.getConfig().getString("teleport.message");
-        String coolDownMsg = plugin.getConfig().getString("teleport.cooldown-message");
-        int COOL_DOWN = plugin.getConfig().getInt("teleport.cooldown-time");
-        boolean enableMsg = plugin.getConfig().getBoolean("teleport.message-enable");
-
         if (sender instanceof Player && sender.hasPermission("essentialserver.tp")) {
             Player player = (Player) sender;
             UUID pUUID = player.getUniqueId();
@@ -38,16 +46,16 @@ public class Teleport implements CommandExecutor {
                 msg(player, coolDownMsg.replaceAll("%time%", rem));
             }
             else if (args.length == 0 ) {
-                msg(player, "&cInsufficient arguments! Please try again.");
-                msg(player, "&cTo teleport yourself: /tp <&botherplayer&c>");
+                msg(player, "&cInsufficient arguments! &7Please try again.");
+                msg(player, "&cTo teleport yourself: &e/tp &c<&botherplayer&c>");
                 if (player.hasPermission("essentialserver.tp.others")) {
-                    msg(player, "&cTo teleport others: /tp <&bplayer&c> <&botherplayer&c>");
+                    msg(player, "&cTo teleport others: &e/tp &c<&bplayer&c> <&botherplayer&c>");
                 }
             }else if(args.length == 1) {
                 try {
                     Player target = Bukkit.getPlayer(args[0]); //Get player from command
                     if (player.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                        msg(player, "&cYou can't teleport to yourself...");
+                        msg(player, plugin.getConfig().getString("teleport.self"));
                     } else {
                         player.teleport(target.getLocation());
                         if(enableMsg) msg(player, tpMsg.replaceAll("%player%", target.getDisplayName()));
@@ -69,7 +77,7 @@ public class Teleport implements CommandExecutor {
                     }
 
                 } catch (NullPointerException e) {
-                    msg(player, "&cThe specified player could not be found!");
+                    msg(player, offlinePlayer.replaceAll("%player%", args[0]));
                     return true;
                 }
             }else if(args.length == 2 && player.hasPermission("essentialserver.tp.others")){
@@ -100,7 +108,7 @@ public class Teleport implements CommandExecutor {
                         }
                     }
                 }catch (NullPointerException e){
-                    msg(player, "&cThe specified player could not be found!");
+                    msg(player, offlinePlayer.replaceAll("%player%", args[1]));
                 }
             }
             else if(args.length > 2) {
@@ -108,7 +116,7 @@ public class Teleport implements CommandExecutor {
                 if(sender.hasPermission("essentialserver.tp.others")) msg(sender, "&cToo many arguments! Try /tp <player> <player>");
             }
         }
-        else logMsg("&cYou have to be a player to use this command!");
+        else logMsg("&cYou must be a player to use this command!");
         return true;
     }
 }

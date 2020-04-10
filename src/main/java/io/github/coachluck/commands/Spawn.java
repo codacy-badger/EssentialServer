@@ -66,7 +66,10 @@ public class Spawn implements CommandExecutor {
                         try {
                             target.teleport(spawn_loc);
                             if (enableMessage) msg(target, spawnMsg);
-                        } catch (NullPointerException e) { logMsg("&cSpecified player could not be found"); }
+                        } catch (NullPointerException e) {
+                            logMsg(plugin.getConfig().getString("offline-player")
+                                    .replaceAll("%player%", args[0]));
+                        }
                     }
                 }
             }

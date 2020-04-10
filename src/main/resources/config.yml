@@ -1,6 +1,9 @@
 # The message to send the player when they do not have permission
 permission-message: '&cYou do not have permission to use this command!'
 
+# Offline player message
+offline-player: "&c%player% &7is currently offline!"
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #           Player Join - Leave Messages            #
 # enable-message, (True) enables command messages,  #
@@ -68,6 +71,7 @@ heal:
 teleport:
   cooldown-time: 5
   cooldown-message: "&cCool-Down: &6%time% seconds &cremaining."
+  self: "&cYou can't teleport to yourself..."
   message: '&7You have &6teleported &7to &b%player%&7!'
   others-message: '&7You have teleported &b%player1% &7to &b%player2%&7!'
   message-enable: true

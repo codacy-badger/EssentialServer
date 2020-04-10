@@ -11,15 +11,18 @@ import org.bukkit.inventory.PlayerInventory;
 import static io.github.coachluck.utils.ChatUtils.msg;
 
 public class InvSee implements CommandExecutor {
-    EssentialServer plugin;
 
-    public InvSee(EssentialServer plugin) {
-        this.plugin = plugin;
+    private String invSeeMsg;
+    private String offlinePlayer;
+    private boolean enableMsg;
+
+    public InvSee(EssentialServer ins) {
+        invSeeMsg = ins.getConfig().getString("invsee.message");
+        offlinePlayer = ins.getConfig().getString("offline-player");
+        enableMsg = ins.getConfig().getBoolean("invsee.message-enable");
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        String invSeeMsg = plugin.getConfig().getString("invsee.message");
-        boolean enableMsg = plugin.getConfig().getBoolean("invsee.message-enable");
         if(sender instanceof Player) {
             Player p = (Player) sender;
             if(label.equalsIgnoreCase("invsee") && sender.hasPermission("essentialserver.invsee")) { // handle invsee
@@ -33,7 +36,7 @@ public class InvSee implements CommandExecutor {
                         p.openInventory(tInv);
                         if(enableMsg) msg(p, invSeeMsg.replaceAll("%player%", tP.getDisplayName()));
                     } catch(NullPointerException e) {
-                        msg(p, "&cThe specified player could not be found!");
+                        msg(p, offlinePlayer.replaceAll("%player%", args[0]));
                     }
                 }
                 else {
@@ -42,7 +45,7 @@ public class InvSee implements CommandExecutor {
             }
         }
         else {
-            msg(sender, "&cYou must be a player to execute this command!");
+            msg(sender, "&cYou must be a player to use this command!");
         }
         return true;
     }

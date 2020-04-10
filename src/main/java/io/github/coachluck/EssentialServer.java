@@ -29,7 +29,7 @@ public class EssentialServer extends JavaPlugin {
     public ArrayList<UUID> vanish_players = new ArrayList<>();
 
 
-    public HashMap<String, Warp> warpMap = new HashMap<>();
+    public HashMap<String, WarpHolder> warpMap = new HashMap<>();
     public File warpDataFile;
     public YamlConfiguration warpData;
     public WarpFile warpFile;
@@ -41,14 +41,14 @@ public class EssentialServer extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Updater update = new Updater(this, 72032, this.getFile(), false);
+        Updater update = new Updater(this, 72032, this.getFile());
         checkUpdate(update);
+        loadWarps();
+        reloadWarpsMap();
         registerEvents();
         enableCommands();
         enableCommandP();
         enableCommandTabs();
-        loadWarps();
-        reloadWarpsMap();
     }
 
     @Override
@@ -64,13 +64,11 @@ public class EssentialServer extends JavaPlugin {
     private void enableConfig() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-
-
     }
 
     private void enableCommands() {
-        this.getCommand("esHelp").setExecutor(new esHelp(this));
-        this.getCommand("es").setExecutor(new esHelp(this));
+        this.getCommand("esHelp").setExecutor(new Help(this));
+        this.getCommand("es").setExecutor(new Help(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("Smite").setExecutor(new Smite(this));
         this.getCommand("Fly").setExecutor(new Fly(this));
@@ -85,7 +83,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
         this.getCommand("InvSee").setExecutor(new InvSee(this));
-        this.getCommand("warp").setExecutor(new WarpCommand(this));
+        this.getCommand("warp").setExecutor(new Warp(this));
         this.getCommand("setwarp").setExecutor(new SetWarp(this));
         this.getCommand("delwarp").setExecutor(new DelWarp(this));
     }
@@ -199,7 +197,7 @@ public class EssentialServer extends JavaPlugin {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             if(!warpMap.isEmpty()) warpMap.clear();
             for(String s : warpFile.getAllWarps()) {
-                warpMap.put(s, new Warp(warpFile.getLocation(s), warpFile.getSound(s), warpFile.getWarpMessage(s)));
+                warpMap.put(s, new WarpHolder(warpFile.getLocation(s), warpFile.getSound(s), warpFile.getWarpMessage(s)));
             }
         });
     }
