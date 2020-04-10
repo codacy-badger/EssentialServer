@@ -27,13 +27,13 @@ public class SetWarp implements TabCompleter, CommandExecutor {
             Player p = (Player) sender;
             if(args.length == 1) {
                 String warpName = args[0].toLowerCase();
-                if(plugin.warpFile.getAllWarps().contains(warpName)) {
-                    ChatUtils.msg(p, plugin.warpData.getString("messages.warp-not-found").replaceAll("%warp%", warpName));
-                    return true;
+                if(plugin.warpFile.addWarp(warpName, p.getLocation())) {
+                    ChatUtils.msg(p, plugin.warpData.getString("messages.create-warp").replaceAll("%warp%", warpName));
+                } else {
+                    ChatUtils.msg(p, plugin.warpData.getString("messages.warp-already-exists").replaceAll("%warp%", warpName));
                 }
-                plugin.warpFile.addWarp(warpName, p.getLocation());
                 plugin.reloadWarpsMap();
-                ChatUtils.msg(p, plugin.warpData.getString("messages.create-warp").replaceAll("%warp%", warpName));
+
             } else {
                 ChatUtils.msg(p, "&cIncorrect usage: &e/setwarp &b<WarpName>");
             }
