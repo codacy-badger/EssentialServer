@@ -93,8 +93,6 @@ public class JsonMessage {
     public static class JsonStringBuilder {
 
         private final JsonMessage message;
-        // private final String string;
-        private final String string = ",{\"text\":\"\",\"extra\":[";
         private final String[] strings;
         private String hover = "",
                 click = "";
@@ -107,7 +105,7 @@ public class JsonMessage {
          */
         private JsonStringBuilder(JsonMessage jsonMessage, String text) {
             message = jsonMessage;
-            String[] colors = text.split("\\" + String.valueOf(ChatColor.COLOR_CHAR) + "(?![klmno])");
+            String[] colors = text.split("§(?![klmno])");
             for(int i = 0; i < colors.length; i++) {
                 if(i == 0 && !text.startsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
                     colors[i] = "{\"text\":\"" + colors[i] + "\"}";
@@ -115,12 +113,12 @@ public class JsonMessage {
                     colors[i] = "{\"text\":\"\"}";
                 } else {
                     ChatColor color = ChatColor.getByChar(colors[i].substring(0, 1));
-                    boolean bold = colors[1].contains(String.valueOf(ChatColor.COLOR_CHAR) + "l");
-                    boolean italic = colors[1].contains(String.valueOf(ChatColor.COLOR_CHAR) + "o");
-                    boolean underlined = colors[1].contains(String.valueOf(ChatColor.COLOR_CHAR) + "n");
-                    boolean strikethrough = colors[1].contains(String.valueOf(ChatColor.COLOR_CHAR) + "m");
-                    boolean obfuscated = colors[1].contains(String.valueOf(ChatColor.COLOR_CHAR) + "k");
-                    colors[i] = "{\"text\":\"" + colors[i].substring(1, colors[i].length()) + "\",\"color\":\"" + color.name().toLowerCase(Locale.US) + "\"" + (bold ? ",\"bold\":" + bold : "") + (italic ? ",\"italic\":" + italic : "") + (underlined ? ",\"underlined\":" + underlined : "") + (strikethrough ? ",\"strikethrough\":" + strikethrough : "") + (obfuscated ? ",\"obfuscated\":" + obfuscated : "") + "}";
+                    boolean bold = colors[1].contains(ChatColor.COLOR_CHAR + "l");
+                    boolean italic = colors[1].contains(ChatColor.COLOR_CHAR + "o");
+                    boolean underlined = colors[1].contains(ChatColor.COLOR_CHAR + "n");
+                    boolean strikethrough = colors[1].contains(ChatColor.COLOR_CHAR + "m");
+                    boolean obfuscated = colors[1].contains(ChatColor.COLOR_CHAR + "k");
+                    colors[i] = "{\"text\":\"" + colors[i].substring(1) + "\",\"color\":\"" + color.name().toLowerCase(Locale.US) + "\"" + (bold ? ",\"bold\":" + bold : "") + (italic ? ",\"italic\":" + italic : "") + (underlined ? ",\"underlined\":" + underlined : "") + (strikethrough ? ",\"strikethrough\":" + strikethrough : "") + (obfuscated ? ",\"obfuscated\":" + obfuscated : "") + "}";
                 }
                 if(i + 1 != colors.length)
                     colors[i] = colors[i] + ",";
@@ -140,7 +138,7 @@ public class JsonMessage {
                 if(i + 1 == lore.length)
                     builder.append(lore[i]);
                 else
-                    builder.append(lore[i] + "\n");
+                    builder.append(lore[i]).append("\n");
             hover = ",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + esc(builder.toString()) + "\"}";
             return this;
         }
@@ -183,8 +181,8 @@ public class JsonMessage {
         /**
          * Set the click event's action as executing a command
          *
-         * @param cmd
-         * @return
+         * @param cmd the command with / to execute
+         * @return to the JsonMessage you are applying it to
          */
         public JsonStringBuilder setClickAsExecuteCmd(String cmd) {
             click = ",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + esc(cmd) + "\"}";
@@ -194,14 +192,15 @@ public class JsonMessage {
         /**
          * Finalize the appending of the text, with settings.
          *
-         * @return
+         * @return the JsonMessage you were building
          */
         public JsonMessage save() {
-            StringBuilder builder = new StringBuilder(message.msg + string);
+            String string1 = ",{\"text\":\"\",\"extra\":[";
+            StringBuilder builder = new StringBuilder(message.msg + string1);
             for(String string : strings) {
                 builder.append(string);
             }
-            builder.append("]" + hover + click + "}");
+            builder.append("]").append(hover).append(click).append("}");
             message.msg = builder.toString();
             return message;
         }

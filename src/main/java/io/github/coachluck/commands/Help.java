@@ -62,8 +62,9 @@ public class Help implements CommandExecutor {
             p.sendMessage("");
             JsonMessage main = new JsonMessage();
             for (Command cmd : cmdList) {
+                assert cmd.getPermission() != null;
                 if (p.hasPermission(cmd.getPermission())) {
-                    main = ChatUtils.getClickHelp(main, cmd);
+                    ChatUtils.getClickHelp(main, cmd);
                 }
             }
             main.send(p);

@@ -29,7 +29,8 @@ public class Heal implements CommandExecutor {
                 Player player = (Player) sender;
                 setHealth(player);
                 if (enableMsg) ChatUtils.msg(player, healMsg);
-            } else ChatUtils.msg(sender, "&cYou must be a player to execute this command!");
+            } else
+                ChatUtils.msg(sender, "&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
             Player target = Bukkit.getPlayerExact(args[0]);
             if(target == null) {

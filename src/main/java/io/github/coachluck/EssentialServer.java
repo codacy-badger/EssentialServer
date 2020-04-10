@@ -37,8 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-
-
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
     private String pMsg = ChatUtils.format(this.getConfig().getString("permission-message"));

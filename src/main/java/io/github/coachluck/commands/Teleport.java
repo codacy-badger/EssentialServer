@@ -1,6 +1,7 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import io.github.coachluck.utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,9 +11,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.UUID;
-
-import static io.github.coachluck.utils.ChatUtils.logMsg;
-import static io.github.coachluck.utils.ChatUtils.msg;
 
 public class Teleport implements CommandExecutor {
     public static HashMap<UUID, Integer> cooldownTime  = new HashMap<>();
@@ -38,22 +36,22 @@ public class Teleport implements CommandExecutor {
             UUID pUUID = player.getUniqueId();
             if(cooldownTime.containsKey(pUUID)) {
                 String rem = cooldownTime.get(pUUID).toString();
-                msg(player, coolDownMsg.replaceAll("%time%", rem));
+                ChatUtils.msg(player, coolDownMsg.replaceAll("%time%", rem));
             }
             else if (args.length == 0 ) {
-                msg(player, "&cInsufficient arguments! &7Please try again.");
-                msg(player, "&cTo teleport yourself: &e/tp &c<&botherplayer&c>");
+                ChatUtils.msg(player, "&cInsufficient arguments! &7Please try again.");
+                ChatUtils.msg(player, "&cTo teleport yourself: &e/tp &c<&botherplayer&c>");
                 if (player.hasPermission("essentialserver.tp.others")) {
-                    msg(player, "&cTo teleport others: &e/tp &c<&bplayer&c> <&botherplayer&c>");
+                    ChatUtils.msg(player, "&cTo teleport others: &e/tp &c<&bplayer&c> <&botherplayer&c>");
                 }
             }else if(args.length == 1) {
                 try {
                     Player target = Bukkit.getPlayer(args[0]); //Get player from command
                     if (player.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                        msg(player, plugin.getConfig().getString("teleport.self"));
+                        ChatUtils.msg(player, plugin.getConfig().getString("teleport.self"));
                     } else {
                         player.teleport(target.getLocation());
-                        if(enableMsg) msg(player, tpMsg.replaceAll("%player%", target.getDisplayName()));
+                        if(enableMsg) ChatUtils.msg(player, tpMsg.replaceAll("%player%", target.getDisplayName()));
                         if (!player.hasPermission("essentialserver.tp.bypass") && COOL_DOWN > 0) {
                             cooldownTime.put(pUUID, COOL_DOWN);
                             cooldownTask.put(pUUID, new BukkitRunnable() {
@@ -72,7 +70,7 @@ public class Teleport implements CommandExecutor {
                     }
 
                 } catch (NullPointerException e) {
-                    msg(player, offlinePlayer.replaceAll("%player%", args[0]));
+                    ChatUtils.msg(player, offlinePlayer.replaceAll("%player%", args[0]));
                     return true;
                 }
             }else if(args.length == 2 && player.hasPermission("essentialserver.tp.others")){
@@ -80,11 +78,13 @@ public class Teleport implements CommandExecutor {
                 Player playerToSend = Bukkit.getPlayer(args[0]);
                 Player target = Bukkit.getPlayer(args[1]);
                     if(playerToSend.getDisplayName().equalsIgnoreCase(target.getDisplayName())) {
-                        msg(sender, "&cDid you really mean to do that? Try again...");
+                        ChatUtils.msg(sender, "&cDid you really mean to do that? Try again...");
                         return true;
                     }
                     else {
-                        if(enableMsg) msg(sender, tpOtherMsg.replaceAll("%player1%", playerToSend.getDisplayName()).replaceAll("%player2%", target.getDisplayName()));
+                        if(enableMsg) ChatUtils.msg(sender, tpOtherMsg
+                                .replaceAll("%player1%", playerToSend.getDisplayName())
+                                .replaceAll("%player2%", target.getDisplayName()));
                         playerToSend.teleport(target.getLocation());
                         if (!player.hasPermission("essentialserver.tp.bypass") && COOL_DOWN > 0) {
                             cooldownTime.put(pUUID, COOL_DOWN);
@@ -103,15 +103,15 @@ public class Teleport implements CommandExecutor {
                         }
                     }
                 }catch (NullPointerException e){
-                    msg(player, offlinePlayer.replaceAll("%player%", args[1]));
+                    ChatUtils.msg(player, offlinePlayer.replaceAll("%player%", args[1]));
                 }
             }
             else if(args.length > 2) {
-                if(sender.hasPermission("essentialserver.tp")) msg(sender, "&cToo many arguments! Try /tp <player>");
-                if(sender.hasPermission("essentialserver.tp.others")) msg(sender, "&cToo many arguments! Try /tp <player> <player>");
+                if(sender.hasPermission("essentialserver.tp")) ChatUtils.msg(sender, "&cToo many arguments! Try /tp <player>");
+                if(sender.hasPermission("essentialserver.tp.others")) ChatUtils.msg(sender, "&cToo many arguments! Try /tp <player> <player>");
             }
         }
-        else logMsg("&cYou must be a player to use this command!");
+        else ChatUtils.logMsg("&cYou must be a player to use this command!");
         return true;
     }
 }

@@ -13,25 +13,23 @@ import java.util.UUID;
 public class Vanish implements CommandExecutor {
 
     private EssentialServer plugin;
-    private String vanishOtherMsg;
-    private String vanishOtherOffMsg;
     private String vanishMsg;
     private String vanishOffMsg;
-    private String offlinePlayer;
     private boolean enableMsg;
 
     public Vanish(EssentialServer ins) {
         this.plugin = ins;
-        vanishOtherMsg = plugin.getConfig().getString("vanish.other-on-message");
-        vanishOtherOffMsg = plugin.getConfig().getString("vanish.other-off-message");
-        enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
-        vanishMsg = plugin.getConfig().getString("vanish.on-message");
-        vanishOffMsg = plugin.getConfig().getString("vanish.off-message");
-        offlinePlayer = ins.getConfig().getString("offline-player");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String vanishOtherMsg = plugin.getConfig().getString("vanish.other-on-message");
+        String vanishOtherOffMsg = plugin.getConfig().getString("vanish.other-off-message");
+        enableMsg = plugin.getConfig().getBoolean("vanish.message-enable");
+        vanishMsg = plugin.getConfig().getString("vanish.on-message");
+        vanishOffMsg = plugin.getConfig().getString("vanish.off-message");
+        String offlinePlayer = plugin.getConfig().getString("offline-player");
+
         if(args.length == 0 && sender.hasPermission("essentialserver.vanish")) {
             if(sender instanceof Player) {
                 Player p = (Player) sender;
@@ -41,7 +39,7 @@ public class Vanish implements CommandExecutor {
         else if (args.length == 1 && sender.hasPermission("essentialserver.vanish.others")) {
             Player tP = Bukkit.getPlayerExact(args[0]);
             if(tP == null) {
-                ChatUtils.msg(sender,offlinePlayer.replaceAll("%player%", args[0]));
+                ChatUtils.msg(sender, offlinePlayer.replaceAll("%player%", args[0]));
                 return true;
             }
             UUID target = tP.getUniqueId();

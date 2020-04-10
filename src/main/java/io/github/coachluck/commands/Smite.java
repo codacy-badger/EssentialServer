@@ -1,6 +1,7 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import io.github.coachluck.utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -8,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Smite implements CommandExecutor {
     private final EssentialServer plugin;
@@ -29,19 +29,24 @@ public class Smite implements CommandExecutor {
                 Player player = (Player) sender;
                 Location pLoc = player.getLocation();
                 player.getWorld().strikeLightning(pLoc);
-                if (enableMsg) msg(player, selfMsg);
-            } else msg(sender, "&cYou must be a player to execute this command!");
+                if (enableMsg) ChatUtils.msg(player, selfMsg);
+            } else ChatUtils.msg(sender, "&cYou must be a player to execute this command!");
 
         } else if (args.length == 1 && sender.hasPermission("essentialserver.smite.others")) {
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if(target == null) {
+                ChatUtils.msg(sender, "&cThe specified player could not be found!");
+                return true;
+            }
             try {
-                Player target = Bukkit.getPlayerExact(args[0]);
+
                 Location tLoc = target.getLocation();
                 target.getWorld().strikeLightning(tLoc);
-                sendMessages(sender, smiteMsg, smiteOtherMsg, selfMsg, enableMsg, target);
+                ChatUtils.sendMessages(sender, smiteMsg, smiteOtherMsg, selfMsg, enableMsg, target);
             } catch (NullPointerException e) {
-                msg(sender, "&cThe specified player could not be found!");
+                ChatUtils.msg(sender, "&cThe specified player could not be found!");
             }
-        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /smite <player> or /smite.");
+        } else if (args.length > 1) ChatUtils.msg(sender, "&cToo many arguments! Try /smite <player> or /smite.");
         return true;
     }
 }

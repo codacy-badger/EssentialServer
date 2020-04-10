@@ -1,13 +1,12 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import io.github.coachluck.utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import static io.github.coachluck.utils.ChatUtils.*;
 
 public class God implements CommandExecutor {
     private final EssentialServer plugin;
@@ -22,19 +21,19 @@ public class God implements CommandExecutor {
 
         if(args.length == 0 && sender.hasPermission("essentialserver.god")) {
             if(sender instanceof Player) godCheck((Player) sender);
-            else msg(sender, format("&cYou must be a player to execute this command!"));
+            else ChatUtils.msg(sender, ChatUtils.format("&cYou must be a player to execute this command!"));
         }
         else if (args.length == 1 && sender.hasPermission("essentialserver.god.others")) {
             try {
             Player target = Bukkit.getPlayerExact(args[0]);
                 godCheck(target);
                 if(enableMsg && !target.getName().equals(sender.getName())) {
-                    if (target.isInvulnerable()) msg(sender, godOtherMsg.replace("%player%", target.getDisplayName()));
-                    else if (!target.isInvulnerable()) msg(sender, godOtherOffMsg.replace("%player%", target.getDisplayName()));
+                    if (target.isInvulnerable()) ChatUtils.msg(sender, godOtherMsg.replace("%player%", target.getDisplayName()));
+                    else if (!target.isInvulnerable()) ChatUtils.msg(sender, godOtherOffMsg.replace("%player%", target.getDisplayName()));
                 }
-            } catch (NullPointerException e) { msg(sender, "&cThe specified player could not be found"); }
+            } catch (NullPointerException e) { ChatUtils.msg(sender, "&cThe specified player could not be found"); }
         }
-        else if (args.length > 1) msg(sender, "&cToo many arguments! Try /god <player> or /god.");
+        else if (args.length > 1) ChatUtils.msg(sender, "&cToo many arguments! Try /god <player> or /god.");
         return true;
     }
 
@@ -45,10 +44,10 @@ public class God implements CommandExecutor {
 
         if(player.isInvulnerable()) {
             player.setInvulnerable(false);
-            if (enableMsg) msg(player, godOffMsg.replace("%player%", player.getDisplayName()));
+            if (enableMsg) ChatUtils.msg(player, godOffMsg.replace("%player%", player.getDisplayName()));
         } else {
             player.setInvulnerable(true);
-            if (enableMsg) msg(player, godMsg.replace("%player%", player.getDisplayName()));
+            if (enableMsg) ChatUtils.msg(player, godMsg.replace("%player%", player.getDisplayName()));
         }
     }
 }
