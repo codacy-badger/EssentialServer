@@ -10,22 +10,20 @@ import org.bukkit.entity.Player;
 import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Kill implements CommandExecutor {
-    private String killMsg;
-    private String killOtherMsg;
-    private String suicideMsg;
-    private String offlinePlayer;
-    private boolean enableMsg;
+    private EssentialServer ins;
 
     public Kill(EssentialServer ins) {
-        killMsg = ins.getConfig().getString("kill.message");
-        killOtherMsg = ins.getConfig().getString("kill.others-message");
-        suicideMsg = ins.getConfig().getString("kill.suicide-message");
-        enableMsg = ins.getConfig().getBoolean("kill.message-enable");
-        offlinePlayer = ins.getConfig().getString("offline-player");
+        this.ins = ins;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String killMsg = ins.getConfig().getString("kill.message");
+        String killOtherMsg = ins.getConfig().getString("kill.others-message");
+        String suicideMsg = ins.getConfig().getString("kill.suicide-message");
+        boolean enableMsg = ins.getConfig().getBoolean("kill.message-enable");
+        String offlinePlayer = ins.getConfig().getString("offline-player");
+
         if (args.length == 0 && sender.hasPermission("essentialserver.kill")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;

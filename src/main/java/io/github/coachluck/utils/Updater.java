@@ -22,11 +22,17 @@ import org.json.simple.JSONValue;
  */
 
 public class Updater {
+
+    /* Constants */
+
     // Remote file's title
     private static final String TITLE_VALUE = "name";
     // Remote file's download link
     private static final String LINK_VALUE = "downloadUrl";
     // Remote file's release type
+    private static final String TYPE_VALUE = "releaseType";
+    // Remote file's build version
+    private static final String VERSION_VALUE = "gameVersion";
     // Path to GET
     private static final String QUERY = "/servermods/files?projectIds=";
     // Slugs will be appended to this to get to the project's RSS feed
@@ -53,6 +59,7 @@ public class Updater {
     private static final boolean FORCE_DEFAULT = false;
 
     /* User-provided variables */
+
     // Plugin running Updater
     private final Plugin plugin;
     // Type of update check to run
@@ -64,15 +71,17 @@ public class Updater {
     // The provided callback (if any)
     //private final UpdateCallback callback;
     // Project's Curse ID
-    private int id;
+    private int id = -1;
     // BukkitDev ServerMods API key
     private String apiKey = null;
 
     /* Collected from Curse API */
+
     private String versionName;
     private String versionLink;
 
     /* Update process variables */
+
     // Connection to RSS
     private URL url;
     // Updater thread
@@ -154,7 +163,6 @@ public class Updater {
         this.file = file;
         this.id = id;
         this.updateFolder = this.plugin.getServer().getUpdateFolderFile();
-        //this.callback = null;
 
         final File pluginFile = this.plugin.getDataFolder().getParentFile();
         final File updaterFile = new File(pluginFile, "EssentialServer");
@@ -197,7 +205,12 @@ public class Updater {
             return;
         }
 
-        this.apiKey = config.getString(API_KEY_CONFIG_KEY);
+        String key = config.getString(API_KEY_CONFIG_KEY);
+        if (API_KEY_DEFAULT.equalsIgnoreCase(key) || "".equals(key)) {
+            key = null;
+        }
+
+        this.apiKey = key;
 
         if(!config.getBoolean(FORCE_CONFIG_KEY)) {
             this.type = UpdateType.NO_DOWNLOAD;

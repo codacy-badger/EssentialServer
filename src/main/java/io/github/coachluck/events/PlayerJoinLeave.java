@@ -14,19 +14,16 @@ import static io.github.coachluck.utils.ChatUtils.format;
 public class PlayerJoinLeave implements Listener {
     private final EssentialServer plugin;
 
-    private String joinMsg;
-    private String quitMsg;
     private boolean enableMsg;
 
     public PlayerJoinLeave(EssentialServer plugin) {
         this.plugin = plugin;
-        joinMsg = plugin.getConfig().getString("join-message");
-        quitMsg = plugin.getConfig().getString("leave-message");
-        enableMsg = plugin.getConfig().getBoolean("enable-message");
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        enableMsg = plugin.getConfig().getBoolean("enable-message");
+        String joinMsg = plugin.getConfig().getString("join-message");
         Player player = e.getPlayer();
         if(!plugin.vanish_players.isEmpty()) {
             for (int i = 0; i < plugin.vanish_players.size(); i++) {
@@ -45,6 +42,8 @@ public class PlayerJoinLeave implements Listener {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
+        enableMsg = plugin.getConfig().getBoolean("enable-message");
+        String quitMsg = plugin.getConfig().getString("leave-message");
         if(enableMsg) e.setQuitMessage(format(quitMsg.replace("%player%", e.getPlayer().getDisplayName())));
         if(plugin.vanish_players.contains(e.getPlayer().getUniqueId())) {
             plugin.vanish_players.remove(e.getPlayer().getUniqueId());

@@ -17,27 +17,20 @@ import java.util.List;
 import static io.github.coachluck.utils.ChatUtils.format;
 
 public class Warp implements CommandExecutor, TabCompleter {
-
     private EssentialServer plugin;
-
-    private String noPermWarp;
-    private String warpNotFound;
-    private List<String> warpListHeader;
-    private List<String> warpListFooter;
-    private String warpListColor;
-
 
     public Warp(EssentialServer ins) {
         this.plugin = ins;
-        noPermWarp = plugin.warpData.getString("messages.no-perm-for-warp");
-        warpNotFound = plugin.warpData.getString("messages.warp-not-found");
-        warpListHeader = plugin.warpData.getStringList("messages.warp-list-header");
-        warpListFooter = plugin.warpData.getStringList("messages.warp-list-footer");
-        warpListColor = plugin.warpData.getString("messages.warp-list-color");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        String noPermWarp = plugin.warpData.getString("messages.no-perm-for-warp");
+        String warpNotFound = plugin.warpData.getString("messages.warp-not-found");
+        List<String> warpListHeader = plugin.warpData.getStringList("messages.warp-list-header");
+        List<String> warpListFooter = plugin.warpData.getStringList("messages.warp-list-footer");
+        String warpListColor = plugin.warpData.getString("messages.warp-list-color");
+
         if(sender instanceof Player) {
             Player p = (Player) sender;
             if(args.length > 1) {

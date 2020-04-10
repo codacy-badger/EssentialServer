@@ -1,11 +1,29 @@
 package io.github.coachluck;
 
-import io.github.coachluck.commands.*;
+import io.github.coachluck.commands.Burn;
+import io.github.coachluck.commands.Fly;
+import io.github.coachluck.commands.Help;
+import io.github.coachluck.commands.Spawn;
+import io.github.coachluck.commands.God;
+import io.github.coachluck.commands.InvSee;
+import io.github.coachluck.commands.IGameMode;
+import io.github.coachluck.commands.SetWarp;
+import io.github.coachluck.commands.DelWarp;
+import io.github.coachluck.commands.Warp;
+import io.github.coachluck.commands.Teleport;
+import io.github.coachluck.commands.Vanish;
+import io.github.coachluck.commands.Kill;
+import io.github.coachluck.commands.Feed;
+import io.github.coachluck.commands.Smite;
+import io.github.coachluck.commands.Heal;
+import io.github.coachluck.commands.Clear;
 import io.github.coachluck.events.PlayerJoinLeave;
 import io.github.coachluck.tabcompleters.PlayerTabList;
 import io.github.coachluck.tabcompleters.TabList;
+import io.github.coachluck.utils.ChatUtils;
 import io.github.coachluck.utils.Updater;
-import io.github.coachluck.warps.*;
+import io.github.coachluck.warps.WarpFile;
+import io.github.coachluck.warps.WarpHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -19,13 +37,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static io.github.coachluck.utils.ChatUtils.format;
-import static io.github.coachluck.utils.ChatUtils.logMsg;
 
 
 public class EssentialServer extends JavaPlugin {
     public boolean updateMsg = false;
-    private String pMsg = format(this.getConfig().getString("permission-message"));
+    private String pMsg = ChatUtils.format(this.getConfig().getString("permission-message"));
     public ArrayList<UUID> vanish_players = new ArrayList<>();
 
 
@@ -78,7 +94,7 @@ public class EssentialServer extends JavaPlugin {
         this.getCommand("Kill").setExecutor(new Kill(this));
         this.getCommand("Clear").setExecutor(new Clear(this));
         this.getCommand("Burn").setExecutor(new Burn(this));
-        this.getCommand("gameMode").setExecutor(new gameMode(this));
+        this.getCommand("GameMode").setExecutor(new IGameMode(this));
         this.getCommand("Teleport").setExecutor(new Teleport(this));
         this.getCommand("Vanish").setExecutor(new Vanish(this));
         this.getCommand("SetSpawn").setExecutor(new Spawn(this));
@@ -133,27 +149,31 @@ public class EssentialServer extends JavaPlugin {
         if (Updater.UpdateResult.DISABLED != up) {
             if (up == Updater.UpdateResult.UPDATE_AVAILABLE) {
                 updateMsg = true;
-                logMsg("&bThere is a new update available! &ehttps://bit.ly/37eMbW5");
-                logMsg("&bYou can enable automatic updates in the &e'auto-update.yml&b' by changing '&eforce-download&b' to true");
+                ChatUtils.logMsg("&bThere is a new update available! &ehttps://bit.ly/37eMbW5");
+                ChatUtils.logMsg("&bYou can enable automatic updates in the &e'auto-update.yml&b' by changing '&eforce-download&b' to true");
             }
             else if (up == Updater.UpdateResult.SUCCESS) {
-                logMsg("&bSuccessfully installed the newest version:&e " + update.getLatestName());
-                logMsg("&bPlease reload the server for this to take effect.");
+                ChatUtils.logMsg("&bSuccessfully installed the newest version:&e " + update.getLatestName());
+                ChatUtils.logMsg("&bPlease reload the server for this to take effect.");
             }
             else if (up == Updater.UpdateResult.NO_UPDATE) {
-                logMsg("&bYou are running the latest version.");
+                ChatUtils.logMsg("&bYou are running the latest version.");
             }
         }
     }
 
     private void loadWarps() {
         if(!getDataFolder().exists()) {
-            getDataFolder().mkdir();
+            if(!getDataFolder().mkdir()) {
+                ChatUtils.logMsg("&cError getting data folder.");
+            }
         }
         warpDataFile = new File(getDataFolder(), "warps.yml");
         if(!warpDataFile.exists()) {
             try {
-                warpDataFile.createNewFile();
+                if(!warpDataFile.createNewFile()) {
+                    ChatUtils.logMsg("&cError creating &ewarps.yml");
+                }
                 warpData = YamlConfiguration.loadConfiguration(warpDataFile);
                 warpData.options().header("This holds all information for the warps" +
                         "\n'warps' will contain all of the current warps on the server" +

@@ -19,7 +19,6 @@ public class Spawn implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
         String spawnMsg = plugin.getConfig().getString("spawn.spawn-message");
         boolean enableMessage = plugin.getConfig().getBoolean("spawn.enable-message");
 

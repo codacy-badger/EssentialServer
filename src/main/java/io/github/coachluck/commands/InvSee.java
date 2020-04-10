@@ -11,18 +11,16 @@ import org.bukkit.inventory.PlayerInventory;
 import static io.github.coachluck.utils.ChatUtils.msg;
 
 public class InvSee implements CommandExecutor {
-
-    private String invSeeMsg;
-    private String offlinePlayer;
-    private boolean enableMsg;
+    private EssentialServer plugin;
 
     public InvSee(EssentialServer ins) {
-        invSeeMsg = ins.getConfig().getString("invsee.message");
-        offlinePlayer = ins.getConfig().getString("offline-player");
-        enableMsg = ins.getConfig().getBoolean("invsee.message-enable");
+        this.plugin = ins;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        String invSeeMsg = plugin.getConfig().getString("invsee.message");
+        String offlinePlayer = plugin.getConfig().getString("offline-player");
+        boolean enableMsg = plugin.getConfig().getBoolean("invsee.message-enable");
         if(sender instanceof Player) {
             Player p = (Player) sender;
             if(label.equalsIgnoreCase("invsee") && sender.hasPermission("essentialserver.invsee")) { // handle invsee

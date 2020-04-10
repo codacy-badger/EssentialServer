@@ -1,6 +1,7 @@
 package io.github.coachluck.commands;
 
 import io.github.coachluck.EssentialServer;
+import io.github.coachluck.utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -8,41 +9,36 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
-import static io.github.coachluck.utils.ChatUtils.*;
-
 public class Heal implements CommandExecutor {
-    private final EssentialServer plugin;
-    private String healMsg;
+    private EssentialServer plugin;
     private int healAmount;
-    private String healOtherMsg;
-    private boolean enableMsg;
 
     public Heal(EssentialServer plugin) {
         this.plugin = plugin;
-        healMsg = plugin.getConfig().getString("heal.message");
-        healAmount = plugin.getConfig().getInt("heal.amount");
-        healOtherMsg = plugin.getConfig().getString("heal.other-message");
-        enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String healMsg = plugin.getConfig().getString("heal.message");
+        healAmount = plugin.getConfig().getInt("heal.amount");
+        String healOtherMsg = plugin.getConfig().getString("heal.other-message");
+        boolean enableMsg = plugin.getConfig().getBoolean("heal.message-enable");
+
         if (args.length == 0 && sender.hasPermission("essentialserver.heal")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 setHealth(player);
-                if (enableMsg) msg(player, healMsg);
-            } else msg(sender, "&cYou must be a player to execute this command!");
+                if (enableMsg) ChatUtils.msg(player, healMsg);
+            } else ChatUtils.msg(sender, "&cYou must be a player to execute this command!");
         } else if (args.length == 1 && sender.hasPermission("essentialserver.heal.others")) {
-            try {
-                Player target = Bukkit.getPlayerExact(args[0]);
-                setHealth(target);
-                sendMessages(sender, healMsg, healOtherMsg, healMsg, enableMsg, target);
-            } catch (NullPointerException e) {
-                msg(sender, "&cThe specified player could not be found!");
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if(target == null) {
+                ChatUtils.msg(sender, "&cThe specified player could not be found!");
+                return true;
             }
-        } else if (args.length > 1) msg(sender, "&cToo many arguments! Try /heal <player> or /heal.");
+            setHealth(target);
+            ChatUtils.sendMessages(sender, healMsg, healOtherMsg, healMsg, enableMsg, target);
+        } else if (args.length > 1) ChatUtils.msg(sender, "&cToo many arguments! Try /heal <player> or /heal.");
         return true;
     }
 

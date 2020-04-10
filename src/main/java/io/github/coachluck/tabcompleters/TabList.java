@@ -64,51 +64,5 @@ public class TabList implements TabCompleter {
                 }
             default: return new ArrayList<>();
         }
-//        if(cmd.getName().equalsIgnoreCase("gamemode")) {
-//            if(args.length == 1) {
-//                StringUtil.copyPartialMatches(args[0], GAME_MODES, new ArrayList<>());
-//                return GAME_MODES;
-//            }
-//            else if(args.length == 2 && sender.hasPermission("essentialserver.gamemode.others")) {
-//                for(Player p : Bukkit.getServer().getOnlinePlayers())
-//                    if(!plugin.vanish_players.contains(p.getUniqueId())) tabs.add(p.getDisplayName());
-//                Collections.sort(tabs);
-//                StringUtil.copyPartialMatches(args[1], tabs, new ArrayList<>());
-//                return tabs;
-//            }
-//            else return new ArrayList<>();
-//        }
-//        if(cmd.getName().equalsIgnoreCase("eshelp")) {
-//            return new ArrayList<>();
-//        }
-//        if(cmd.getName().equalsIgnoreCase("teleport")) {
-//            if(args.length == 1) {
-//                for(Player p : Bukkit.getServer().getOnlinePlayers())
-//                    if(!plugin.vanish_players.contains(p.getUniqueId())) tabs.add(p.getDisplayName());
-//                Collections.sort(tabs);
-//                StringUtil.copyPartialMatches(args[0], tabs, new ArrayList<>());
-//                return tabs;
-//            }
-//            else if(args.length == 2 && sender.hasPermission("essentialserver.tp.others")) {
-//                for(Player p : Bukkit.getServer().getOnlinePlayers())
-//                    if(!plugin.vanish_players.contains(p.getUniqueId())) tabs.add(p.getDisplayName());
-//                Collections.sort(tabs);
-//                StringUtil.copyPartialMatches(args[1], tabs, new ArrayList<>());
-//                return tabs;
-//            }
-//            else return new ArrayList<>();
-//        }
-//        if(cmd.getName().equalsIgnoreCase("invsee")) {
-//            if(args.length == 1) {
-//                for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-//                    if(!plugin.vanish_players.contains(p.getUniqueId())) tabs.add(p.getDisplayName());
-//                }
-//                Collections.sort(tabs);
-//                StringUtil.copyPartialMatches(args[0], tabs, new ArrayList<>());
-//                return tabs;
-//            }
-//            else return new ArrayList<>();
-//        }
-//        return cmd.getName().equalsIgnoreCase("setspawn") ? new ArrayList<>() : new ArrayList<>();
     }
 }

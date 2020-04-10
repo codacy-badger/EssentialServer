@@ -19,25 +19,20 @@ public class Teleport implements CommandExecutor {
     public static HashMap<UUID, BukkitRunnable> cooldownTask  = new HashMap<>();
 
     private EssentialServer plugin;
-    private String tpOtherMsg;
-    private String tpMsg;
-    private String coolDownMsg;
-    private String offlinePlayer;
-    private int COOL_DOWN;
-    private boolean enableMsg;
 
     public Teleport(EssentialServer plugin) {
         this.plugin = plugin;
-        tpOtherMsg = plugin.getConfig().getString("teleport.others-message");
-        tpMsg = plugin.getConfig().getString("teleport.message");
-        coolDownMsg = plugin.getConfig().getString("teleport.cooldown-message");
-        offlinePlayer = plugin.getConfig().getString("offline-player");
-        COOL_DOWN = plugin.getConfig().getInt("teleport.cooldown-time");
-        enableMsg = plugin.getConfig().getBoolean("teleport.message-enable");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String tpOtherMsg = plugin.getConfig().getString("teleport.others-message");
+        String tpMsg = plugin.getConfig().getString("teleport.message");
+        String coolDownMsg = plugin.getConfig().getString("teleport.cooldown-message");
+        String offlinePlayer = plugin.getConfig().getString("offline-player");
+        int COOL_DOWN = plugin.getConfig().getInt("teleport.cooldown-time");
+        boolean enableMsg = plugin.getConfig().getBoolean("teleport.message-enable");
+
         if (sender instanceof Player && sender.hasPermission("essentialserver.tp")) {
             Player player = (Player) sender;
             UUID pUUID = player.getUniqueId();

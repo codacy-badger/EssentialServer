@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 
 import static io.github.coachluck.utils.ChatUtils.*;
 
-public class gameMode implements CommandExecutor {
+public class IGameMode implements CommandExecutor {
     private final EssentialServer plugin;
-    public gameMode(EssentialServer plugin) {
+    public IGameMode(EssentialServer plugin) {
         this.plugin = plugin;
     }
 

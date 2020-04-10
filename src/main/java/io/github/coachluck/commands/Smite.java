@@ -12,21 +12,18 @@ import static io.github.coachluck.utils.ChatUtils.*;
 
 public class Smite implements CommandExecutor {
     private final EssentialServer plugin;
-    private String smiteMsg;
-    private String smiteOtherMsg;
-    private String selfMsg;
-    private boolean enableMsg;
 
     public Smite(EssentialServer ins) {
         this.plugin = ins; //stores plugin
-        smiteMsg = plugin.getConfig().getString("smite.message");
-        smiteOtherMsg = plugin.getConfig().getString("smite.others-message");
-        selfMsg = plugin.getConfig().getString("smite.self-message");
-        enableMsg = plugin.getConfig().getBoolean("smite.message-enable");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String smiteMsg = plugin.getConfig().getString("smite.message");
+        String smiteOtherMsg = plugin.getConfig().getString("smite.others-message");
+        String selfMsg = plugin.getConfig().getString("smite.self-message");
+        boolean enableMsg = plugin.getConfig().getBoolean("smite.message-enable");
+
         if (args.length == 0 && sender.hasPermission("essentialserver.smite")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;

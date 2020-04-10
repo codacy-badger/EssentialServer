@@ -22,7 +22,7 @@ public class Help implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("eshelp") && sender.hasPermission("essentialserver.eshelp")) {
             sendHelp(sender);
-        return true;
+            return true;
         }
         else if(cmd.getName().equalsIgnoreCase("es") && sender.hasPermission("essentialserver.info")) {
             if(args.length != 1) {
