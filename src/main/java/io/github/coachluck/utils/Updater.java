@@ -29,10 +29,6 @@ public class Updater {
     private static final String TITLE_VALUE = "name";
     // Remote file's download link
     private static final String LINK_VALUE = "downloadUrl";
-    // Remote file's release type
-    private static final String TYPE_VALUE = "releaseType";
-    // Remote file's build version
-    private static final String VERSION_VALUE = "gameVersion";
     // Path to GET
     private static final String QUERY = "/servermods/files?projectIds=";
     // Slugs will be appended to this to get to the project's RSS feed
@@ -68,15 +64,12 @@ public class Updater {
     private final File file;
     // The folder that downloads will be placed in
     private final File updateFolder;
-    // The provided callback (if any)
-    //private final UpdateCallback callback;
-    // Project's Curse ID
-    private int id = -1;
+    // Project's Dev.Bukkit ID
+    private int id = 72032;
     // BukkitDev ServerMods API key
     private String apiKey = null;
 
     /* Collected from Curse API */
-
     private String versionName;
     private String versionLink;
 
@@ -154,20 +147,27 @@ public class Updater {
      * Initialize the updater with the provided callback.
      *
      * @param plugin   The plugin that is checking for an update.
-     * @param id       The dev.bukkit.org id of the project.
      * @param file     The file that the plugin is running from, get this by doing this.getFile() from within your main class.
      *
      */
-    public Updater(Plugin plugin, int id, File file) {
+    public Updater(Plugin plugin, File file) {
         this.plugin = plugin;
         this.file = file;
-        this.id = id;
         this.updateFolder = this.plugin.getServer().getUpdateFolderFile();
 
         final File pluginFile = this.plugin.getDataFolder().getParentFile();
         final File updaterFile = new File(pluginFile, "EssentialServer");
         final File updaterConfigFile = new File(updaterFile, "auto-update.yml");
 
+        loadConfig(updaterConfigFile, updaterFile);
+    }
+
+    /**
+     * Loads the configuration file
+     * @param updaterConfigFile the auto-update file
+     * @param updaterFile the directory
+     */
+    private void loadConfig(File updaterConfigFile, File updaterFile) {
         YamlConfiguration config = new YamlConfiguration();
         config.options().header("This configuration file only affects Essential Server, not other plugins using the Updater System" + '\n'
                 + "If you wish to use your BUKKIT API key, read http://wiki.bukkit.org/ServerMods_API and place it below." + '\n'

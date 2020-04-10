@@ -55,7 +55,7 @@ public class EssentialServer extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Updater update = new Updater(this, 72032, this.getFile());
+        Updater update = new Updater(this, this.getFile());
         checkUpdate(update);
         loadWarps();
         reloadWarpsMap();
@@ -161,10 +161,8 @@ public class EssentialServer extends JavaPlugin {
     }
 
     private void loadWarps() {
-        if(!getDataFolder().exists()) {
-            if(!getDataFolder().mkdir()) {
+        if(!getDataFolder().exists() && !getDataFolder().mkdir()) {
                 ChatUtils.logMsg("&cError getting data folder.");
-            }
         }
         warpDataFile = new File(getDataFolder(), "warps.yml");
         if(!warpDataFile.exists()) {
