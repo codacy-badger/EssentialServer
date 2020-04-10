@@ -163,7 +163,7 @@ public class Updater {
 
         makeHeader(config);
 
-        checkConfig(updaterConfigFile, updaterFile);
+        checkUpdaterFile(updaterFile);
 
         attemptLoad(updaterConfigFile, updaterFile, config);
 
@@ -249,10 +249,9 @@ public class Updater {
 
     /**
      * Loads the configuration file
-     * @param updaterConfigFile the auto-update file
      * @param updaterFile the directory
      */
-    private void checkConfig(File updaterConfigFile, File updaterFile) {
+    private void checkUpdaterFile(File updaterFile) {
         if (!updaterFile.exists()) {
             this.fileIOOrError(updaterFile, updaterFile.mkdir(), true);
         }
