@@ -15,7 +15,7 @@ import static io.github.coachluck.utils.ChatUtils.format;
 import static io.github.coachluck.utils.ChatUtils.logMsg;
 
 public class SetWarp implements TabCompleter, CommandExecutor {
-    EssentialServer plugin;
+    private EssentialServer plugin;
 
     public SetWarp(EssentialServer plugin) {
         this.plugin = plugin;

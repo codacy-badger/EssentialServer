@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DelWarp implements CommandExecutor, TabCompleter {
-    EssentialServer plugin;
+    private EssentialServer plugin;
 
     public DelWarp(EssentialServer plugin) {
         this.plugin = plugin;
