@@ -1,4 +1,7 @@
 # EssentialServer
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/abe7229a29e544b69c26c881bcf0e68c)](https://app.codacy.com/manual/CoachLuck/EssentialServer?utm_source=github.com&utm_medium=referral&utm_content=CoachLuck/EssentialServer&utm_campaign=Badge_Grade_Dashboard)
+
 ## Table of Contents
 1.  [Supported Platforms](#Supported-Platforms)
 2.  [Supported Versions](#Supported-Versions)
