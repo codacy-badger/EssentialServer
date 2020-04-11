@@ -7,7 +7,7 @@
 ___
 
 ### Commands
-|**Command**            |**Permission**| **Description**|
+|**Command**            |**Permission**|**Description**|
 |:---|:---:|:---|
 |`/es`|`essentialserver.info`|Shows basic plugin information|
 |`/es reload`|`essentialserver.reload`|Reloads the configuration files| 
