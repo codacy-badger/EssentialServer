@@ -1,6 +1,12 @@
 package io.github.coachluck.utils;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -329,7 +335,6 @@ public class Updater {
             int count;
             while ((count = in.read(data, 0, Updater.BYTE_SIZE)) != -1) {
                 fout.write(data, 0, count);
-
             }
         } catch (Exception ex) {
             this.plugin.getLogger().log(Level.WARNING, "The auto-updater tried to download a new update, but was unsuccessful.", ex);
@@ -353,11 +358,11 @@ public class Updater {
     }
 
     private URL followRedirects(String location) throws IOException {
-        URL resourceUrl, base, next;
+        URL resourceUrl;
         HttpURLConnection conn;
-        String redLoc;
+        String local = location;
         while (true) {
-            resourceUrl = new URL(location);
+            resourceUrl = new URL(local);
             conn = (HttpURLConnection) resourceUrl.openConnection();
 
             conn.setConnectTimeout(15000);
@@ -365,16 +370,20 @@ public class Updater {
             conn.setInstanceFollowRedirects(false);
             conn.setRequestProperty("User-Agent", "Mozilla/5.0...");
 
+            URL next;
+            URL base;
+            String redLoc;
             switch (conn.getResponseCode()) {
                 case HttpURLConnection.HTTP_MOVED_PERM:
                 case HttpURLConnection.HTTP_MOVED_TEMP:
                     redLoc = conn.getHeaderField("Location");
-                    base = new URL(location);
+                    base = new URL(local);
                     next = new URL(base, redLoc);  // Deal with relative URLs
-                    location = next.toExternalForm();
+                    local = next.toExternalForm();
                     continue;
+                default: break;
             }
-            break;
+            if(conn.getURL() != null) break;
         }
         return conn.getURL();
     }
@@ -638,7 +647,7 @@ public class Updater {
     private File[] listFilesOrError(File folder) {
         File[] contents = folder.listFiles();
         if (contents == null) {
-            this.plugin.getLogger().severe("The updater could not access files at: " + this.updateFolder.getAbsolutePath());
+            ChatUtils.logMsg("&bCreating &e'update' &bdirectory your plugins folder.");
             return new File[0];
         } else {
             return contents;
