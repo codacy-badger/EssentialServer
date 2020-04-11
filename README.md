@@ -1,8 +1,8 @@
 # EssentialServer
 ## Table of Contents
-1.  [Supported Platforms](#Supported-Platforms)
-2.  [Supported Versions](#Supported-Versions)
-3.  [Commands](#Commands)
+ 1. [Supported Platforms](#Supported-Platforms)
+ 2. [Supported Versions](#Supported-Versions)
+ 3. [Commands](#Commands)
 
 ___
 
@@ -22,13 +22,13 @@ ___
 ___
 
 #### Supported Platforms
--   [x] CraftBukkit
--   [x] Spigot
--   [x] PaperSpigot
--   [ ] ySpigot
--   [ ] Tuinity
--   [ ] TacoSpigot
--   [ ] Sponge
+- [x] Bukkit
+- [x] Spigot
+- [x] Paper
+- [ ] ySpigpt
+- [ ] TacoSpigot
+- [ ] Tunity
+- [ ] Sponge
 
 ##### Supported Versions
 - [x] 1.15+
