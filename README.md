@@ -5,17 +5,17 @@
 3. [Commands](#Commands)
 ___
 ### Commands
-|**Command**        | **Permission**    | **Description**   |
+|**Command**            | **Permission**    | **Description**   |
 |:---|:---:|:---|
-|`/es`| `essentialserver.info`| Shows basic plugin information |
-|`/es reload` |`essentialserver.reload`| Reloads the configuration files | 
+|`/es`|`essentialserver.info`|Shows basic plugin information|
+|`/es reload`|`essentialserver.reload`|Reloads the configuration files| 
 |`/eshelp`|`essentialserver.help`|Shows the plugin help page <br> (only shows commands you have permission for)| 
 |`/setspawn`|`essentialserver.setspawn`|Sets the spawn point for the server|
-|`/spawn`|`essentialserver.spawn` <br> `essentialserver.spawn.others`| Teleports you to the spawn point <br> Teleports the player to the spawn point| 
-|`/feed`<br>`/feed <player>`|`essentialserver.feed`<br> `essentialserver.feed.others`|Feed yourself <br> Feed the specified player!| 
-|`/heal`<br>`/heal <player`|`essentialserver.heal`<br>`essentialserver.heal.others`|Heals yourself <br> Heals the specified player |
-|`/teleport <player>`<br>`/teleport <p1> <player2>` |`essentialserver.tp`<br> `essentialserver.tp.others` | Teleports you to the specified player <br>Teleports player1 to player2|
-|`/`|`essentialserver.`| desc |
+|`/spawn`|`essentialserver.spawn`<br>`essentialserver.spawn.others`|Teleports you to the spawn point <br> Teleports the player to the spawn point| 
+|`/feed`<br>`/feed <player>`|`essentialserver.feed`<br>`essentialserver.feed.others`|Feed yourself <br> Feed the specified player!| 
+|`/heal`<br>`/heal <player`|`essentialserver.heal`<br>`essentialserver.heal.others`|Heals yourself <br> Heals the specified player|
+|`/tp <player>`<br>`/tp <p1> <player2>`|`essentialserver.tp`<br>`essentialserver.tp.others`|Teleports you to the specified player<br>Teleports player1 to player2|
+|`/`|`essentialserver.`|desc|
 ___
 #### Supported Platforms
 - [x] CraftBukkit
