@@ -1,9 +1,11 @@
 # EssentialServer
 ## Table of Contents
-1. [Supported Platforms](#Supported-Platforms)
-2. [Supported Versions](#Supported-Versions)
-3. [Commands](#Commands)
+1.  [Supported Platforms](#Supported-Platforms)
+2.  [Supported Versions](#Supported-Versions)
+3.  [Commands](#Commands)
+
 ___
+
 ### Commands
 |**Command**            | **Permission**    | **Description**   |
 |:---|:---:|:---|
@@ -16,15 +18,17 @@ ___
 |`/heal`<br>`/heal <player`|`essentialserver.heal`<br>`essentialserver.heal.others`|Heals yourself <br> Heals the specified player|
 |`/tp <player>`<br>`/tp <p1> <player2>`|`essentialserver.tp`<br>`essentialserver.tp.others`|Teleports you to the specified player<br>Teleports player1 to player2|
 |`/`|`essentialserver.`|desc|
+
 ___
+
 #### Supported Platforms
-- [x] CraftBukkit
-- [x] Spigot
-- [x] PaperSpigot
-- [ ] ySpigot
-- [ ] Tuinity
-- [ ] TacoSpigot
-- [ ] Sponge
+-   [x] CraftBukkit
+-   [x] Spigot
+-   [x] PaperSpigot
+-   [ ] ySpigot
+-   [ ] Tuinity
+-   [ ] TacoSpigot
+-   [ ] Sponge
 
 ##### Supported Versions
 - [x] 1.15+
@@ -35,4 +39,5 @@ ___
 - [ ] 1.10
 - [ ] 1.9
 - [ ] 1.8
+
 ___
