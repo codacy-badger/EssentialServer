@@ -1,13 +1,13 @@
 # EssentialServer
 ## Table of Contents
- 1.  [Supported Platforms](#Supported-Platforms)
- 2.  [Supported Versions](#Supported-Versions)
- 3.  [Commands](#Commands)
+1.  [Supported Platforms](#Supported-Platforms)
+2.  [Supported Versions](#Supported-Versions)
+3.  [Commands](#Commands)
 
 ___
 
 ### Commands
-|**Command**            | **Permission**    | **Description**   |
+|**Command**            |**Permission**| **Description**|
 |:---|:---:|:---|
 |`/es`|`essentialserver.info`|Shows basic plugin information|
 |`/es reload`|`essentialserver.reload`|Reloads the configuration files| 
